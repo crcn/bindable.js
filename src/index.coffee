@@ -16,7 +16,7 @@ module.exports = class extends EventEmitter
   ###
 
   get: (key) ->
-    dref.get(@data, key) or @_ref @, key
+    @_ref(@data, key) or @_ref @, key
 
   ###
   ###
