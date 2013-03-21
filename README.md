@@ -28,6 +28,15 @@ item.bind("location.zip", "zip").once()
 
 //bind location.zip to another object, and make it go both ways!
 item.bind("location.zip").to(anotherModel, "location.zip").bothWays();
+
+//chain to multiple items, and limit it!
+item.bind("location.zip").to("property").to("anotherProperty").to(function(value) {
+  
+}).limit(5)
+
+//you can even bind to values by setting a binding
+anotherModel.set("location.zip", item.bind("location.zip"))
+
 ```
 
 
