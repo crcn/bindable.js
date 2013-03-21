@@ -1,16 +1,20 @@
 dref = require "dref"
 EventEmitter = require("./core/eventEmitter")
 Binding = require("./binding")
+Builder = require("./builder")
 
 dref.use require("./shim/dref")
 
-module.exports = class extends EventEmitter
+module.exports = class Bindable extends EventEmitter
 
   ###
   ###
 
   constructor: (@data = {}) ->
     super()
+
+    # init bindings
+    @_init()
 
   ###
   ###
@@ -55,6 +59,23 @@ module.exports = class extends EventEmitter
   ###
   ###
 
+  _init: () ->
+
+    # check for bindings specified in the class
+    for key of @
+      obj = @[key]
+
+      # if it's a call chain, then delete it, and create the binding
+      if obj and obj.__isCallChain
+        @[key] = undefined
+
+        # create the binding
+        obj.createObject(@, key)
+
+
+  ###
+  ###
+
   bind: (property, to) -> 
 
     # to cannot be a binding
@@ -63,6 +84,9 @@ module.exports = class extends EventEmitter
       return
 
     new Binding(@, property).to(to)
+
+
+new Builder(Binding, Bindable)
 
 
 module.exports.EventEmitter = EventEmitter

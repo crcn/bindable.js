@@ -15,7 +15,7 @@ module.exports = class Binding
   ###
   ###
 
-  constructor: (@from, @property) ->
+  constructor: (@_from, @_property) ->
 
     @_limit        = -1
     @_setters      = []
@@ -33,6 +33,28 @@ module.exports = class Binding
     if setter
       @_setters.push setter
 
+    @
+
+  ###
+   from property? create a binding going the other way. This is useful for classes. see class-test.js
+  ###
+
+  from: (from, property) ->
+
+    if arguments.length is 1
+      property = from
+      from = @_from
+
+    from.bind(property).to(@_from, @_property)
+
+
+  ###
+   TODO
+  ###
+
+  transform: (options) ->
+    return @_transform if not arguments.length
+    @_transform = options
     @
 
   ###
@@ -91,7 +113,7 @@ module.exports = class Binding
 
   _trigger: () =>
 
-    @_callSetterFns "change", [@from.get(@property)]
+    @_callSetterFns "change", [@_from.get(@_property)]
 
     if ~@_limit and ++@_triggerCount > @_limit
       @dispose()
@@ -110,15 +132,14 @@ module.exports = class Binding
   ###
 
   _listen: () ->
-    keyParts = @property.split "."
+    keyParts = @_property.split "."
 
     # start from the ROOT property
     event = "change:#{keyParts.shift()}.**"
 
-    @_listener = @from.on event, @_trigger
+    @_listener = @_from.on event, @_trigger
 
 
-console.log Binding.prototype
 
 
 

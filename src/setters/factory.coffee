@@ -22,7 +22,7 @@ module.exports = class
 
     #bindable.bind("property").to("property2")
     else if typeof target is "string" 
-      to = binding.from
+      to = binding._from
       toProperty = target
 
     # bindable.bind("property").to(function() { })

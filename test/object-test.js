@@ -105,7 +105,7 @@ describe("bindable object", function() {
   it("can be bound to a binding", function() {
     binding = bindable.bind("fish");
     bindable.set("fish2", binding);
-    binding.from.set("fish", "sauce");
+    binding._from.set("fish", "sauce");
   });
 
   it("fish2 should be sauce", function() {
@@ -124,7 +124,10 @@ describe("bindable object", function() {
 
   it("fish should still be sticks", function() {
     expect(bindable.get("fish")).to.be("sticks")
-  })
+  });
+
+
+
 
 
 });

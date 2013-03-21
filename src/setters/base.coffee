@@ -9,7 +9,7 @@ module.exports = class
   ###
   ###
 
-  init: () -> @change @binding.from.get @binding.property
+  init: () -> @change @binding._from.get @binding._property
 
   ###
   ###

@@ -38,3 +38,17 @@ item.bind("location.zip").to("property").to("anotherProperty").to(function(value
 anotherModel.set("location.zip", item.bind("location.zip"))
 
 ```
+
+Defining bindings in classes
+
+```coffeescript
+
+Bindable = require("bindable");
+
+class Person extends bindable
+
+  name: "craig",
+
+  name2: Bindable.from("name")
+
+```

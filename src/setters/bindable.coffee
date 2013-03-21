@@ -12,7 +12,6 @@ module.exports = class extends Base
   ###
 
   _change: (value) ->
-
     @to.set @property, value
 
   ###
@@ -33,5 +32,5 @@ module.exports = class extends Base
   bothWays: () ->
 
     # create a binding going the other way!
-    @_disposable = @to.bind(@property).to(@binding.from, @binding.property)
+    @_disposable = @to.bind(@property).to(@binding._from, @binding._property)
 

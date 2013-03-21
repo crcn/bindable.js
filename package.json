@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "mocha": "1.8.x",
-    "expect.js": "0.2.x"
+    "expect.js": "0.2.x",
+    "structr":"0.2.x"
   }
 }
