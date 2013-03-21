@@ -18,7 +18,16 @@ item.bind("location.zip", function(value) {
   
 });
 
-item.set("location.zip", "94102"); //triggers the binding
+//triggers the binding
+item.set("location.zip", "94102"); 
+
+
+
+//bind location.zip to another property in the model, and do it only once
+item.bind("location.zip", "zip").once()
+
+//bind location.zip to another object, and make it go both ways!
+item.bind("location.zip").to(anotherModel, "location.zip").bothWays();
 ```
 
 
