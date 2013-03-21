@@ -5,7 +5,7 @@ bindableSetter = new BindableSetter()
  Glues stuff together
 ###
 
-module.exports = class
+module.exports = class Binding
 
   ###
   ###
@@ -34,7 +34,6 @@ module.exports = class
       @_setters.push setter
 
     @
-
 
   ###
    runs the binding just once
@@ -66,8 +65,7 @@ module.exports = class
     return @ if @_boundBothWays
     @_boundBothWays = true
 
-    for setter in @_setters
-      setter.bothWays()
+    @_callSetterFns "bothWays"
 
     @
 
@@ -77,8 +75,7 @@ module.exports = class
 
   dispose: () ->
 
-    for setter in @_setters
-      setter.dispose()
+    @_callSetterFns "dispose"
 
     @_setters = []
 
@@ -94,17 +91,19 @@ module.exports = class
 
   _trigger: () =>
 
-    value = @from.get @property
-
-    # trigger change against everything
-    for setter in @_setters
-      setter.change value
+    @_callSetterFns "change", [@from.get(@property)]
 
     if ~@_limit and ++@_triggerCount > @_limit
       @dispose()
 
-
     @
+
+  ###
+  ###
+
+  _callSetterFns: (method, args) ->
+    for setter in @_setters
+      setter[method].apply(setter, (args or []))
 
 
   ###
@@ -117,6 +116,9 @@ module.exports = class
     event = "change:#{keyParts.shift()}.**"
 
     @_listener = @from.on event, @_trigger
+
+
+console.log Binding.prototype
 
 
 
