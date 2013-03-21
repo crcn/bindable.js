@@ -63,3 +63,6 @@ module.exports = class extends EventEmitter
       return
 
     new Binding(@, property).to(to)
+
+
+module.exports.EventEmitter = EventEmitter
