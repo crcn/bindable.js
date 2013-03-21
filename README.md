@@ -38,11 +38,3 @@ item.bind("location.zip").to("property").to("anotherProperty").to(function(value
 anotherModel.set("location.zip", item.bind("location.zip"))
 
 ```
-
-
-### Collections
-
-
-```javascript
-
-```
