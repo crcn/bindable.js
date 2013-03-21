@@ -1,0 +1,165 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@1.2.11
+3 info using node@v0.8.22
+4 verbose node symlink /usr/local/bin/node
+5 verbose publish [ '.' ]
+6 verbose read json /Users/craig/Developer/Public/bindable.js/package.json
+7 verbose cache add [ '.', null ]
+8 verbose cache add name=undefined spec="." args=[".",null]
+9 verbose parsed url { pathname: '.', path: '.', href: '.' }
+10 silly lockFile 3a52ce78- .
+11 verbose lock . /Users/craig/.npm/3a52ce78-.lock
+12 verbose read json package.json
+13 verbose tar pack [ '/Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/tmp.tgz',
+13 verbose tar pack   '.' ]
+14 verbose tarball /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/tmp.tgz
+15 verbose folder .
+16 info prepublish bindable@0.1.3
+17 silly lockFile 3a52ce78- .
+18 verbose lock . /Users/craig/.npm/3a52ce78-.lock
+19 silly lockFile 7b914cdc-728334-0-466776049695909-tmp-tgz /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/tmp.tgz
+20 verbose lock /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/tmp.tgz /Users/craig/.npm/7b914cdc-728334-0-466776049695909-tmp-tgz.lock
+21 silly lockFile 3a52ce78- .
+22 silly lockFile 3a52ce78- .
+23 silly lockFile 7b914cdc-728334-0-466776049695909-tmp-tgz /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/tmp.tgz
+24 silly lockFile 7b914cdc-728334-0-466776049695909-tmp-tgz /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/tmp.tgz
+25 verbose tar unpack /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/tmp.tgz
+26 silly lockFile 1b9e50cd-728334-0-466776049695909-package /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/package
+27 verbose lock /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/package /Users/craig/.npm/1b9e50cd-728334-0-466776049695909-package.lock
+28 silly lockFile 7b914cdc-728334-0-466776049695909-tmp-tgz /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/tmp.tgz
+29 verbose lock /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/tmp.tgz /Users/craig/.npm/7b914cdc-728334-0-466776049695909-tmp-tgz.lock
+30 silly gunzTarPerm modes [ '755', '644' ]
+31 silly gunzTarPerm extractEntry package.json
+32 silly gunzTarPerm extractEntry .npmignore
+33 silly gunzTarPerm extractEntry README.md
+34 silly gunzTarPerm extractEntry lib/binding.js
+35 silly gunzTarPerm extractEntry lib/builder.js
+36 silly gunzTarPerm extractEntry lib/index.js
+37 silly gunzTarPerm extractEntry lib/core/eventEmitter.js
+38 silly gunzTarPerm extractEntry lib/setters/base.js
+39 silly gunzTarPerm extractEntry lib/setters/bindable.js
+40 silly gunzTarPerm extractEntry lib/setters/factory.js
+41 silly gunzTarPerm extractEntry lib/setters/fn.js
+42 silly gunzTarPerm extractEntry lib/shim/dref.js
+43 silly gunzTarPerm extractEntry makefile
+44 silly gunzTarPerm extractEntry src/binding.coffee
+45 silly gunzTarPerm extractEntry src/builder.coffee
+46 silly gunzTarPerm extractEntry src/core/eventEmitter.coffee
+47 silly gunzTarPerm extractEntry src/index.coffee
+48 silly gunzTarPerm extractEntry src/setters/base.coffee
+49 silly gunzTarPerm extractEntry src/setters/bindable.coffee
+50 silly gunzTarPerm extractEntry src/setters/factory.coffee
+51 silly gunzTarPerm extractEntry src/setters/fn.coffee
+52 silly gunzTarPerm extractEntry src/shim/dref.coffee
+53 silly gunzTarPerm extractEntry test/class-test.js
+54 silly gunzTarPerm extractEntry test/object-test.js
+55 verbose read json /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/package/package.json
+56 silly lockFile 1b9e50cd-728334-0-466776049695909-package /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/package
+57 silly lockFile 1b9e50cd-728334-0-466776049695909-package /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/package
+58 silly lockFile 7b914cdc-728334-0-466776049695909-tmp-tgz /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/tmp.tgz
+59 silly lockFile 7b914cdc-728334-0-466776049695909-tmp-tgz /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/tmp.tgz
+60 verbose from cache /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/package/package.json
+61 verbose tar pack [ '/Users/craig/.npm/bindable/0.1.3/package.tgz',
+61 verbose tar pack   '/Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/package' ]
+62 verbose tarball /Users/craig/.npm/bindable/0.1.3/package.tgz
+63 verbose folder /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/package
+64 silly lockFile 1b9e50cd-728334-0-466776049695909-package /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/package
+65 verbose lock /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/package /Users/craig/.npm/1b9e50cd-728334-0-466776049695909-package.lock
+66 silly lockFile 1fedf242-g-npm-bindable-0-1-3-package-tgz /Users/craig/.npm/bindable/0.1.3/package.tgz
+67 verbose lock /Users/craig/.npm/bindable/0.1.3/package.tgz /Users/craig/.npm/1fedf242-g-npm-bindable-0-1-3-package-tgz.lock
+68 silly lockFile 1b9e50cd-728334-0-466776049695909-package /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/package
+69 silly lockFile 1b9e50cd-728334-0-466776049695909-package /Users/craig/tmp/npm-4888/1363892728334-0.466776049695909/package
+70 silly lockFile 1fedf242-g-npm-bindable-0-1-3-package-tgz /Users/craig/.npm/bindable/0.1.3/package.tgz
+71 silly lockFile 1fedf242-g-npm-bindable-0-1-3-package-tgz /Users/craig/.npm/bindable/0.1.3/package.tgz
+72 silly lockFile 1eeb58c6-craig-npm-bindable-0-1-3-package /Users/craig/.npm/bindable/0.1.3/package
+73 verbose lock /Users/craig/.npm/bindable/0.1.3/package /Users/craig/.npm/1eeb58c6-craig-npm-bindable-0-1-3-package.lock
+74 silly lockFile 1eeb58c6-craig-npm-bindable-0-1-3-package /Users/craig/.npm/bindable/0.1.3/package
+75 silly lockFile 1eeb58c6-craig-npm-bindable-0-1-3-package /Users/craig/.npm/bindable/0.1.3/package
+76 verbose tar unpack /Users/craig/.npm/bindable/0.1.3/package.tgz
+77 silly lockFile 1eeb58c6-craig-npm-bindable-0-1-3-package /Users/craig/.npm/bindable/0.1.3/package
+78 verbose lock /Users/craig/.npm/bindable/0.1.3/package /Users/craig/.npm/1eeb58c6-craig-npm-bindable-0-1-3-package.lock
+79 silly lockFile 1fedf242-g-npm-bindable-0-1-3-package-tgz /Users/craig/.npm/bindable/0.1.3/package.tgz
+80 verbose lock /Users/craig/.npm/bindable/0.1.3/package.tgz /Users/craig/.npm/1fedf242-g-npm-bindable-0-1-3-package-tgz.lock
+81 silly gunzTarPerm modes [ '755', '644' ]
+82 silly gunzTarPerm extractEntry package.json
+83 silly gunzTarPerm extractEntry .npmignore
+84 silly gunzTarPerm extractEntry README.md
+85 silly gunzTarPerm extractEntry lib/binding.js
+86 silly gunzTarPerm extractEntry lib/builder.js
+87 silly gunzTarPerm extractEntry lib/index.js
+88 silly gunzTarPerm extractEntry lib/core/eventEmitter.js
+89 silly gunzTarPerm extractEntry lib/setters/base.js
+90 silly gunzTarPerm extractEntry lib/setters/bindable.js
+91 silly gunzTarPerm extractEntry lib/setters/factory.js
+92 silly gunzTarPerm extractEntry lib/setters/fn.js
+93 silly gunzTarPerm extractEntry lib/shim/dref.js
+94 silly gunzTarPerm extractEntry makefile
+95 silly gunzTarPerm extractEntry src/binding.coffee
+96 silly gunzTarPerm extractEntry src/builder.coffee
+97 silly gunzTarPerm extractEntry src/core/eventEmitter.coffee
+98 silly gunzTarPerm extractEntry src/index.coffee
+99 silly gunzTarPerm extractEntry src/setters/base.coffee
+100 silly gunzTarPerm extractEntry src/setters/bindable.coffee
+101 silly gunzTarPerm extractEntry src/setters/factory.coffee
+102 silly gunzTarPerm extractEntry src/setters/fn.coffee
+103 silly gunzTarPerm extractEntry src/shim/dref.coffee
+104 silly gunzTarPerm extractEntry test/class-test.js
+105 silly gunzTarPerm extractEntry test/object-test.js
+106 verbose read json /Users/craig/.npm/bindable/0.1.3/package/package.json
+107 silly lockFile 1eeb58c6-craig-npm-bindable-0-1-3-package /Users/craig/.npm/bindable/0.1.3/package
+108 silly lockFile 1eeb58c6-craig-npm-bindable-0-1-3-package /Users/craig/.npm/bindable/0.1.3/package
+109 silly lockFile 1fedf242-g-npm-bindable-0-1-3-package-tgz /Users/craig/.npm/bindable/0.1.3/package.tgz
+110 silly lockFile 1fedf242-g-npm-bindable-0-1-3-package-tgz /Users/craig/.npm/bindable/0.1.3/package.tgz
+111 silly shasum updated bytes 7005
+112 info shasum 629240fd00522cafab2c4e47401e829b1f0e192b
+112 info shasum /Users/craig/.npm/bindable/0.1.3/package.tgz
+113 verbose from cache /Users/craig/.npm/bindable/0.1.3/package/package.json
+114 verbose chmod /Users/craig/.npm/bindable/0.1.3/package.tgz 644
+115 verbose chown /Users/craig/.npm/bindable/0.1.3/package.tgz [ 501, 20 ]
+116 silly lockFile 3a52ce78- .
+117 silly publish { name: 'bindable',
+117 silly publish   version: '0.1.3',
+117 silly publish   description: 'bindable.js ===========',
+117 silly publish   main: './lib/index.js',
+117 silly publish   scripts: { test: 'mocha --timeout 100 --reporter min' },
+117 silly publish   repository:
+117 silly publish    { type: 'git',
+117 silly publish      url: 'git://github.com/classdojo/bindable.js.git' },
+117 silly publish   author: '',
+117 silly publish   license: 'BSD',
+117 silly publish   readmeFilename: 'README.md',
+117 silly publish   gitHead: '7edb2889d669a6f42b537b50772f9e86cf6337f1',
+117 silly publish   dependencies: { dref: '0.0.x', eventemitter2: '0.4.x', disposable: '0.0.x' },
+117 silly publish   devDependencies: { mocha: '1.8.x', 'expect.js': '0.2.x', structr: '0.2.x' },
+117 silly publish   readme: '## Bindable\n\n\n### Objects\n\n```javascript\nvar Bindable = require("bindable");\n\nvar item = new Bindable({\n  name: "craig",\n  last: "condon",\n  location: {\n    city: "San Francisco"\n  }\n});\n\nitem.bind("location.zip", function(value) {\n  \n});\n\n//triggers the binding\nitem.set("location.zip", "94102"); \n\n\n\n//bind location.zip to another property in the model, and do it only once\nitem.bind("location.zip", "zip").once()\n\n//bind location.zip to another object, and make it go both ways!\nitem.bind("location.zip").to(anotherModel, "location.zip").bothWays();\n\n//chain to multiple items, and limit it!\nitem.bind("location.zip").to("property").to("anotherProperty").to(function(value) {\n  \n}).limit(5)\n\n//you can even bind to values by setting a binding\nanotherModel.set("location.zip", item.bind("location.zip"))\n\n```\n\nDefining bindings in classes\n\n```coffeescript\n\nBindable = require("bindable");\n\nclass Person extends bindable\n\n  name: "craig",\n\n  name2: Bindable.from("name")\n\n```',
+117 silly publish   _id: 'bindable@0.1.3',
+117 silly publish   dist: { shasum: '629240fd00522cafab2c4e47401e829b1f0e192b' },
+117 silly publish   _from: '.' }
+118 verbose url raw bindable
+119 verbose url resolving [ 'http://registry.npmjs.org/', './bindable' ]
+120 verbose url resolved http://registry.npmjs.org/bindable
+121 info trying registry request attempt 1 at 12:05:40
+122 http PUT http://registry.npmjs.org/bindable
+123 http 409 http://registry.npmjs.org/bindable
+124 verbose url raw bindable
+125 verbose url resolving [ 'http://registry.npmjs.org/', './bindable' ]
+126 verbose url resolved http://registry.npmjs.org/bindable
+127 info trying registry request attempt 1 at 12:05:40
+128 http GET http://registry.npmjs.org/bindable
+129 http 200 http://registry.npmjs.org/bindable
+130 error publish fail Cannot publish over existing version.
+130 error publish fail Update the 'version' field in package.json and try again.
+130 error publish fail
+130 error publish fail If the previous version was published in error, see:
+130 error publish fail     npm help unpublish
+130 error publish fail
+130 error publish fail To automatically increment version numbers, see:
+130 error publish fail     npm help version
+131 error System Darwin 12.3.0
+132 error command "/usr/local/bin/node" "/usr/local/bin/npm" "publish"
+133 error cwd /Users/craig/Developer/Public/bindable.js
+134 error node -v v0.8.22
+135 error npm -v 1.2.11
+136 error code EPUBLISHCONFLICT
+137 verbose exit [ 1, true ]
