@@ -4,7 +4,7 @@
 ### Objects
 
 ```javascript
-var Bindable = require("bindable").Object;
+var Bindable = require("bindable");
 
 var item = new Bindable({
   name: "craig",
@@ -41,3 +41,8 @@ anotherModel.set("location.zip", item.bind("location.zip"))
 
 
 ### Collections
+
+
+```javascript
+
+```

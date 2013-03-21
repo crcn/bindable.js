@@ -1,4 +1,4 @@
-var BindableObject = require("../").Object,
+var BindableObject = require("../"),
 expect = require("expect.js");
 
 describe("bindable object", function() {

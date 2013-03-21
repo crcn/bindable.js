@@ -1,7 +1,6 @@
 BindableSetter = require("./setters/factory")
 bindableSetter = new BindableSetter()
 
-
 ###
  Glues stuff together
 ###
@@ -66,7 +65,6 @@ module.exports = class
   bothWays: () ->
     return @ if @_boundBothWays
     @_boundBothWays = true
-
 
     for setter in @_setters
       setter.bothWays()
