@@ -4,7 +4,7 @@
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --reporter min"
   },
   "repository": {
     "type": "git",
@@ -15,13 +15,11 @@
   "readmeFilename": "README.md",
   "gitHead": "7edb2889d669a6f42b537b50772f9e86cf6337f1",
   "dependencies": {
-    "dref": "0.0.x"
+    "dref": "0.0.x",
+    "eventemitter2": "0.4.x"
   },
   "devDependencies": {
     "mocha": "1.8.x",
     "expect.js": "0.2.x"
-  },
-  "scripts": {
-    "test": "mocha --reporter min"
   }
 }
