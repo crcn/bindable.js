@@ -3,8 +3,9 @@ expect = require("expect.js");
 
 describe("bindable object", function() {
 
-  var bindable;
+  var bindable, binding;
 
+  
   it("can be created", function() {
     bindable = new BindableObject({
       name: {
@@ -17,6 +18,8 @@ describe("bindable object", function() {
     });
   });
 
+
+  
   it("can bind to location.zip", function(next) {
 
     bindable.bind("location.zip", function(value) {
@@ -33,16 +36,16 @@ describe("bindable object", function() {
       next();
     }).once();
 
-    bindable.set("a", { a: { b: {c: { d: { e: 1 }}}}})
+    bindable.set("a", { b: {c: { d: { e: 1 }}}})
   });
 
 
   it("can bind to a property", function() {
 
-    bindable.bind("name", "name2").once();
+    bindable.bind("name", "name2").once()
     expect(bindable.get("name2.first")).to.be("craig");
 
-    bindable.bind("doesntexist", "doesntexist2").once();
+    bindable.bind("doesntexist", "doesntexist2").once()
     expect(bindable.get("doesntexist2")).to.be(undefined);
 
     bindable.set("doesntexist", 5)
@@ -55,24 +58,38 @@ describe("bindable object", function() {
     expect(bindable.get("doesntexist2")).to.be(5);
   })
 
+
   it("can be bound both ways", function() {
-    bindable.bind("age", "age2").botWays().limit(2);
-
+    bindable.bind("age", "age2").bothWays().limit(2)
     bindable.set("age", 5);
+  });
+
+  it("age should be 5", function() {
     expect(bindable.get("age")).to.be(5);
+  });
+
+  it("age2 should be 5", function() {
     expect(bindable.get("age2")).to.be(5);
-
-
     bindable.set("age2", 6);
+  });
+
+  it("age should be 6", function() {
     expect(bindable.get("age")).to.be(6);
+  });
+
+  it("age2 should be 6", function() {
     expect(bindable.get("age2")).to.be(6);
   });
 
+
   it("previous age binding is not bound anymore", function() {
-    bindable.set("age", 7);
     bindable.set("age2", 8);
     expect(bindable.get("age")).to.be(6);
-    expect(bindable.get("age2")).to.be(6);
+  });
+
+  it("previous age2 binding is not bound anymore", function() {
+    bindable.set("age", 7);
+    expect(bindable.get("age2")).to.be(8);
   });
 
 
@@ -83,4 +100,31 @@ describe("bindable object", function() {
     expect(bindable.get("count2")).to.be(99);
     expect(bindable.get("count3")).to.be(99);
   });
+
+
+  it("can be bound to a binding", function() {
+    binding = bindable.bind("fish");
+    bindable.set("fish2", binding);
+    binding.from.set("fish", "sauce");
+  });
+
+  it("fish2 should be sauce", function() {
+    expect(bindable.get("fish2")).to.be("sauce")
+  });
+
+  it("can bind fish2 the other way", function() {
+    binding.bothWays().once();
+    bindable.set("fish2", "sticks");
+  });
+
+  it("fish should be sticks", function() {
+    expect(bindable.get("fish")).to.be("sticks")
+    bindable.set("fish2", "sauce");
+  });
+
+  it("fish should still be sticks", function() {
+    expect(bindable.get("fish")).to.be("sticks")
+  })
+
+
 });

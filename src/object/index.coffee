@@ -1,16 +1,14 @@
 dref = require "dref"
-EventEmitter2 = require("eventemitter2").EventEmitter2
+EventEmitter = require("../core/eventEmitter")
 Binding = require("./binding")
 
-module.exports = class extends EventEmitter2
+module.exports = class extends EventEmitter
 
   ###
   ###
 
   constructor: (@data) ->
-    super {
-      wildcard: true
-    }
+    super()
 
   ###
   ###
@@ -28,9 +26,15 @@ module.exports = class extends EventEmitter2
 
   set: (key, value) ->
 
+    # an object?
     if arguments.length is 1
       for k of key
         @set k, key[k]
+      return
+
+    # a binding?
+    if value and value.__isBinding
+      value.to @, key
       return
 
     dref.set @data, key, value
@@ -49,4 +53,11 @@ module.exports = class extends EventEmitter2
   ###
   ###
 
-  bind: (property) -> new Binding @, property
+  bind: (property, to) -> 
+
+    # to cannot be a binding
+    if to and to.__isBinding
+      @set property, to
+      return
+
+    new Binding(@, property).to(to)
