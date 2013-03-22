@@ -4,6 +4,7 @@ module.exports = class
   ###
 
   constructor: (@binding) ->
+    @_transform = @binding.transform()
     @init()
 
   ###
@@ -16,8 +17,13 @@ module.exports = class
 
   change: (value) ->
     return false if @currentValue is value
-    @_change @currentValue = value
+
+    @__transform "to", value, (err, transformedValue) =>
+      throw err if err
+      @_change @currentValue = transformedValue
+
     true
+
 
   ###
   ###
@@ -30,3 +36,19 @@ module.exports = class
 
   _change: (value) ->
     # OVERRIDE ME
+
+
+  ###
+  ###
+
+  __transform: (method, value, next) ->
+
+    transform = @_transform?[method]
+
+    return next(null, value) if not transform
+
+    if transform.length is 1
+      next(null, transform(value))
+    else
+      transform value, next
+

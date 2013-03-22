@@ -35,7 +35,12 @@ item.bind("location.zip").to("property").to("anotherProperty").to(function(value
 }).limit(5)
 
 //you can even bind to values by setting a binding
-anotherModel.set("location.zip", item.bind("location.zip"))
+anotherModel.set("location.zip", item.bind("location.zip"));
+
+//you can also transform data as it's being bound
+item.bind("name").transform(function(name) {
+  return name.toUpperCase()
+}).to("name2");
 
 ```
 

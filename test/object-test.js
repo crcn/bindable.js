@@ -60,7 +60,7 @@ describe("bindable object", function() {
 
 
   it("can be bound both ways", function() {
-    bindable.bind("age", "age2").bothWays().limit(2)
+    bindable.bind("age", "age2").bothWays().limit(1)
     bindable.set("age", 5);
   });
 
@@ -126,7 +126,43 @@ describe("bindable object", function() {
     expect(bindable.get("fish")).to.be("sticks")
   });
 
+  it("can transform one finding type to another synchronously", function() {
 
+    bindable.set("name", "craig").bind("name").transform(function(value) {
+      return value.toUpperCase();
+    }).to("name2").once();
+
+    expect(bindable.get("name2")).to.be("CRAIG");
+  });
+
+  it("can transform an object asynchronously", function(next) {
+
+    bindable.set("name3", "sam").bind("name3").transform(function(value, next) {
+      setTimeout(next, 1, null, value.toUpperCase());
+    }).to("name4").once();
+
+    setTimeout(function() {
+      expect(bindable.get("name4")).to.be("SAM");
+      next();
+    }, 4);
+  });
+
+  it("can transform an object to and from", function() {
+    var binding = bindable.set("name", "chris").bind("name").transform({
+      to: function(name) {
+        return name.toUpperCase();
+      },
+      from: function(name) {
+        return name.toLowerCase();
+      }
+    }).to("name2").bothWays();
+
+    expect(bindable.get("name2")).to.be("CHRIS");
+    bindable.set("name2", "LIAM");
+    expect(bindable.get("name")).to.be("liam");
+
+    binding.dispose();
+  })
 
 
 

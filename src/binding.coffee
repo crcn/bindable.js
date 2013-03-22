@@ -54,6 +54,13 @@ module.exports = class Binding
 
   transform: (options) ->
     return @_transform if not arguments.length
+
+    if typeof options is "function"
+      options = {
+        from: options,
+        to: options
+      }
+
     @_transform = options
     @
 
@@ -62,7 +69,6 @@ module.exports = class Binding
   ###
 
   once: () -> @limit 0
-
 
   ###
    limits the number of times the binding can be called

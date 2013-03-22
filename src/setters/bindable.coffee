@@ -32,5 +32,16 @@ module.exports = class extends Base
   bothWays: () ->
 
     # create a binding going the other way!
-    @_disposable = @to.bind(@property).to(@binding._from, @binding._property)
+    @_disposable = @to.bind(@property).to (value) =>
+      if @currentValue isnt value
+        @_changeFrom value
+
+
+  ###
+  ###
+
+  _changeFrom: (value) ->
+    @__transform "from", value, (err, transformedValue) =>
+      throw err if err
+      @binding._from.set @binding._property, @currentValue = transformedValue
 

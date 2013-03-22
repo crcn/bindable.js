@@ -47,6 +47,7 @@ module.exports = class Bindable extends EventEmitter
 
     @emit "change:#{key}", value
     @emit "change", value
+    @
 
   ###
   ###

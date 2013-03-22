@@ -5,14 +5,12 @@ expect = require("expect.js");
 describe("class binding", function() {
 
 
-
   var Bindable2 = structr(Bindable, {
     name: "craig",
     name2: Bindable.from("name"),
     age: Bindable.from("age2"),
     age2: 99
   }), bindable;
-
 
 
   it("can create bindable2", function() {
