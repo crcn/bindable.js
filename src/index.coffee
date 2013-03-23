@@ -18,8 +18,16 @@ module.exports = class Bindable extends EventEmitter
   constructor: (@data = {}) ->
     super()
 
-    # init bindings
-    @_init()
+    # check for bindings specified in the class
+    for key of @
+      obj = @[key]
+
+      # if it's a call chain, then delete it, and create the binding
+      if obj and obj.__isCallChain
+        @[key] = undefined
+
+        # create the binding
+        obj.createObject(@, key)
 
   ###
   ###
@@ -69,22 +77,6 @@ module.exports = class Bindable extends EventEmitter
     return context if not key
     dref.get context, key
 
-
-  ###
-  ###
-
-  _init: () ->
-
-    # check for bindings specified in the class
-    for key of @
-      obj = @[key]
-
-      # if it's a call chain, then delete it, and create the binding
-      if obj and obj.__isCallChain
-        @[key] = undefined
-
-        # create the binding
-        obj.createObject(@, key)
 
 
   ###
