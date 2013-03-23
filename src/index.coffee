@@ -2,6 +2,7 @@ dref = require "dref"
 EventEmitter = require("./core/eventEmitter")
 Binding = require("./binding")
 Builder = require("./builder")
+Transformers = require("./transformers")
 
 dref.use require("./shim/dref")
 
@@ -43,11 +44,23 @@ module.exports = class Bindable extends EventEmitter
       value.to @, key
       return
 
-    dref.set @data, key, value
+    transformedValue = @_transform key, value
 
-    @emit "change:#{key}", value
-    @emit "change", value
+      
+    dref.set @data, key, transformedValue
+
+
+    @emit "change:#{key}", transformedValue
+    @emit "change", transformedValue
     @
+
+  ###
+  ###
+
+  transform: (key, transformer) -> 
+    transformer = @_transformer().use key, transformer
+    @set key, transformer.set @get key
+
 
   ###
   ###
@@ -73,6 +86,19 @@ module.exports = class Bindable extends EventEmitter
         # create the binding
         obj.createObject(@, key)
 
+  ###
+  ###
+
+  _transform: (key, value, next) ->
+    return value if not @__transformer
+    return @__transformer.set(key, value)
+
+
+  ###
+  ###
+
+  _transformer: () ->
+    @__transformer || (@__transformer = new Transformers(@))
 
   ###
   ###

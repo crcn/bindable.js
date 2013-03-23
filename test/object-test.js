@@ -162,7 +162,21 @@ describe("bindable object", function() {
     expect(bindable.get("name")).to.be("liam");
 
     binding.dispose();
-  })
+  });
+
+
+  it("can use a pre-transformer", function() {
+    bindable.transform("name", function(value) {
+      return value.toUpperCase();
+    });
+    expect(bindable.get("name")).to.be("LIAM");
+  });
+
+
+  it("still transforms the name to upper case on set", function() {
+    bindable.set("name", "craig");
+    expect(bindable.get("name")).to.be("CRAIG");
+  });
 
 
 
