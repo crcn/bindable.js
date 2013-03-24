@@ -1,0 +1,25 @@
+_ = require("underscore")
+FnSetter = require("./fn")
+
+module.exports = class extends require("./base")
+
+  ###
+  ###
+
+  init: () ->
+
+    _.defaults(@target, {
+      insert: ((item) ->)
+      remove: ((item) ->)
+      update: ((item) ->)
+    })
+
+    
+    @_setter = new FnSetter @binding, (method, item, index) =>
+      @target[method].call @target, item, index
+
+
+  ###
+  ###
+
+  _change: () -> @_setter._change.apply @_setter, arguments

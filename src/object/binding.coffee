@@ -1,5 +1,6 @@
 BindableSetter = require("./setters/factory")
 bindableSetter = new BindableSetter()
+Transformer    = require "../core/transformer"
 
 ###
  Glues stuff together
@@ -54,14 +55,7 @@ module.exports = class Binding
 
   transform: (options) ->
     return @_transform if not arguments.length
-
-    if typeof options is "function"
-      options = {
-        from: options,
-        to: options
-      }
-
-    @_transform = options
+    @_transform = new Transformer options
     @
 
   ###

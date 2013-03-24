@@ -1,4 +1,4 @@
-var Bindable = require("../"),
+var Bindable = require("../").Object,
 structr = require("structr"),
 expect = require("expect.js");
 

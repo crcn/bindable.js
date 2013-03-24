@@ -1,10 +1,12 @@
+utils = require "../../core/utils"
+
 module.exports = class
 
   ###
   ###
 
   constructor: (@binding) ->
-    @_transform = @binding.transform()
+    @_transformer = @binding.transform()
     @init()
 
   ###
@@ -29,7 +31,7 @@ module.exports = class
   ###
 
   bothWays: () ->
-
+    # OVERRIDE ME
 
   ###
   ###
@@ -42,13 +44,5 @@ module.exports = class
   ###
 
   __transform: (method, value, next) ->
-
-    transform = @_transform?[method]
-
-    return next(null, value) if not transform
-
-    if transform.length is 1
-      next(null, transform(value))
-    else
-      transform value, next
+    utils.tryTransform @_transformer, method, value, next
 

@@ -4,9 +4,9 @@
 ### Objects
 
 ```javascript
-var Bindable = require("bindable");
+var BindableObject = require("bindable").Object;
 
-var item = new Bindable({
+var item = new BindableObject({
   name: "craig",
   last: "condon",
   location: {
@@ -55,5 +55,38 @@ class Person extends bindable
   name: "craig",
 
   name2: Bindable.from("name")
+
+```
+
+
+### Collections
+
+```javascript
+var collection = new bindable.Collection([{ name: "craig" }, { name: "sam" }, { name: "liam" }]),
+collection2 = new bindable.Collection();
+
+//binding to another collection, and transform that value into something else
+collection.bind().transform(function(item) {
+  return new BindableObject(item);
+}).to(collection2);
+
+
+var source = [];
+
+collection.bind(function(method, item, index) {
+  switch(method) {
+    case "insert": 
+      source.splice(index, 0, item);
+    break;
+    case "update":
+    case "replace":
+      source.splice(index, 1, item);
+    break;
+    case "remove":
+      source.splice(index, 1);
+    break;
+  }
+});
+
 
 ```
