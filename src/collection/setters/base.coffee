@@ -1,4 +1,4 @@
-utils = require("../../core/utils")
+utils = require "../../core/utils"
 
 module.exports = class 
   
@@ -7,6 +7,7 @@ module.exports = class
 
   constructor: (@binding, @target) ->
     @_transformer = binding.transform()
+    @_filter = binding.filter()
     @init()
 
   ###
@@ -14,11 +15,20 @@ module.exports = class
 
   init: () ->
     # override me
+
+  ###
+  ###
+
+  dispose: () ->
   
   ###
   ###
 
   change: (event, item) ->
+
+    if @_filter
+      return if not @_filter.test item
+
     @__transform "to", item, (err, item) =>
       throw err if err
       @_change event, item

@@ -1,5 +1,6 @@
-EventEmitter = require "../core/eventEmitter"
+dref         = require "dref"
 Binding      = require "./binding"
+EventEmitter = require "../core/eventEmitter"
 
 ###
 ###
@@ -87,11 +88,12 @@ module.exports = class extends EventEmitter
     args.splice(0, 2) # remove index & count. Leave only items to replace with
     @_length += (args.length - count)
 
-    @_remove @slice(index, index + count), index
-    @_insert args, index
-
+    remove = @slice(index, index + count)
 
     @_source.splice.apply @_source, arguments
+
+    @_remove remove, index
+    @_insert args, index
 
   ###
   ###
@@ -106,9 +108,22 @@ module.exports = class extends EventEmitter
   ###
   ###
 
-  indexer: (indexer) ->
-    return @_indexer if not indexer
-    @_indexer = indexer
+  indexer: (value) ->
+    return @_indexer if not value
+    @_indexer = value
+    @
+
+  ###
+  ###
+
+  _id: (key) ->
+    @indexer (source, itemCheck) =>
+
+      for item, i in source
+        if String(dref.get(item, key)) is String(dref.get(itemCheck, key))
+          return i
+
+      return -1
 
   ###
   ###
@@ -116,11 +131,9 @@ module.exports = class extends EventEmitter
   push: () ->
     items = Array.prototype.slice.call(arguments)
 
-    @_insert items, @_length
-
     @_length += items.length
     @_source.push.apply @_source, arguments
-
+    @_insert items, @_length
 
   ###
   ###
@@ -128,10 +141,9 @@ module.exports = class extends EventEmitter
   unshift: () ->
     items = Array.prototype.slice.call(arguments)
 
-    @_insert items
-
     @_length += items.length
     @_source.unshift.apply @_source, arguments
+    @_insert items
 
   ###
   ###
@@ -153,11 +165,13 @@ module.exports = class extends EventEmitter
     @indexer (source, item) ->
       return source.indexOf(item)
 
-
   ###
   ###
 
   _insert: (items, start = 0) ->
+
+    return if not items.length
+
     for item, i in items
       @emit "insert", item, start + i
 
@@ -167,6 +181,7 @@ module.exports = class extends EventEmitter
   _remove: (items, start = 0) ->
     for item, i in items
       @emit "remove", item, start + i
+
 
 
 

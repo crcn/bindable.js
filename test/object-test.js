@@ -18,7 +18,7 @@ describe("bindable object", function() {
     });
   });
 
-
+  
   
   it("can bind to location.zip", function(next) {
 
@@ -91,7 +91,6 @@ describe("bindable object", function() {
     bindable.set("age", 7);
     expect(bindable.get("age2")).to.be(8);
   });
-
 
   it("can be bound multiple times", function() {
     bindable.bind("count").to("count2").to("count3").once();

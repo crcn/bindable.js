@@ -26,8 +26,16 @@ module.exports = class EventEmitter extends events.EventEmitter2
       return disposables
 
 
+    keys = []
+
+    if typeof key is "string"
+      keys = key.split " "
+    else
+      keys = key
+
+
     # ability to specify multiple keys for a given listener
-    key.split(" ").forEach (key) =>
+    keys.forEach (key) =>
       super key, listener
 
       disposables.add () =>

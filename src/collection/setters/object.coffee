@@ -1,5 +1,5 @@
-_ = require("underscore")
-FnSetter = require("./fn")
+_        = require "underscore"
+FnSetter = require "./fn"
 
 module.exports = class extends require("./base")
 
@@ -14,7 +14,7 @@ module.exports = class extends require("./base")
       update: ((item) ->)
     })
 
-    
+
     @_setter = new FnSetter @binding, (method, item, index) =>
       @target[method].call @target, item, index
 

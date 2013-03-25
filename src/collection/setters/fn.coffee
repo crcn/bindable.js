@@ -1,5 +1,4 @@
 
-
 module.exports = class extends require("./base")
   
   ###
@@ -11,6 +10,7 @@ module.exports = class extends require("./base")
     # initial hydration
     for item, i in @binding._from.source()
       @change "insert", item
+      
   ###
   ###
 

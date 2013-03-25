@@ -1,6 +1,6 @@
-FnSetter = require("./fn")
-ObjSetter = require("./object")
-CollectionSetter = require("./collection")
+FnSetter         = require "./fn"
+ObjSetter        = require "./object"
+CollectionSetter = require "./collection"
 
 module.exports = class
   

@@ -1,5 +1,4 @@
-ObjSetter = require("./object")
-
+ObjSetter = require "./object"
 
 module.exports = class extends require("./base")
   
@@ -10,9 +9,8 @@ module.exports = class extends require("./base")
     super()
     @_setter = new ObjSetter @binding, methods = {
       insert: (item) =>
-
         if ~@target.indexOf item
-          methods.update item, index
+          methods.update item
         else
           @target.push(item)
 
@@ -30,7 +28,6 @@ module.exports = class extends require("./base")
   ###
 
   _change: () -> @_setter._change.apply(@_setter, arguments)
-
 
   ###
   ###

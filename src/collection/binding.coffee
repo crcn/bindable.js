@@ -1,6 +1,7 @@
+sift           = require "sift"
+Transformer    = require "../core/transformer"
 SettersFactory = require "./setters/factory"
 settersFactory = new SettersFactory()
-Transformer = require "../core/transformer"
 
 module.exports = class
 
@@ -8,9 +9,9 @@ module.exports = class
   ###
 
   constructor: (@_from) ->
+    @_limit = -1
     @_setters = []
     @_listen()
-
 
   ###
   ###
@@ -20,6 +21,32 @@ module.exports = class
     @_transformer = new Transformer value
     @
 
+  ###
+  ###
+
+  dispose: () ->
+    @_dispose @_setters
+    @_setters = undefined
+
+    @_dispose @_listeners
+    @_listeners = undefined
+
+  ###
+  ###
+
+  _dispose: (collection) ->
+    if collection
+      for disposable in collection
+        disposable.dispose()
+
+
+  ###
+  ###
+
+  filter: (search) ->
+    return @_filter if not arguments.length
+    @_filter = sift search
+    @
 
   ###
   ###
@@ -34,10 +61,11 @@ module.exports = class
   ###
 
   _listen: () ->
-    for event in ["insert", "remove", "update"] then do (event) =>
-      @_from.on event, (item, index) =>
-        @_callSetters event, item, index
+    @_listeners = []
 
+    for event in ["insert", "remove", "update"] then do (event) =>
+      @_listeners.push @_from.on event, (item, index) =>
+        @_callSetters event, item, index
 
   ###
   ###

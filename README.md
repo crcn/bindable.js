@@ -70,6 +70,9 @@ collection.bind().transform(function(item) {
   return new BindableObject(item);
 }).to(collection2);
 
+//binding to a collection with a filter
+collection.bind().filter({ name: {$nin: ["craig", "liam"] }}).to(collection2);
+
 
 var source = [];
 
