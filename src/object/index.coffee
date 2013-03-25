@@ -33,7 +33,14 @@ module.exports = class Bindable extends EventEmitter
   ###
 
   get: (key) ->
-    @_ref(@data, key) or @_ref @, key
+    result = @_ref(@data, key) 
+
+    if (result is null) or (result is undefined)
+      result = @_ref @, key
+    
+
+    return result
+
 
   ###
   ###
