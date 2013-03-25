@@ -102,8 +102,6 @@ module.exports = class extends EventEmitter
   splice: (index, count) ->
     args = Array.prototype.slice.call(arguments)
     args.splice(0, 2) # remove index & count. Leave only items to replace with
-    @_length += (args.length - count)
-
     args = @_transform args
 
     remove = @slice(index, index + count)
@@ -153,8 +151,6 @@ module.exports = class extends EventEmitter
 
   push: () ->
     items = Array.prototype.slice.call(arguments)
-
-    @_length += items.length
     @_source.push.apply @_source, @_transform items
     @_insert items, @_length
 
@@ -163,8 +159,6 @@ module.exports = class extends EventEmitter
 
   unshift: () ->
     items = Array.prototype.slice.call(arguments)
-
-    @_length += items.length
     @_source.unshift.apply @_source, @_transform items
     @_insert items
 
@@ -172,14 +166,13 @@ module.exports = class extends EventEmitter
   ###
 
   pop: () ->
-    @_remove @_source.pop(), @_length--
+    @_remove [@_source.pop()], @_length
 
   ###
   ###
 
   shift: () ->
-    @_length--
-    @_remove @_source.shift(), 0
+    @_remove [@_source.shift()], 0
 
   ###
   ###
@@ -192,9 +185,8 @@ module.exports = class extends EventEmitter
   ###
 
   _insert: (items, start = 0) ->
-
     return if not items.length
-
+    @_length += items.length
     for item, i in items
       @emit "insert", item, start + i
 
@@ -202,6 +194,8 @@ module.exports = class extends EventEmitter
   ###
 
   _remove: (items, start = 0) ->
+    return if not items.length
+    @_length -= items.length
     for item, i in items
       @emit "remove", item, start + i
 
@@ -209,7 +203,7 @@ module.exports = class extends EventEmitter
   ###
   ###
 
-  _transform: (item) ->
+  _transform: (item, index, start) ->
     return item if not @_transformer
     if isa.array item
       results = []
