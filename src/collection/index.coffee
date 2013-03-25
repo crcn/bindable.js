@@ -17,8 +17,8 @@ module.exports = class extends EventEmitter
 
   constructor: (source = []) ->
     @_length = 0
-    @_source = source
     @_setDefaultIndexer()
+    @reset source
 
   ###
   ###
@@ -36,8 +36,18 @@ module.exports = class extends EventEmitter
   ###
 
   reset: (source) -> 
-    @_remove @_source
+
+    if @_sourceBinding
+      @_sourceBinding.dispose()
+      @_sourceBinding = undefined
+
+    if source.__isCollection
+      @_sourceBinding = source.bind().to @
+      return @
+
+    @_remove @_source or []
     @_insert @_source = source
+    @
 
   ###
   ###

@@ -164,4 +164,6 @@ describe("bindable object", function() {
   });
 
 
+  it("can bind from a reset")
+
 });

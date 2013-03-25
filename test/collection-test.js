@@ -131,4 +131,13 @@ describe("bindable collection", function() {
   });
 
 
+  it("can bind from a reset", function() {
+    col3.reset(col1);
+    col1.push("Jake");
+  });
+
+  it("col3 should contain Jake", function() {
+    expect(col3.source()).to.contain("Jake")
+  });
+
 });
