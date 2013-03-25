@@ -140,4 +140,16 @@ describe("bindable collection", function() {
     expect(col3.source()).to.contain("Jake")
   });
 
+
+  it("can transform objects", function() {
+    col3.reset([]);
+    col3._id("name");
+    col3.transform().map(function(value){ return { name: value }});
+    col3.push("John");
+  });
+
+  it("has transformed john", function() {
+    expect(col3.indexOf({ name: "John" })).to.be(0);
+  })
+
 });

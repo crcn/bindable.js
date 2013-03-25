@@ -1,7 +1,7 @@
 sift           = require "sift"
-Transformer    = require "../core/transformer"
 SettersFactory = require "./setters/factory"
 settersFactory = new SettersFactory()
+utils = require "../core/utils"
 
 module.exports = class
 
@@ -18,7 +18,7 @@ module.exports = class
 
   transform: (value) ->
     return @_transformer if not arguments.length
-    @_transformer = new Transformer value
+    @_transformer = utils.transformer value
     @
 
   ###

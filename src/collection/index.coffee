@@ -1,6 +1,9 @@
 dref         = require "dref"
 Binding      = require "./binding"
 EventEmitter = require "../core/eventEmitter"
+isa = require "isa"
+hoist = require "hoist"
+
 
 ###
 ###
@@ -101,12 +104,19 @@ module.exports = class extends EventEmitter
     args.splice(0, 2) # remove index & count. Leave only items to replace with
     @_length += (args.length - count)
 
+    args = @_transform args
+
     remove = @slice(index, index + count)
 
     @_source.splice.apply @_source, arguments
 
     @_remove remove, index
     @_insert args, index
+
+  ###
+  ###
+
+  transform: () -> @_transformer = hoist()
 
   ###
   ###
@@ -145,7 +155,7 @@ module.exports = class extends EventEmitter
     items = Array.prototype.slice.call(arguments)
 
     @_length += items.length
-    @_source.push.apply @_source, arguments
+    @_source.push.apply @_source, @_transform items
     @_insert items, @_length
 
   ###
@@ -155,7 +165,7 @@ module.exports = class extends EventEmitter
     items = Array.prototype.slice.call(arguments)
 
     @_length += items.length
-    @_source.unshift.apply @_source, arguments
+    @_source.unshift.apply @_source, @_transform items
     @_insert items
 
   ###
@@ -194,6 +204,19 @@ module.exports = class extends EventEmitter
   _remove: (items, start = 0) ->
     for item, i in items
       @emit "remove", item, start + i
+
+
+  ###
+  ###
+
+  _transform: (item) ->
+    return item if not @_transformer
+    if isa.array item
+      results = []
+      for i in item
+        results.push @_transformer i
+      return results
+    return @_transformer item
 
 
 

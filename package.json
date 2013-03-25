@@ -1,6 +1,6 @@
 {
   "name": "bindable",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
   "scripts": {
@@ -19,7 +19,9 @@
     "eventemitter2": "0.4.x",
     "disposable": "0.0.x",
     "sift": "0.0.x",
-    "underscore": "1.4.x"
+    "underscore": "1.4.x",
+    "hoist": "0.0.x",
+    "isa": "0.1.x"
   },
   "devDependencies": {
     "mocha": "1.8.x",
