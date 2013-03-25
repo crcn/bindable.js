@@ -52,7 +52,7 @@ module.exports = class extends EventEmitter
       return @
 
     @_remove @_source or []
-    @_insert @_source = source
+    @_insert @_source = @_transform source
     @
 
   ###
