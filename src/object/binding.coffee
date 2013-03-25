@@ -50,7 +50,6 @@ module.exports = class Binding
 
 
   ###
-   TODO
   ###
 
   transform: (options) ->
