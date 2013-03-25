@@ -2,6 +2,7 @@ BindableSetter = require("./setters/factory")
 bindableSetter = new BindableSetter()
 utils = require "../core/utils"
 hoist = require "hoist"
+DeepPropertyWatcher = require "./deepPropertyWatcher"
 
 ###
  Glues stuff together
@@ -144,12 +145,7 @@ module.exports = class Binding
   ###
 
   _listen: () ->
-    keyParts = @_property.split "."
-
-    # start from the ROOT property
-    event = "change:#{keyParts.shift()}.**"
-
-    @_listener = @_from.on event, @_trigger
+    @_listener = new DeepPropertyWatcher @_from, @_property, @_trigger
 
 
 

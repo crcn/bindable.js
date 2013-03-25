@@ -30,6 +30,7 @@ describe("bindable object", function() {
     bindable.set("location.zip", "94102");
   });
 
+
   it("can do perform a deep bind", function(next) {
     bindable.bind("a.b.c.d.e", function(value) {
       expect(value).to.be(1);
@@ -164,6 +165,47 @@ describe("bindable object", function() {
   });
 
 
-  it("can bind from a reset")
+  it("can bind to a sub-binding", function() {
+
+    var subBindable = new BindableObject({
+      "first": "craig",
+      "last": "craig"
+    });
+
+    var changedLast;
+
+    bindable.set({
+      name: subBindable
+    });
+
+    bindable.bind("name.last", function(value) {
+      changedLast = value;
+    }).once();
+
+    bindable.get("name").set("last", "jefferds");
+    expect(changedLast).to.be("jefferds");
+  });
+
+
+  it("can bind to a sub-binding 2", function() {
+
+    var subBindable = new BindableObject({
+      "first": "craig",
+      "last": "craig"
+    });
+
+    var changedLast;
+
+    bindable.set({
+      name: subBindable
+    });
+
+    bindable.bind("name.last", function(value) {
+      changedLast = value;
+    }).once();
+
+    bindable.set("name.last", "jefferds");
+    expect(changedLast).to.be("jefferds");
+  })
 
 });
