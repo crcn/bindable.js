@@ -18,9 +18,15 @@ module.exports = class extends EventEmitter
   ###
   ###
 
-  constructor: (source = []) ->
+  constructor: (source = [], _id = "_id") ->
+
+    if typeof source is "string"
+      _id = source
+      source = []
+      
     @_length = 0
-    @_setDefaultIndexer()
+    @_id _id
+    @transform().map @_enforceItemId
     @reset source
 
   ###
@@ -124,27 +130,22 @@ module.exports = class extends EventEmitter
   ###
   ###
 
-  indexOf: (item) -> @_indexer(@_source, item)
-
-  ###
-  ###
-
-  indexer: (value) ->
-    return @_indexer if not value
-    @_indexer = value
-    @
+  indexOf: (searchItem) ->  
+    for item, i in @_source
+      if dref.get(item, @__id) is dref.get(searchItem, @__id)
+        return i
+    return -1
 
   ###
   ###
 
   _id: (key) ->
-    @indexer (source, itemCheck) =>
+    return @__id if not arguments.length
+    @__id = key
 
-      for item, i in source
-        if String(dref.get(item, key)) is String(dref.get(itemCheck, key))
-          return i
-
-      return -1
+    if @_source
+      @_enforceId()
+    @
 
   ###
   ###
@@ -177,9 +178,19 @@ module.exports = class extends EventEmitter
   ###
   ###
 
-  _setDefaultIndexer: () ->
-    @indexer (source, item) ->
-      return source.indexOf(item)
+  _enforceId: () ->
+    for item in @_source
+      @_enforceItemId item
+
+  ###
+  ###
+
+  _enforceItemId: (item) =>
+    _id = dref.get(item, @__id)
+    if (_id is undefined) or (_id is null)
+      throw new Error "item '#{item}' must have a '#{@__id}'"
+
+    item
 
   ###
   ###

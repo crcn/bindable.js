@@ -1,9 +1,20 @@
 var Collection = require("../").Collection,
-expect = require("expect.js");
+expect = require("expect.js"),
+_ = require("underscore");
 
 describe("bindable collection", function() {
 
-  var col1 = new Collection(["Craig", "Sam", "Liam"]),
+  var col1 = new Collection([
+    {
+      lname: "Craig"
+    },
+    {
+      lname: "Sam"
+    },
+    {
+      lname: "Liam"
+    }
+  ], "lname"),
   col2     = new Collection([
     {
       name: "Chris"
@@ -11,10 +22,10 @@ describe("bindable collection", function() {
     {
       name: "Frank"
     }
-  ])._id("name"),
-  col3 = new Collection(),
-  col4 = new Collection(),
-  col5 = new Collection(),
+  ], "name"),
+  col3 = new Collection("lname"),
+  col4 = new Collection("lname"),
+  col5 = new Collection("lname"),
   bindings = {};
 
 
@@ -24,34 +35,34 @@ describe("bindable collection", function() {
   });
 
   it("col3 has the same items as col1", function() {
-    expect(col3.source()).to.contain("Craig", "Sam", "Liam")
+    expect(_.intersection(col1.source(), col3.source()).length).to.be(3);
   });
 
   it("col1 can remove 'Craig'", function() {
-    col1.remove("Craig")
+    col1.remove({ lname: "Craig" })
   });
 
   it("col1 doesn't have 'Craig' anymore", function() {
-    expect(col1.source()).not.to.contain("Craig")
+    expect(col1.indexOf({ lname: "Craig" })).to.be(-1);
   });
 
   it("col3 doesn't have 'Craig' anymore", function() {
-    expect(col3.source()).not.to.contain("Craig");
+    expect(col3.indexOf({ lname: "Craig" })).to.be(-1);
   });
 
   it("col1 can insert 'Claudia'", function() {
-    col1.push("Claudia");
+    col1.push({ lname: "Claudia" });
   });
 
   it("col3 has 'Claudia'", function() {
-    expect(col3.source()).to.contain("Claudia");
+    expect(col3.indexOf({ lname: "Claudia"})).to.be(2);
   });
 
   it("can bind & transform from col1 -> col2", function() {
     bindings.col12 = col1.bind().transform({
       to: function(item) {
         return {
-          name: item
+          name: item.lname
         }
       }
     }).to(col2);
@@ -64,7 +75,7 @@ describe("bindable collection", function() {
   });
 
   it("col1 can remove 'Sam'", function() {
-    col1.remove("Sam");
+    col1.remove({ lname: "Sam" });
   });
 
   it("col2 doesn't have Sam anymore", function() {
@@ -78,7 +89,7 @@ describe("bindable collection", function() {
 
 
   it("can insert an item into col1 without effecting col2", function() {
-    col1.push("Monica");
+    col1.push({ lname: "Monica" });
   });
 
   it("col2 doesn't have Monica", function() {
@@ -86,8 +97,8 @@ describe("bindable collection", function() {
   });
 
   it("a binding with a filter can be created", function() {
-    bindings.col12 = col1.bind().filter({ $ne: "Monica" }).transform(function(name) {
-      return { name: name }
+    bindings.col12 = col1.bind().filter({ lname: { $ne: "Monica" }}).transform(function(person) {
+      return { name: person.lname }
     }).to(col2);
   });
 
@@ -98,8 +109,8 @@ describe("bindable collection", function() {
 
   //sanity
   it("a binding can be created without a filter", function() {
-    bindings.col12 = col1.bind().transform(function(name) {
-      return { name: name }
+    bindings.col12 = col1.bind().transform(function(person) {
+      return { name: person.lname }
     }).to(col2);
   });
 
@@ -117,15 +128,18 @@ describe("bindable collection", function() {
   it("has bound to multiple collections", function() {
 
     //still bound from above
-    expect(col3.source()).to.contain("Liam", "Claudia", "Monica")
-    expect(col4.source()).to.contain("Liam", "Claudia", "Monica")
-    expect(col5.source()).to.contain("Liam", "Claudia", "Monica")
+
+    ["Liam", "Claudia", "Monica"].forEach(function(name) {
+      [col3, col4, col5].forEach(function(col) {
+        expect(col.indexOf({ lname: name })).not.to.be(-1);
+      })
+    })
     bindings.col345.dispose();
   });
 
 
   it("isn't bound to multiple collections anymore", function() {
-    col1.push("Matt");
+    col1.push({ lname: "Matt" });
     expect(col4.source()).not.to.contain("Matt")
     expect(col5.source()).not.to.contain("Matt")
   });
@@ -133,11 +147,11 @@ describe("bindable collection", function() {
 
   it("can bind from a reset", function() {
     col3.reset(col1);
-    col1.push("Jake");
+    col1.push({ lname: "Jake" });
   });
 
   it("col3 should contain Jake", function() {
-    expect(col3.source()).to.contain("Jake")
+    expect(col3.indexOf({ lname: "Jake" })).not.to.be(-1);
   });
 
 
