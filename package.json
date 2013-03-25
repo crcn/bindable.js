@@ -17,11 +17,13 @@
   "dependencies": {
     "dref": "0.0.x",
     "eventemitter2": "0.4.x",
-    "disposable": "0.0.x"
+    "disposable": "0.0.x",
+    "sift": "0.0.x",
+    "underscore": "1.4.x"
   },
   "devDependencies": {
     "mocha": "1.8.x",
     "expect.js": "0.2.x",
-    "structr":"0.2.x"
+    "structr": "0.2.x"
   }
 }
