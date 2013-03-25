@@ -150,16 +150,16 @@ module.exports = class extends EventEmitter
   ###
 
   push: () ->
-    items = Array.prototype.slice.call(arguments)
-    @_source.push.apply @_source, @_transform items
+    items = @_transform Array.prototype.slice.call(arguments)
+    @_source.push.apply @_source, items
     @_insert items, @_length
 
   ###
   ###
 
   unshift: () ->
-    items = Array.prototype.slice.call(arguments)
-    @_source.unshift.apply @_source, @_transform items
+    items = @_transform Array.prototype.slice.call(arguments)
+    @_source.unshift.apply @_source, items
     @_insert items
 
   ###

@@ -1,6 +1,7 @@
 BindableSetter = require("./setters/factory")
 bindableSetter = new BindableSetter()
 utils = require "../core/utils"
+hoist = require "hoist"
 
 ###
  Glues stuff together
@@ -36,6 +37,8 @@ module.exports = class Binding
 
     @
 
+
+
   ###
    from property? create a binding going the other way. This is useful for classes. see class-test.js
   ###
@@ -59,6 +62,13 @@ module.exports = class Binding
     @_transform = utils.transformer options
 
     @
+
+  ###
+  ###
+
+  _transformer: () ->
+    @_transform or (@_transform = utils.transformer options)
+
 
   ###
    runs the binding just once

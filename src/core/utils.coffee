@@ -20,7 +20,6 @@ exports.transformer = (options) ->
 
   if not options.to
     options.to = (value) -> value
-
   
   from: hoist.map(options.from)
   to: hoist.map(options.to)
