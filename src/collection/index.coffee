@@ -37,6 +37,9 @@ module.exports = class extends EventEmitter
 
   reset: (source) -> 
 
+    if not source
+      source = []
+
     if @_sourceBinding
       @_sourceBinding.dispose()
       @_sourceBinding = undefined
