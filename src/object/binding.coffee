@@ -2,7 +2,7 @@ BindableSetter = require("./setters/factory")
 bindableSetter = new BindableSetter()
 utils = require "../core/utils"
 hoist = require "hoist"
-DeepPropertyWatcher = require "./deepPropertyWatcher"
+deepPropertyWatcher = require("./deepPropertyWatcher")
 
 ###
  Glues stuff together
@@ -145,7 +145,7 @@ module.exports = class Binding
   ###
 
   _listen: () ->
-    @_listener = new DeepPropertyWatcher @_from, @_property, @_trigger
+    @_listener = deepPropertyWatcher.create { target: @_from, property: @_property, callback: @_trigger }
 
 
 

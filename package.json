@@ -21,7 +21,8 @@
     "sift": "0.0.x",
     "underscore": "1.4.x",
     "hoist": "0.0.x",
-    "isa": "0.1.x"
+    "isa": "0.1.x",
+    "poolparty": "0.0.x"
   },
   "devDependencies": {
     "mocha": "1.8.x",

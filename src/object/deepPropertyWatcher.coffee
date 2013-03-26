@@ -1,17 +1,28 @@
 dref = require("dref")
-
+poolParty = require("poolparty")
 
 
 
   
 
-module.exports = class DeepPropertyWatcher
+class DeepPropertyWatcher
 
   ###
   ###
 
-  constructor: (@target, @property, @callback) ->
-    @_chain = property.split(".")
+  constructor: (options) ->
+    @reset options
+
+
+  ###
+  ###
+
+  reset: (options) ->
+    @_disposed = false
+    @target   = options.target
+    @property = options.property
+    @callback = options.callback
+    @_chain = @property.split(".")
     @_watch()
 
   ###
@@ -23,7 +34,6 @@ module.exports = class DeepPropertyWatcher
         listener.dispose()
 
       @_listeners = undefined
-
 
   ###
   ###
@@ -44,9 +54,9 @@ module.exports = class DeepPropertyWatcher
       # bindable.bind("name.last", function() { });
       # bindable.get("name").set("last", "jefferds")
       if value and value.__isBindable
-        @_listeners.push new DeepPropertyWatcher value, @_chain.slice(i + 1).join("."), @changed
+        @_listeners.push deepPropertyWatcher.create { target: value, property: @_chain.slice(i + 1).join("."), callback: @changed }
       else
-        @_listeners.push @target.on "change:#{property}", () => @changed()
+        @_listeners.push @target.on "change:#{property}", @changed
 
   ###
   ###
@@ -58,5 +68,13 @@ module.exports = class DeepPropertyWatcher
     # re-create the bindings since shit could have changed
     @_watch()
 
+deepPropertyWatcher = module.exports = {
+  create: (options) -> new DeepPropertyWatcher options
+}
 
-
+return
+deepPropertyWatcher = module.exports = poolParty({
+  max: 100,
+  factory: (options) -> new DeepPropertyWatcher(options)
+  recycle: (watcher, options) -> watcher.reset options
+})
