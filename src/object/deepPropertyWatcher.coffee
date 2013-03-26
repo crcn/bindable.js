@@ -63,8 +63,8 @@ class DeepPropertyWatcher
       # bindable.get("name").set("last", "jefferds")
       if value and value.__isBindable
         @_listeners.push deepPropertyWatcher.create { target: value, property: @_chain.slice(i + 1).join("."), callback: @changed }
-      else
-        @_listeners.push @target.on "change:#{property}", @changed
+      
+      @_listeners.push @target.on "change:#{property}", @changed
 
   ###
   ###
