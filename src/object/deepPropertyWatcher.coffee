@@ -28,12 +28,19 @@ class DeepPropertyWatcher
   ###
   ###
 
-  dispose: () ->
+  dispose: () -> 
+    deepPropertyWatcher.add @
+    @_dispose()
+
+  ###
+  ###
+
+  _dispose: () ->
     if @_listeners
       for listener in @_listeners
         listener.dispose()
-
       @_listeners = undefined
+
 
   ###
   ###
@@ -41,8 +48,9 @@ class DeepPropertyWatcher
   _watch: () ->
 
     if @_listeners
-      @dispose()
+      @_dispose()
 
+    @_disposed = false
     @_listeners = []
 
     for part, i in @_chain
@@ -68,11 +76,7 @@ class DeepPropertyWatcher
     # re-create the bindings since shit could have changed
     @_watch()
 
-deepPropertyWatcher = module.exports = {
-  create: (options) -> new DeepPropertyWatcher options
-}
 
-return
 deepPropertyWatcher = module.exports = poolParty({
   max: 100,
   factory: (options) -> new DeepPropertyWatcher(options)

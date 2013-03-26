@@ -3,7 +3,6 @@ structr = require("structr"),
 expect = require("expect.js");
 
 describe("class binding", function() {
-  
   var Bindable2 = structr(Bindable, {
     name: "craig",
     name2: Bindable.from("name"),
@@ -15,6 +14,7 @@ describe("class binding", function() {
   it("can create bindable2", function() {
     bindable = new Bindable2();
   });
+
 
   it("name2 is craig", function() {
     expect(bindable.get("name2")).to.be("craig");
