@@ -17,6 +17,7 @@ module.exports = class Bindable extends EventEmitter
 
   constructor: (@data = {}) ->
     super()
+    @_bindings = []
 
     # check for bindings specified in the class
     for key of @
@@ -94,6 +95,14 @@ module.exports = class Bindable extends EventEmitter
       return
 
     new Binding(@, property).to(to)
+
+
+  ###
+  ###
+
+  dispose: () ->
+    @emit "dispose"
+
 
 
 new Builder(Binding, Bindable)

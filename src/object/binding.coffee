@@ -108,7 +108,7 @@ module.exports = class Binding
    removes the binding
   ###
 
-  dispose: () ->
+  dispose: () =>
 
     @_callSetterFns "dispose"
 
@@ -116,8 +116,10 @@ module.exports = class Binding
 
     if @_listener
       @_listener.dispose()
+      @_disposeListener.dispose()
 
     @_listener = undefined
+    @_disposeListener = undefined
     @
 
   ###
@@ -146,6 +148,9 @@ module.exports = class Binding
 
   _listen: () ->
     @_listener = deepPropertyWatcher.create { target: @_from, property: @_property, callback: @_trigger }
+
+    # if the object is disposed, then remove this listener
+    @_disposeListener = @_from.once "dispose", @dispose
 
 
 

@@ -206,6 +206,26 @@ describe("bindable object", function() {
 
     bindable.set("name.last", "jefferds");
     expect(changedLast).to.be("jefferds");
+  });
+
+
+  it("bindings are disposed when an bindable is", function() {
+    var bindable = new BindableObject({
+      name: "craig"
+    }),
+    newName;
+
+    bindable.bind("name", function(value) {
+      newName = value;
+    })
+
+    //sanity
+    bindable.set("name", "sam");
+    expect(newName).to.be("sam");
+
+    bindable.dispose();
+    bindable.set("name", "liam");
+    expect(newName).to.be("sam");
   })
 
 });
