@@ -26,7 +26,7 @@ module.exports = class extends EventEmitter
       
     @_length = 0
     @_id _id
-    @transform().map @_enforceItemId
+    @transform().postMap @_enforceItemId
     @reset source
 
   ###
@@ -120,7 +120,7 @@ module.exports = class extends EventEmitter
   ###
   ###
 
-  transform: () -> @_transformer = hoist()
+  transform: () -> @_transformer or (@_transformer = hoist())
 
   ###
   ###
