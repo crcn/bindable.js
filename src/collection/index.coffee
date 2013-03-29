@@ -74,7 +74,7 @@ module.exports = class extends EventEmitter
   ###
   ###
 
-  get: (index) -> @at key
+  get: (key) -> @at Number key
 
   ###
   ###
