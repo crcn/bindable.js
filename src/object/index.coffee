@@ -15,8 +15,9 @@ module.exports = class Bindable extends EventEmitter
   ###
   ###
 
-  constructor: (@data = {}) ->
+  constructor: (data) ->
     super()
+    @_initData data
     @_bindings = []
 
     # check for bindings specified in the class
@@ -29,6 +30,11 @@ module.exports = class Bindable extends EventEmitter
 
         # create the binding
         obj.createObject(@, key)
+
+  ###
+  ###
+
+  _initData: (@data = {}) ->
 
   ###
   ###
