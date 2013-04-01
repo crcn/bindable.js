@@ -84,6 +84,16 @@ module.exports = class extends EventEmitter
   ###
   ###
 
+  first: () -> @_source[0]
+
+  ###
+  ###
+
+  last: () -> @_source[@_length - 1]
+
+  ###
+  ###
+
   update: (item) -> 
     #O TODO
 
