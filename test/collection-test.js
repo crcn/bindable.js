@@ -164,6 +164,15 @@ describe("bindable collection", function() {
 
   it("has transformed john", function() {
     expect(col3.indexOf({ name: "John" })).to.be(0);
-  })
+  });
+
+  it("can be JSON encoded", function() {
+    var data = JSON.parse(JSON.stringify(col1));
+    for(var i = data.length; i--;) {
+      var item = data[i];
+      expect(_.keys(item).length).to.be(1);
+      expect(item.lname).not.to.be(undefined);
+    }
+  });
 
 });

@@ -48,6 +48,10 @@ module.exports = class Bindable extends EventEmitter
 
     return result
 
+  ###
+  ###
+
+  toJSON: () -> @data
 
   ###
   ###

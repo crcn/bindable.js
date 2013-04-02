@@ -173,6 +173,17 @@ module.exports = class extends EventEmitter
     @_source.unshift.apply @_source, items
     @_insert items
 
+
+  ###
+  ###
+
+  toJSON: () ->
+    source = []
+    for item in @_source
+      source.push item.toJSON?() or item
+
+    source
+
   ###
   ###
 
