@@ -188,13 +188,13 @@ module.exports = class extends EventEmitter
   ###
 
   pop: () ->
-    @_remove [@_source.pop()], @_length
+    @_remove([@_source.pop()], @_length)[0]
 
   ###
   ###
 
   shift: () ->
-    @_remove [@_source.shift()], 0
+    @_remove([@_source.shift()], 0)[0]
 
   ###
   ###
@@ -221,6 +221,7 @@ module.exports = class extends EventEmitter
     @_length += items.length
     for item, i in items
       @emit "insert", item, start + i
+    items
 
   ###
   ###
@@ -230,6 +231,7 @@ module.exports = class extends EventEmitter
     @_length -= items.length
     for item, i in items
       @emit "remove", item, start + i
+    items
 
 
   ###
