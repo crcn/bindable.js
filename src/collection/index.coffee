@@ -19,6 +19,7 @@ module.exports = class extends EventEmitter
   ###
 
   constructor: (source = [], _id = "_id") ->
+    @_source = []
 
     if typeof source is "string"
       _id = source
@@ -60,6 +61,7 @@ module.exports = class extends EventEmitter
     @_remove @_source or []
     @_insert @_source = @_transform source
     @
+
 
   ###
   ###
