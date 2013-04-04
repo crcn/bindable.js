@@ -265,4 +265,8 @@ describe("bindable object", function() {
 
   });
 
+  it("can set null key and not fail", function() {
+    bindable.set(null, 0);
+  })
+
 });
