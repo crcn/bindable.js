@@ -19,16 +19,21 @@ module.exports = class Bindable extends EventEmitter
     @_initData data
     @_bindings = []
 
-    # check for bindings specified in the class
+    # copy all data from this bindable object
     for key of @
       obj = @[key]
 
-      # if it's a call chain, then delete it, and create the binding
+      # skip private properties OR value object if function OR data already exists
+      continue if typeof obj is "function" or key.substr(0, 1) is "_" or @data[key]
+
+      # check for bindings specified in the class
       if obj and obj.__isCallChain
         @[key] = undefined
 
         # create the binding
         obj.createObject(@, key)
+      else
+        @set key, obj
 
   ###
   ###
