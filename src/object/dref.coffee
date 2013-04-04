@@ -27,7 +27,8 @@ _firstTarget = (target, keyParts, set) ->
 
 exports.get = (target, key) ->
 
-  return if not target or not key
+  return if not target
+  return target.data if not key
 
   ct = _firstTarget target, keyParts = key.split "."
 
