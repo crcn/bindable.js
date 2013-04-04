@@ -12,6 +12,7 @@ describe("class binding", function() {
   }), bindable;
 
 
+
   it("can create bindable2", function() {
     bindable = new Bindable2();
   });

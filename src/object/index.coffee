@@ -19,9 +19,10 @@ module.exports = class Bindable extends EventEmitter
     @_initData data
     @_bindings = []
 
+
     # copy all data from this bindable object
-    for key of @constructor.prototype
-      obj = @constructor.prototype[key]
+    for key of @__proto__
+      obj = @__proto__[key]
 
       # skip private properties OR value object if function OR data already exists
       continue if typeof obj is "function" or key.substr(0, 1) is "_" or @data[key]
@@ -44,14 +45,6 @@ module.exports = class Bindable extends EventEmitter
   ###
 
   get: (key) -> return dref.get @,key
-
-  ###
-  ###
-
-  toJSON: () ->   
-    d = {}
-    for k of @data
-
 
   ###
   ###
