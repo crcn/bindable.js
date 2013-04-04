@@ -83,12 +83,12 @@ module.exports = class Bindable extends EventEmitter
     
     keyParts = key.split "."
     c = @
-    v = @data
+    v = if keyParts.length is 1 then @data else @
 
     # cannot use dref for this 
     for i in [0...keyParts.length-1]
       k = keyParts[i]
-      v = v[k] = v[k] or {}
+      v = v[k] = dref.get(v, k) or {}
       if v.__isBindable
         v.set keyParts.slice(i+1).join("."), value
         break
