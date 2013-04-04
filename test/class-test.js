@@ -3,6 +3,7 @@ structr = require("structr"),
 expect = require("expect.js");
 
 describe("class binding", function() {
+  
   var Bindable2 = structr(Bindable, {
     name: "craig",
     name2: Bindable.from("name"),

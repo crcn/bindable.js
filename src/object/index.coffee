@@ -80,8 +80,27 @@ module.exports = class Bindable extends EventEmitter
   ###
 
   _set: (key, value) ->
-      
-    dref.set @data, key, value
+    
+    keyParts = key.split "."
+    c = @
+    v = @data
+
+    # cannot use dref for this 
+    for i in [0...keyParts.length-1]
+      k = keyParts[i]
+      v = v[k] = v[k] or {}
+      if v.__isBindable
+        v.set keyParts.slice(i+1).join("."), value
+        break
+
+
+    if i is keyParts.length-1
+      v[keyParts[i]] = value
+
+
+
+
+
 
     @emit "change:#{key}", value
     @emit "change", value

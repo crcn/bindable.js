@@ -208,6 +208,30 @@ describe("bindable object", function() {
     expect(changedLast).to.be("jefferds");
   });
 
+  it("can bind to a sub-binding 3", function() {
+    var b1 = new BindableObject({
+      name: {
+        first: "craig"
+      }
+    });
+
+    var b2 = new BindableObject({
+      person: b1
+    });
+
+    var b3 = new BindableObject({
+      person: b1
+    })
+
+
+    b3.bind("person.name.last", "lastName");
+    b2.set("person", b1);
+    b2.set("person.name.last", "bubu");
+
+
+    expect(b3.get("lastName")).to.be("bubu");
+  });
+
 
   it("bindings are disposed when an bindable is", function() {
     var bindable = new BindableObject({

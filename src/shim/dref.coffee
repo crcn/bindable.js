@@ -5,5 +5,6 @@ module.exports = {
     if (result is null) or (result is undefined)
       result = item[key]
     result
-  set: (item, key, value) -> item.set key, value
+  set: (item, key, value) -> 
+    item.set key, value
 }
