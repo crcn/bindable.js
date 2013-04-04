@@ -250,6 +250,19 @@ describe("bindable object", function() {
     bindable.dispose();
     bindable.set("name", "liam");
     expect(newName).to.be("sam");
-  })
+  });
+
+  it("can set data without overriding the original data object", function() {
+    var bindable = new BindableObject({
+      name: "craig"
+    });
+    bindable.set("data", { name: "john" });
+    bindable.set("data.last", "blarg");
+    expect(bindable.get("name")).to.be("craig");
+    expect(bindable.get("data.name")).to.be("john");
+    bindable.set("data.name", "mike");
+    expect(bindable.get("data.name")).to.be("mike");
+
+  });
 
 });

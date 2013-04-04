@@ -1,9 +1,8 @@
-dref = require "dref"
+dref = require "./dref"
+require("dref").use require("../shim/dref")
 EventEmitter = require("../core/eventEmitter")
 Binding = require("./binding")
 Builder = require("../core/builder")
-
-dref.use require("../shim/dref")
 
 module.exports = class Bindable extends EventEmitter
 
@@ -39,14 +38,7 @@ module.exports = class Bindable extends EventEmitter
   ###
   ###
 
-  get: (key) ->
-    result = @_ref(@data, key) 
-
-    if (result is null) or (result is undefined)
-      result = @_ref @, key
-    
-
-    return result
+  get: (key) -> return dref.get @,key
 
   ###
   ###
@@ -80,26 +72,7 @@ module.exports = class Bindable extends EventEmitter
   ###
 
   _set: (key, value) ->
-    
-    keyParts = key.split "."
-    c = @
-    v = if keyParts.length is 1 then @data else @
-
-    # cannot use dref for this 
-    for i in [0...keyParts.length-1]
-      k = keyParts[i]
-      v = v[k] = dref.get(v, k) or {}
-      if v.__isBindable
-        v.set keyParts.slice(i+1).join("."), value
-        break
-
-
-    if i is keyParts.length-1
-      v[keyParts[i]] = value
-
-
-
-
+    dref.set @, key, value
 
 
     @emit "change:#{key}", value
