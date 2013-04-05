@@ -53,10 +53,6 @@ exports.set = (target, key, value) ->
   keyParts = key.split(".")
 
 
-  if keyParts.length is 1
-    target.data[keyParts[0]] = value
-    return
-
   ct = target.data
   n = keyParts.length
 
