@@ -280,4 +280,10 @@ describe("bindable object", function() {
     expect(bindable.getFlatten().name).to.be("craig");
   });
 
+
+  it("can set 0 and not be undefined", function() {
+    var bindable = new BindableObject({ count: 0 });
+    expect(bindable.get("count")).not.to.be(undefined);
+  });
+
 });
