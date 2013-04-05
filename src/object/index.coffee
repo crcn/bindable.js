@@ -58,11 +58,18 @@ module.exports = class Bindable extends EventEmitter
   ###
   ###
 
-  get: (key, flatten = true) -> 
+  get: (key, flatten = false) -> 
 
     # return the deep ref of the data, OR ref of this object. Note that we pop off the first key
     # so there isn't a circular call to .get()
     dref.get(@data, key, flatten) or dref.get(@[key.split(".").shift()], key.split(".").slice(1).join("."), flatten)
+
+
+  ###
+  ###
+
+  getFlatten: (key) -> @get key, true
+
 
   ###
   ###

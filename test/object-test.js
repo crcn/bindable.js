@@ -272,12 +272,12 @@ describe("bindable object", function() {
 
   it("can set a bindable object to a bindable object", function() {
     var bindable = new BindableObject(new BindableObject({ name: "craig" }));
-    expect(bindable.get("name")).to.be("craig");
+    expect(bindable.getFlatten("name")).to.be("craig");
   });
 
   it("can get an object of a nested bindable object", function() {
     var bindable = new BindableObject(new BindableObject({ name: "craig" }));
-    expect(bindable.get().name).to.be("craig");
+    expect(bindable.getFlatten().name).to.be("craig");
   });
 
 });
