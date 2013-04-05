@@ -30,9 +30,10 @@ exports.set = (target, key, value) ->
 
 
   ct = target.data
+  n = keyParts.length
 
 
-  for k in keyParts
+  for k, i in keyParts
 
     if ct.__isBindable
       ct.set keyParts.slice(i).join("."), value
