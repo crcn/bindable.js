@@ -56,7 +56,7 @@ class DeepPropertyWatcher
     for part, i in @_chain
 
       property = @_chain.slice(0, i + 1).join(".")
-      value = @target.get(property)
+      value = @target.get(property, false)
 
       # if the item is bindable, then we need to WATCH that bindable item for any changes. This is needed for when we have a case like this
       # bindable.bind("name.last", function() { });

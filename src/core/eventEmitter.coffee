@@ -1,15 +1,7 @@
-events = require("eventemitter2")
+events = require("events")
 disposable = require("disposable")
 
-module.exports = class EventEmitter extends events.EventEmitter2
-
-  ###
-  ###
-
-  constructor: () ->
-    super {
-      wildcard: true
-    }
+module.exports = class EventEmitter extends events.EventEmitter
 
   ###
   ###
@@ -42,3 +34,8 @@ module.exports = class EventEmitter extends events.EventEmitter2
         @off key, listener
       
     disposables
+
+  ###
+  ###
+
+  off: (key, listener) -> @removeListener key, listener

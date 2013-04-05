@@ -182,11 +182,12 @@ describe("bindable object", function() {
       changedLast = value;
     }).once();
 
-    bindable.get("name").set("last", "jefferds");
+    bindable.set("name.last", "jefferds");
     expect(changedLast).to.be("jefferds");
+    expect(subBindable.get("last")).to.be("jefferds");
   });
 
-
+  
   it("can bind to a sub-binding 2", function() {
 
     var subBindable = new BindableObject({
@@ -221,7 +222,7 @@ describe("bindable object", function() {
 
     var b3 = new BindableObject({
       person: b1
-    })
+    });
 
 
     b3.bind("person.name.last", "lastName");
@@ -232,7 +233,7 @@ describe("bindable object", function() {
     expect(b3.get("lastName")).to.be("bubu");
   });
 
-
+  
   it("bindings are disposed when an bindable is", function() {
     var bindable = new BindableObject({
       name: "craig"
@@ -267,6 +268,16 @@ describe("bindable object", function() {
 
   it("can set null key and not fail", function() {
     bindable.set(null, 0);
-  })
+  });
+
+  it("can set a bindable object to a bindable object", function() {
+    var bindable = new BindableObject(new BindableObject({ name: "craig" }));
+    expect(bindable.get("name")).to.be("craig");
+  });
+
+  it("can get an object of a nested bindable object", function() {
+    var bindable = new BindableObject(new BindableObject({ name: "craig" }));
+    expect(bindable.get().name).to.be("craig");
+  });
 
 });

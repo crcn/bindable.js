@@ -142,7 +142,6 @@ module.exports = class Binding
     for setter in @_setters
       setter[method].apply(setter, (args or []))
 
-
   ###
   ###
 

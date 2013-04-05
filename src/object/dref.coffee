@@ -25,20 +25,23 @@ _firstTarget = (target, keyParts, set) ->
 
 
 
-exports.get = (target, key) ->
+exports.get = (target, key, flatten = true) ->
 
   return if not target
-  return target.data if not key
+  keyParts = if key then key.split "." else []
+  ct = target
 
-  ct = _firstTarget target, keyParts = key.split "."
 
-  for key, i in keyParts
+  for k, i in keyParts
 
     return if not ct
 
     # current target is bindable? pass the get along to it
     return ct.get(keyParts.slice(i).join(".")) if ct.__isBindable
-    ct = ct[key]
+    ct = ct[k]
+
+  if flatten and ct and ct.__isBindable
+    return ct.get()
 
   return ct
 
@@ -48,6 +51,7 @@ exports.set = (target, key, value) ->
   return if not target or not key
 
   keyParts = key.split(".")
+
 
   if keyParts.length is 1
     target.data[keyParts[0]] = value
