@@ -1,27 +1,3 @@
-_firstTarget = (target, keyParts, set) ->
-
-  currentTarget = target
-
-  firstKey = keyParts.shift()
-
-  if target.__isBindable
-    currentTarget = target.data
-    ct = currentTarget[firstKey]
-
-    # ct might be 0
-    if (ct is undefined) or (ct is null)
-      ct = target[firstKey]
-
-
-  else
-    ct = currentTarget[firstKey]
-
-  
-  if set and not ct
-    ct = currentTarget[firstKey] = {}
-
-  ct
-
 
 
 
@@ -54,11 +30,9 @@ exports.set = (target, key, value) ->
 
 
   ct = target.data
-  n = keyParts.length
 
 
-  for i in [0..n]
-    k = keyParts[i]
+  for k in keyParts
 
     if ct.__isBindable
       ct.set keyParts.slice(i).join("."), value
