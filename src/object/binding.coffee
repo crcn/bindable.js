@@ -26,6 +26,22 @@ module.exports = class Binding
 
     @_listen()
 
+
+  ###
+   casts this binding as a collection binding
+  ###
+
+  collection: () ->
+    return @_collectionBinding if @_collectionBinding
+    @_collection = new (require("../collection"))()
+
+    # bind this object to the collection source
+    @to @_collection.source
+
+
+    # create the collection binding
+    @_collectionBinding = @_collection.bind().copyId(true)
+
   
   ###
    binds to a target

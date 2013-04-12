@@ -51,11 +51,15 @@ describe("bindable object collection", function() {
     }
   ], "name");
 
+  col2.oid = "col2"
+  col3.oid = "col3"
+  col1.oid = "col1";
+
 
   
   it("can cast an object binding to a collection binding", function() {
 
-    var b = bindable.bind("source", col3);
+    var b = bindable.bind("source").collection().to(col3);
 
     for(var i = col1.length(); i--;) {
       expect(col3.indexOf(col1.at(i))).to.be(i);
@@ -73,7 +77,7 @@ describe("bindable object collection", function() {
 
   it("can change the source & be reflected in the target collection", function() {
       
-    var binding = bindable.bind("source", col3);
+    var binding = bindable.bind("source").collection().to(col3);
 
     for(var i = col1.length(); i--;) {
       expect(col3.indexOf(col1.at(i))).to.be(i);
