@@ -31,6 +31,14 @@ class CallChain
     for call in @_callChain
       obj = obj[call.method].apply(obj, call.args)
 
+  ###
+  ###
+
+  copyId: (value) ->
+    return @_copyId if not arguments.length
+    @_copyId = value
+    @
+
 
   ###
   ###

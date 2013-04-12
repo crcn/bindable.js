@@ -68,6 +68,7 @@ describe("bindable collection", function() {
     }).to(col2);
   });
 
+
   it("col2 has all the transformed people", function() {
     expect(col2.filter(function(item) {
       return item.name.match(/Sam|Liam|Claudia/)
@@ -165,6 +166,7 @@ describe("bindable collection", function() {
   it("has transformed john", function() {
     expect(col3.indexOf({ name: "John" })).to.be(0);
   });
+
 
   it("can be JSON encoded", function() {
     var data = JSON.parse(JSON.stringify(col1));

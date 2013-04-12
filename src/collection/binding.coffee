@@ -30,6 +30,14 @@ module.exports = class
 
     @_dispose @_listeners
     @_listeners = undefined
+    
+  ###
+  ###
+
+  copyId: (value) ->
+    return @_copyId if not arguments.length
+    @_copyId = value
+    @
 
   ###
   ###

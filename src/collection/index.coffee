@@ -3,12 +3,13 @@ Binding      = require "./binding"
 EventEmitter = require "../core/eventEmitter"
 isa = require "isa"
 hoist = require "hoist"
+BindableObject     = require "../object"
 
 
 ###
 ###
 
-module.exports = class extends EventEmitter
+module.exports = class extends BindableObject
 
   ###
   ###
@@ -27,6 +28,7 @@ module.exports = class extends EventEmitter
       
     @_length = 0
     @_id _id
+    @__enforceId = true
     @transform().postMap @_enforceItemId
     @reset source
 
@@ -39,29 +41,38 @@ module.exports = class extends EventEmitter
   ###
   ###
 
-  source: () ->
-    @_source
+  source: (value) =>
+    return @_source if not arguments.length
+    @reset value
 
   ###
   ###
 
-  reset: (source) -> 
+  reset: (source) => 
 
     if not source
       source = []
 
-    if @_sourceBinding
-      @_sourceBinding.dispose()
-      @_sourceBinding = undefined
+    @disposeSourceBinding()
 
-    if source.__isCollection
+    @_remove @_source or []
+
+    if source.__isCollection  
+      @_source = []
+      @_id source._id()
       @_sourceBinding = source.bind().to @
       return @
 
-    @_remove @_source or []
     @_insert @_source = @_transform source
     @
 
+  ###
+  ###
+
+  disposeSourceBinding: () -> 
+    if @_sourceBinding
+      @_sourceBinding.dispose()
+      @_sourceBinding = undefined
 
   ###
   ###
@@ -153,6 +164,7 @@ module.exports = class extends EventEmitter
 
   _id: (key) ->
     return @__id if not arguments.length
+    return @ if @__id is key
     @__id = key
 
     if @_source
@@ -201,6 +213,13 @@ module.exports = class extends EventEmitter
   ###
   ###
 
+  enforceId: (value) ->
+    return @__enforceId if not arguments.length
+    @__enforceId = value
+
+  ###
+  ###
+
   _enforceId: () ->
     for item in @_source
       @_enforceItemId item
@@ -209,6 +228,7 @@ module.exports = class extends EventEmitter
   ###
 
   _enforceItemId: (item) =>
+    return item if not @__enforceId
     _id = dref.get(item, @__id)
     if (_id is undefined) or (_id is null)
       throw new Error "item '#{item}' must have a '#{@__id}'"

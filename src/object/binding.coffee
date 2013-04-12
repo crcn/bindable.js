@@ -25,6 +25,7 @@ module.exports = class Binding
     @_triggerCount = 0
 
     @_listen()
+
   
   ###
    binds to a target
@@ -37,7 +38,6 @@ module.exports = class Binding
       @_setters.push setter
 
     @
-
 
 
   ###
@@ -113,6 +113,9 @@ module.exports = class Binding
     @_callSetterFns "dispose"
 
     @_setters = []
+
+    if @_collectionBinding
+      @_collectionBinding.dispose()
 
     if @_listener
       @_listener.dispose()

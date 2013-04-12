@@ -1,5 +1,6 @@
 FnSetter = require("./fn")
 BindableSetter = require("./bindable")
+CollectionSetter = require("./collection")
 
 module.exports = class
   
@@ -31,8 +32,13 @@ module.exports = class
       callback = target
 
     # binding.bind("property", binding)
-    else if typeof target is "object" and target and target.__isBinding
-      throw new Error "Cannot bind to a binding."
+    else if typeof target is "object" and target
+      if target.__isBinding
+        throw new Error "Cannot bind to a binding."
+
+      # bindable.bind("source").to(collection);
+      else if target.__isCollection
+        return new CollectionSetter binding, target
       
 
     # is it a function?

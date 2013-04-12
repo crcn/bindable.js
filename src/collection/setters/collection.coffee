@@ -7,8 +7,14 @@ module.exports = class extends require("./base")
 
   init: () ->
     super()
+
     @_setter = new ObjSetter @binding, methods = {
       insert: (item) =>
+
+        # id might have changed - persist it.
+        if @binding._copyId
+          @target._id @binding._from._id()
+
         if ~@target.indexOf item
           methods.update item
         else

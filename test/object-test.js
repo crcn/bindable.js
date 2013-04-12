@@ -286,4 +286,19 @@ describe("bindable object", function() {
     expect(bindable.get("count")).not.to.be(undefined);
   });
 
+
+  it("can bind to a boolean value", function(next) {
+    var bindable = new BindableObject({
+      form: {
+        isValid: false
+      }
+    })
+
+    bindable.bind("form.isValid").to(function(value) {
+      expect(value).to.be(false);
+      next()
+    });
+
+  });
+
 });
