@@ -33,7 +33,7 @@ module.exports = class Binding
 
   collection: () ->
     return @_collectionBinding if @_collectionBinding
-    @_collection = new (require("../collection"))()
+    @_collection = new Binding.Collection()
 
     # bind this object to the collection source
     @to @_collection.source
