@@ -18,7 +18,7 @@ module.exports = class Bindable extends EventEmitter
     super()
     @_initData data
     @_bindings = []
-    @_setProtoData()
+    # @_setProtoData()
 
 
 
