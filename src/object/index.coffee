@@ -51,8 +51,8 @@ module.exports = class Bindable extends EventEmitter
 
         # create the binding
         obj.createObject(@, key)
-      else
-        @set key, obj
+      #else
+      #  @set key, obj
 
 
   ###
