@@ -45,7 +45,7 @@ module.exports = class extends Base
       if @__bothWays
         if @currentValue isnt value
           @_changeFrom value
-      else if value isnt @currentValue
+      else if value isnt @currentValue and value is undefined
         @_change @currentValue
 
 
