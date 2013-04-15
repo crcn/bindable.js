@@ -277,7 +277,10 @@ describe("bindable object", function() {
     bindable.set("states", { });
 
     expect(bindable.get("states.index")).to.be(0);
-  })
+  });
+
+
+
   it("can set null key and not fail", function() {
     bindable.set(null, 0);
   });

@@ -43,7 +43,7 @@ module.exports = class extends Base
     @_disposable = @to.bind(@property).to (value) =>
 
       if @__bothWays
-        if @currentValue isnt value and value isnt undefined
+        if @currentValue isnt value
           @_changeFrom value
       else if value isnt @currentValue
         @_change @currentValue
