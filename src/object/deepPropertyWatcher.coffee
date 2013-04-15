@@ -29,8 +29,8 @@ class DeepPropertyWatcher
   ###
 
   dispose: () -> 
-    deepPropertyWatcher.add @
     @_dispose()
+    deepPropertyWatcher.add @
 
   ###
   ###
@@ -70,6 +70,7 @@ class DeepPropertyWatcher
   ###
 
   changed: () =>
+
 
     @callback()
 

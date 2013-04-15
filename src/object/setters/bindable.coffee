@@ -7,6 +7,7 @@ module.exports = class extends Base
 
   constructor: (@binding, @to, @property) -> 
     super @binding
+    @_bothWays()
 
   ###
   ###
@@ -30,11 +31,22 @@ module.exports = class extends Base
   ###
 
   bothWays: () ->
+    @__bothWays = true
+    @
 
+
+  ###
+  ###
+
+  _bothWays: () ->
     # create a binding going the other way!
     @_disposable = @to.bind(@property).to (value) =>
-      if @currentValue isnt value
-        @_changeFrom value
+
+      if @__bothWays
+        if @currentValue isnt value and value isnt undefined
+          @_changeFrom value
+      else if value isnt @currentValue
+        @_change @currentValue
 
 
   ###

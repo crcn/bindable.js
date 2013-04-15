@@ -172,19 +172,20 @@ describe("bindable object", function() {
       "last": "craig"
     });
 
-    var changedLast;
+    var changedLast, binding;
 
     bindable.set({
       name: subBindable
     });
 
-    bindable.bind("name.last", function(value) {
+    binding = bindable.bind("name.last", function(value) {
       changedLast = value;
     }).once();
 
     bindable.set("name.last", "jefferds");
     expect(changedLast).to.be("jefferds");
     expect(subBindable.get("last")).to.be("jefferds");
+    binding.dispose()
   });
 
   
@@ -266,6 +267,17 @@ describe("bindable object", function() {
 
   });
 
+  it("can bind to a property after it's been set", function() {
+    var bindable = new BindableObject({
+      index: 0
+    });
+
+    bindable.bind("index", "states.index");
+
+    bindable.set("states", { });
+
+    expect(bindable.get("states.index")).to.be(0);
+  })
   it("can set null key and not fail", function() {
     bindable.set(null, 0);
   });
