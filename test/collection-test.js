@@ -167,13 +167,14 @@ describe("bindable collection", function() {
   });
 
   it("can bind to the collection empty state", function() {
-    var isEmpty = false;
-    var binding = col1.bind("empty", function(value) {
+    var isEmpty, col3 = new Collection([{_id:"craig"}, { _id: "john"}]);
+    var binding = col3.bind("empty", function(value) {
       isEmpty = value;
-      console.log(value)
     });
-
-
+    expect(isEmpty).to.be(false);
+    col3.reset();
+    expect(isEmpty).to.be(true);
+    binding.dispose();
   });
 
 

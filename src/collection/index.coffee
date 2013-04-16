@@ -42,8 +42,7 @@ module.exports = class extends BindableObject
   ###
   ###
 
-  length: () ->
-    @_length
+  length: () -> @_length
 
   ###
   ###
@@ -253,7 +252,7 @@ module.exports = class extends BindableObject
   _insert: (items, start = 0) ->
     return if not items.length
     @_length += items.length
-    @set "length", @_length
+    @_resetInfo()
     for item, i in items
       @emit "insert", item, start + i
     items
@@ -264,10 +263,19 @@ module.exports = class extends BindableObject
   _remove: (items, start = 0) ->
     return if not items.length
     @_length -= items.length
-    @set "length", @_length
+    @_resetInfo()
     for item, i in items
       @emit "remove", item, start + i
     items
+
+
+  ###
+  ###
+
+  _resetInfo: () ->
+    @set "length", @_length
+    @set "empty", not @_length
+
 
 
   ###
