@@ -53,18 +53,29 @@ class DeepPropertyWatcher
     @_disposed = false
     @_listeners = []
 
+    # data might be a bindable
+    @_trySubBinding @target.data, 0
+
     for part, i in @_chain
 
       property = @_chain.slice(0, i + 1).join(".")
       value = @target.get(property)
 
-      # if the item is bindable, then we need to WATCH that bindable item for any changes. This is needed for when we have a case like this
-      # bindable.bind("name.last", function() { });
-      # bindable.get("name").set("last", "jefferds")
-      if value and value.__isBindable
-        @_listeners.push deepPropertyWatcher.create { target: value, property: @_chain.slice(i + 1).join("."), callback: @changed }
+      @_trySubBinding value, i + 1
         
       @_listeners.push @target.on "change:#{property}", @changed
+
+
+  ###
+  ###
+
+  _trySubBinding: (value, index) ->
+    # if the item is bindable, then we need to WATCH that bindable item for any changes. This is needed for when we have a case like this
+    # bindable.bind("name.last", function() { });
+    # bindable.get("name").set("last", "jefferds")
+    if value and value.__isBindable
+      @_listeners.push deepPropertyWatcher.create { target: value, property: @_chain.slice(index).join("."), callback: @changed }
+
 
   ###
   ###

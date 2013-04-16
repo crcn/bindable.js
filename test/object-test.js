@@ -234,6 +234,27 @@ describe("bindable object", function() {
     expect(b3.get("lastName")).to.be("bubu");
   });
 
+
+
+  it("can bind to a property where a bindable object is wrapping around another", function() {
+    var bindable = new BindableObject(new BindableObject({
+        name: "craig"
+    }));
+
+    var newName1, newName2;
+
+    bindable.bind("name", function(value) {
+      newName1 = value;
+    });
+
+
+    bindable.data.bind("name", function(value) {
+      newName2 = value;
+    });
+    bindable.data.set("name", "jake");
+    expect(newName1).to.be("jake");
+    expect(newName2).to.be("jake");
+  });
   
   it("bindings are disposed when an bindable is", function() {
     var bindable = new BindableObject({
@@ -266,19 +287,6 @@ describe("bindable object", function() {
     expect(bindable.get("data.name")).to.be("mike");
 
   });
-
-  it("can bind to a property after it's been set", function() {
-    var bindable = new BindableObject({
-      index: 0
-    });
-
-    bindable.bind("index", "states.index");
-
-    bindable.set("states", { });
-
-    expect(bindable.get("states.index")).to.be(0);
-  });
-
 
 
   it("can set null key and not fail", function() {
