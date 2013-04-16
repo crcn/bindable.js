@@ -70,8 +70,7 @@ module.exports = class Bindable extends EventEmitter
   ###
 
   _set: (key, value) ->
-    dref.set @, key, value
-
+    return @ if not dref.set @, key, value
 
     @emit "change:#{key}", value
     @emit "change", value

@@ -40,12 +40,12 @@ exports.set = (target, key, value) ->
   for k, i in keyParts
 
     if ct.__isBindable
-      ct.set keyParts.slice(i).join("."), value
-      return
+      return ct.set keyParts.slice(i).join("."), value
     else
       if i is n-1
+        return false if ct[k] is value
         ct[k] = value
-        break
+        return true
       else
         nv = ct[k]
         if not nv or (typeof nv isnt "object")
