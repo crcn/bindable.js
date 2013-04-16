@@ -36,11 +36,6 @@ module.exports = class extends Base
         @_changeFrom value
 
 
-  ###
-  ###
-
-  _bothWays: () ->
-
 
   ###
   ###
