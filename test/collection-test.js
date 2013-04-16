@@ -4,6 +4,7 @@ _ = require("underscore");
 
 describe("bindable collection", function() {
   
+  
   var col1 = new Collection([
     {
       lname: "Craig"

@@ -4,7 +4,7 @@ expect = require("expect.js");
 describe("bindable object", function() {
 
   var bindable, binding;
-
+  
   
   it("can be created", function() {
     bindable = new BindableObject({
@@ -233,7 +233,6 @@ describe("bindable object", function() {
 
     expect(b3.get("lastName")).to.be("bubu");
   });
-
 
 
   it("can bind to a property where a bindable object is wrapping around another", function() {

@@ -70,6 +70,7 @@ class DeepPropertyWatcher
   ###
 
   _trySubBinding: (value, index) ->
+
     # if the item is bindable, then we need to WATCH that bindable item for any changes. This is needed for when we have a case like this
     # bindable.bind("name.last", function() { });
     # bindable.get("name").set("last", "jefferds")
@@ -82,11 +83,11 @@ class DeepPropertyWatcher
 
   changed: () =>
 
+    # re-create the bindings since shit could have changed
+    @_watch()
 
     @callback()
 
-    # re-create the bindings since shit could have changed
-    @_watch()
 
 
 deepPropertyWatcher = module.exports = poolParty({
