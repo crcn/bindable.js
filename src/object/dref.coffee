@@ -29,8 +29,8 @@ exports.set = (target, key, value) ->
   keyParts = key.split(".")
   firstKey = keyParts.shift()
 
-  # if the data exists
-  if not (ct = target[firstKey]) or firstKey is "data" or target.data[firstKey]
+  # if the first key exists as the target property
+  if typeof (ct = target[firstKey]) isnt "object" or firstKey is "data" or target.data[firstKey]
     ct = target.data
     keyParts.unshift firstKey
 
