@@ -35,6 +35,11 @@ module.exports = class extends BindableObject
   ###
   ###
 
+  empty: () -> !@_length
+
+  ###
+  ###
+
   length: () ->
     @_length
 

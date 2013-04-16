@@ -29,7 +29,8 @@ exports.set = (target, key, value) ->
   keyParts = key.split(".")
   firstKey = keyParts.shift()
 
-  # if the first key exists as the target property
+  # set current target to property of the bindable object. If the first key is "data" (reserved), 
+  # or the first key exists in the data object, then the CURRENT target is the target data.
   if typeof (ct = target[firstKey]) isnt "object" or firstKey is "data" or target.data[firstKey]
     ct = target.data
     keyParts.unshift firstKey
@@ -46,7 +47,7 @@ exports.set = (target, key, value) ->
         ct[k] = value
         break
       else
-        nv = ct[k] or ct.data?[k]
+        nv = ct[k]
         if not nv or (typeof nv isnt "object")
           nv = ct[k] = {}
 
