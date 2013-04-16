@@ -20,6 +20,8 @@ module.exports = class extends BindableObject
   ###
 
   constructor: (source = [], _id = "_id") ->
+    super()
+
     @_source = []
 
     if typeof source is "string"
@@ -82,17 +84,22 @@ module.exports = class extends BindableObject
   ###
   ###
 
-  bind: (to) -> new Binding(@).to(to)
+  bind: (to) -> 
+    return super(arguments...) if typeof to is "string"
+    new Binding(@).to(to)
+
+  set: (key, value) ->
+    k = Number key
+    return super(arguments...) if isNaN k
+    @splice k, value 
 
   ###
   ###
 
-  set: (index, value) -> @splice index, 1, value
-
-  ###
-  ###
-
-  get: (key) -> @at Number key
+  get: (key) -> 
+    k = Number key
+    return super(key) if isNaN k
+    @at k
 
   ###
   ###
@@ -246,6 +253,7 @@ module.exports = class extends BindableObject
   _insert: (items, start = 0) ->
     return if not items.length
     @_length += items.length
+    @set "length", @_length
     for item, i in items
       @emit "insert", item, start + i
     items
@@ -256,6 +264,7 @@ module.exports = class extends BindableObject
   _remove: (items, start = 0) ->
     return if not items.length
     @_length -= items.length
+    @set "length", @_length
     for item, i in items
       @emit "remove", item, start + i
     items

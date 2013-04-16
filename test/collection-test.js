@@ -156,6 +156,17 @@ describe("bindable collection", function() {
   });
 
 
+  it("can bind to the collection length", function() {
+    var newLength;
+    var binding = col1.bind("length", function(value) {
+      newLength = value;
+    })
+    col1.push({ lname: "abbba" });
+    expect(newLength).to.be(col1.length());
+    binding.dispose();
+  });
+
+
   it("can transform objects", function() {
     col3.reset([]);
     col3._id("name");
