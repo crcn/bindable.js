@@ -166,6 +166,16 @@ describe("bindable collection", function() {
     binding.dispose();
   });
 
+  it("can bind to the collection empty state", function() {
+    var isEmpty = false;
+    var binding = col1.bind("empty", function(value) {
+      isEmpty = value;
+      console.log(value)
+    });
+
+
+  });
+
 
   it("can transform objects", function() {
     col3.reset([]);
