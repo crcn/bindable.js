@@ -235,6 +235,19 @@ describe("bindable object", function() {
   });
 
 
+  it("can bind to a regular property", function() {
+    var b1 = new BindableObject({
+
+    });
+
+    b1.sub = new BindableObject({
+      name: "craig"
+    });
+
+    b1.set("sub.name", "john");
+    expect(b1.sub.get("name")).to.be("john");
+  })
+
   it("can bind to a property where a bindable object is wrapping around another", function() {
     var bindable = new BindableObject(new BindableObject({
         name: "craig"

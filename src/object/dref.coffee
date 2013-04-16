@@ -27,11 +27,14 @@ exports.set = (target, key, value) ->
   return if not target or not key
 
   keyParts = key.split(".")
+  firstKey = keyParts.shift()
 
+  # if the data exists
+  if not (ct = target[firstKey]) or firstKey is "data" or target.data[firstKey]
+    ct = target.data
+    keyParts.unshift firstKey
 
-  ct = target.data
   n = keyParts.length
-
 
   for k, i in keyParts
 
@@ -43,7 +46,7 @@ exports.set = (target, key, value) ->
         ct[k] = value
         break
       else
-        nv = ct[k]
+        nv = ct[k] or ct.data?[k]
         if not nv or (typeof nv isnt "object")
           nv = ct[k] = {}
 
