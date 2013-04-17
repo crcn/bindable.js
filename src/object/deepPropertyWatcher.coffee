@@ -1,45 +1,51 @@
 dref = require("dref")
 poolParty = require("poolparty")
 
-
-
+class PropertyWatcher
   
-
-class DeepPropertyWatcher
-
   ###
   ###
 
-  constructor: (options) ->
-    @reset options
-
+  constructor: (options) -> @reset options
 
   ###
   ###
 
   reset: (options) ->
-    @_disposed = false
-    @target   = options.target
-    @property = options.property
-    @callback = options.callback
-    @_chain = @property.split(".")
+
+    if options.property
+      options.path = options.property.split(".")
+
+    @index     = options.index or 0
+    @_fullPath = options.path
+    @_path     = @_fullPath.slice(0, @index)
+    @_property = @_path.join(".")
+    @target    = options.target
+    @callback  = options.callback
     @_watch()
 
   ###
   ###
 
-  dispose: () -> 
-    @_dispose()
-    deepPropertyWatcher.add @
-
-  ###
-  ###
-
   _dispose: () ->
-    if @_listeners
-      for listener in @_listeners
-        listener.dispose()
-      @_listeners = undefined
+    if @_listener
+      @_listener.dispose()
+      @_listener = undefined
+
+    if @_binding
+      @_binding.dispose()
+      @_binding = undefined
+
+    if @_child
+      @_child.dispose()
+      @_child = undefined
+
+  ###
+  ###
+
+  dispose: () ->
+    @_dispose()
+    propertyWatcher.add @
 
 
   ###
@@ -47,51 +53,32 @@ class DeepPropertyWatcher
 
   _watch: () ->
 
-    if @_listeners
-      @_dispose()
+    value = @target.get(@_property)
 
-    @_disposed = false
-    @_listeners = []
-
-    # data might be a bindable
-    @_trySubBinding @target.data, 0
-
-    for part, i in @_chain
-
-      property = @_chain.slice(0, i + 1).join(".")
-      value = @target.get(property)
-
-      @_trySubBinding value, i + 1
-        
-      @_listeners.push @target.on "change:#{property}", @changed
+    if @_property.length
+      @_listener = @target.on "change:#{@_property}", () => @_changed()
 
 
-  ###
-  ###
-
-  _trySubBinding: (value, index) ->
-
-    # if the item is bindable, then we need to WATCH that bindable item for any changes. This is needed for when we have a case like this
-    # bindable.bind("name.last", function() { });
-    # bindable.get("name").set("last", "jefferds")
     if value and value.__isBindable
-      @_listeners.push deepPropertyWatcher.create { target: value, property: @_chain.slice(index).join("."), callback: @changed }
+      @_binding = propertyWatcher.create { target: value, path: @_fullPath.slice(@index), callback: (() => @_changed()) }
+    else if @_path.length < @_fullPath.length
+      @_child = propertyWatcher.create { target: @target, path: @_fullPath, callback: @callback, index: @index + 1}
 
 
   ###
   ###
 
-  changed: () =>
-
-    # re-create the bindings since shit could have changed
+  _changed: () ->
+    @_dispose()
     @_watch()
-
     @callback()
 
 
-
-deepPropertyWatcher = module.exports = poolParty({
-  max: 100,
-  factory: (options) -> new DeepPropertyWatcher(options)
+propertyWatcher = module.exports = poolParty({
+  max: 100
+  factory: (options) -> return new PropertyWatcher options
   recycle: (watcher, options) -> watcher.reset options
 })
+
+
+

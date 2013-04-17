@@ -41,6 +41,7 @@ describe("bindable object", function() {
   });
 
 
+
   it("can bind to a property", function() {
 
     bindable.bind("name", "name2").once()
@@ -267,6 +268,7 @@ describe("bindable object", function() {
     expect(newName1).to.be("jake");
     expect(newName2).to.be("jake");
   });
+
   
   it("bindings are disposed when an bindable is", function() {
     var bindable = new BindableObject({

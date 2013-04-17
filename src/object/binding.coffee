@@ -146,9 +146,7 @@ module.exports = class Binding
   ###
 
   _trigger: () =>
-
     @_callSetterFns "change", [@_from.get(@_property)]
-
     if ~@_limit and ++@_triggerCount > @_limit
       @dispose()
 
