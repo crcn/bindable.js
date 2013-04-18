@@ -308,7 +308,7 @@ describe("bindable object", function() {
     }), name;
 
     bindable.bind({
-      property: "name",
+      from: "name",
       to: [
         function(value) {
           name = value;

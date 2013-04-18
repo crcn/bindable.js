@@ -170,7 +170,7 @@ module.exports = class Binding
     @_disposeListener = @_from.once "dispose", @dispose
 
 Binding.fromOptions = (target, options) ->
-  binding = target.bind options.property
+  binding = target.bind options.property or options.from
   to = toarray options.to
 
 
