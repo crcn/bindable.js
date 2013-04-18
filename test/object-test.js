@@ -187,7 +187,8 @@ describe("bindable object", function() {
     binding.dispose();
   });
 
-
+  /*
+  not anymore!
   it("should be able to bind to a single property", function() {
     var person = new BindableObject({
       
@@ -205,7 +206,7 @@ describe("bindable object", function() {
     person.set("name", { first: "jake" });
     expect(person.name.first).to.be("jake");
     expect(p.first).to.be("jake");
-  })
+  })*/
 
   it("can bind to a sub-binding", function() {
 
@@ -276,7 +277,8 @@ describe("bindable object", function() {
     expect(b3.get("lastName")).to.be("bubu");
   });
 
-
+  /*
+  not anymore!
   it("can bind to a regular property", function() {
     var b1 = new BindableObject({
 
@@ -289,6 +291,7 @@ describe("bindable object", function() {
     b1.set("sub.name", "john");
     expect(b1.sub.get("name")).to.be("john");
   })
+*/
 
   it("can bind to a property where a bindable object is wrapping around another", function() {
     var bindable = new BindableObject(new BindableObject({

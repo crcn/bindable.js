@@ -27,22 +27,27 @@ exports.set = (target, key, value) ->
   return if not target or not key
 
   keyParts = key.split(".")
-  firstKey = keyParts.shift()
+
+
+  ct = target.data
 
   # set current target to property of the bindable object. If the first key is "data" (reserved), 
   # or the first key exists in the data object, then the CURRENT target is the target data.
+
+  ###
   if typeof (ct = target[firstKey]) isnt "object" or firstKey is "data" or target.data[firstKey]
     ct = target.data
     keyParts.unshift firstKey
   else if not keyParts.length
     ct = target
     keyParts.unshift firstKey
+  ###
 
   n = keyParts.length
 
   for k, i in keyParts
 
-    if ct.__isBindable and ct isnt target
+    if ct.__isBindable
       return ct.set keyParts.slice(i).join("."), value
     else
       if i is n-1
