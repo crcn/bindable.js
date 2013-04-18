@@ -302,6 +302,25 @@ describe("bindable object", function() {
 
   });
 
+  it("can bind to an object", function() {
+    var bindable = new BindableObject({
+      name: "craig"
+    }), name;
+
+    bindable.bind({
+      property: "name",
+      to: [
+        function(value) {
+          name = value;
+        },
+        "someName"
+      ]
+    });
+
+    expect(bindable.get("someName")).to.be("craig");
+    expect(name).to.be("craig");
+  })
+
 
   it("can set null key and not fail", function() {
     bindable.set(null, 0);

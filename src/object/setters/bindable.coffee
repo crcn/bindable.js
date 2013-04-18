@@ -35,8 +35,6 @@ module.exports = class extends Base
       if @currentValue isnt value
         @_changeFrom value
 
-
-
   ###
   ###
 

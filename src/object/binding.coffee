@@ -2,6 +2,7 @@ BindableSetter = require("./setters/factory")
 bindableSetter = new BindableSetter()
 utils = require "../core/utils"
 hoist = require "hoist"
+toarray = require "toarray"
 deepPropertyWatcher = require("./deepPropertyWatcher")
 
 ###
@@ -167,6 +168,33 @@ module.exports = class Binding
 
     # if the object is disposed, then remove this listener
     @_disposeListener = @_from.once "dispose", @dispose
+
+Binding.fromOptions = (target, options) ->
+  binding = target.bind options.property
+  to = toarray options.to
+
+
+  for t in to
+    tops = if typeof t is "object" then t.property else { property: t }
+
+    if tops.transform
+      bindings.transform tops.transform
+
+    binding.to tops.property
+
+  if options.limit
+    binding.limit options.limit
+
+  if options.once
+    binding.once()
+
+  if options.bothWays
+    binding.bothWays()
+
+  binding
+
+
+
 
 
 

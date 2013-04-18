@@ -32,7 +32,13 @@ item.bind("location.zip").to(anotherModel, "location.zip").bothWays();
 //chain to multiple items, and limit it!
 item.bind("location.zip").to("property").to("anotherProperty").to(function(value) {
   
-}).limit(5)
+}).limit(5);
+
+item.bind({
+  property: "location.zip",
+  limit: 5,
+  to: "anotherProperty"
+})
 
 //you can even bind to values by setting a binding
 anotherModel.set("location.zip", item.bind("location.zip"));

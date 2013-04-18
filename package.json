@@ -1,6 +1,6 @@
 {
   "name": "bindable",
-  "version": "0.2.48",
+  "version": "0.2.49",
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
   "scripts": {
@@ -21,7 +21,9 @@
     "underscore": "1.4.x",
     "hoist": "0.0.x",
     "isa": "0.1.x",
-    "poolparty": "0.0.x"
+    "poolparty": "0.0.x",
+    "toarray": "0.0.x",
+    "outcome": "0.0.x"
   },
   "devDependencies": {
     "mocha": "1.8.x",

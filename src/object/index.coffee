@@ -88,13 +88,15 @@ module.exports = class Bindable extends EventEmitter
 
   bind: (property, to) -> 
 
+    if typeof property is "object"
+      return Binding.fromOptions @, property
+
     # to cannot be a binding
     if to and to.__isBinding
       @set property, to
       return
 
     new Binding(@, property).to(to)
-
 
   ###
   ###
