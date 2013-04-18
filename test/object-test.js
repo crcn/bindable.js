@@ -103,6 +103,28 @@ describe("bindable object", function() {
   });
 
 
+  it("can listen for multiple change events", function() {
+    var bindable = new BindableObject({
+      person: new BindableObject({
+        name: new BindableObject({
+          first: "craig",
+          last: "craig"
+        })
+      })
+    });
+
+    var pn, binding = bindable.bind("person.name.first").to(function(value) {
+      pn = value;
+    });
+
+    bindable.set("person.name.first", "jake");
+    expect(pn).to.be("jake");
+    bindable.set("person.name", new BindableObject({ first: "josh" }));
+    bindable.set("person.name.first", "jeff");
+    expect(pn).to.be("jeff");
+  })
+
+
   it("can be bound to a binding", function() {
     binding = bindable.bind("fish");
     bindable.set("fish2", binding);
@@ -165,6 +187,25 @@ describe("bindable object", function() {
     binding.dispose();
   });
 
+
+  it("should be able to bind to a single property", function() {
+    var person = new BindableObject({
+      
+    });
+
+    person.name = { first: "craig" }
+    var p = {};
+
+    person.bind("name", function(value) {
+      p = value;
+    })
+
+    expect(p.first).to.be("craig");
+
+    person.set("name", { first: "jake" });
+    expect(person.name.first).to.be("jake");
+    expect(p.first).to.be("jake");
+  })
 
   it("can bind to a sub-binding", function() {
 

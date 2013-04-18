@@ -34,12 +34,15 @@ exports.set = (target, key, value) ->
   if typeof (ct = target[firstKey]) isnt "object" or firstKey is "data" or target.data[firstKey]
     ct = target.data
     keyParts.unshift firstKey
+  else if not keyParts.length
+    ct = target
+    keyParts.unshift firstKey
 
   n = keyParts.length
 
   for k, i in keyParts
 
-    if ct.__isBindable
+    if ct.__isBindable and ct isnt target
       return ct.set keyParts.slice(i).join("."), value
     else
       if i is n-1
