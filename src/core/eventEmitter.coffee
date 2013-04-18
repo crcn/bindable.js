@@ -2,6 +2,8 @@ events = require("events")
 disposable = require("disposable")
 
 module.exports = class EventEmitter extends events.EventEmitter
+  
+
 
   ###
   ###
@@ -34,6 +36,20 @@ module.exports = class EventEmitter extends events.EventEmitter
         @off key, listener
       
     disposables
+
+  ###
+  ###
+
+  once: (key, listener) ->
+    oldListener = listener
+
+    disp = @on key, () ->
+      disp.dispose()
+      oldListener.apply this, arguments
+
+    disp.target = @
+
+    disp
 
   ###
   ###
