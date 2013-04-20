@@ -56,11 +56,11 @@ class PropertyWatcher
     value = @target.get(@_property)
 
     if @_property.length
-      @_listener = @target.on "change:#{@_property}", () => @_changed()
+      @_listener = @target.on "change:#{@_property}", @_changed
 
 
     if value and value.__isBindable
-      @_binding = propertyWatcher.create { target: value, path: @_fullPath.slice(@index), callback: (() => @_changed()) }
+      @_binding = propertyWatcher.create { target: value, path: @_fullPath.slice(@index), callback: @_changed }
     else if @_path.length < @_fullPath.length
       @_child = propertyWatcher.create { target: @target, path: @_fullPath, callback: @callback, index: @index + 1}
 
@@ -68,10 +68,10 @@ class PropertyWatcher
   ###
   ###
 
-  _changed: () ->
+  _changed: (value) =>
     @_dispose()
     @_watch()
-    @callback()
+    @callback value
 
 
 propertyWatcher = module.exports = poolParty({

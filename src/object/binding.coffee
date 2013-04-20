@@ -27,6 +27,14 @@ module.exports = class Binding
 
     @_listen()
 
+  ###
+  ###
+
+  watch: (value) ->
+    return @_watch if not arguments.length
+    @_watch = value
+    @
+
 
   ###
    casts this binding as a collection binding

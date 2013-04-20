@@ -7,7 +7,9 @@ module.exports = class
 
   constructor: (@binding) ->
     @_transformer = @binding.transform()
-    @init()
+
+    if not @binding.watch() 
+      @init()
 
   ###
   ###

@@ -115,3 +115,4 @@ new Builder(Binding, Bindable)
 
 
 module.exports.EventEmitter = EventEmitter
+module.exports.propertyWatcher = require("./deepPropertyWatcher")
