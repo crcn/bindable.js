@@ -1,7 +1,7 @@
 dref         = require "dref"
 Binding      = require "./binding"
 EventEmitter = require "../core/eventEmitter"
-isa = require "isa"
+type = require "type-component"
 hoist = require "hoist"
 BindableObject     = require "../object"
 
@@ -24,7 +24,7 @@ module.exports = class extends BindableObject
 
     @_source = []
 
-    if typeof source is "string"
+    if type(source) is "string"
       _id = source
       source = []
       
@@ -84,7 +84,7 @@ module.exports = class extends BindableObject
   ###
 
   bind: (to) -> 
-    return super(arguments...) if typeof to is "string"
+    return super(arguments...) if type(to) is "string"
     new Binding(@).to(to)
 
   set: (key, value) ->
@@ -283,7 +283,7 @@ module.exports = class extends BindableObject
 
   _transform: (item, index, start) ->
     return item if not @_transformer
-    if isa.array item
+    if type(item) is "array"
       results = []
       for i in item
         results.push @_transformer i
