@@ -1,7 +1,6 @@
-sift           = require "sift"
 SettersFactory = require "./setters/factory"
 settersFactory = new SettersFactory()
-utils = require "../core/utils"
+utils          = require "../core/utils"
 
 module.exports = class
 
