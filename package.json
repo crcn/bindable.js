@@ -1,6 +1,6 @@
 {
   "name": "bindable",
-  "version": "0.2.54",
+  "version": "0.2.55",
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
   "scripts": {
@@ -17,7 +17,6 @@
   "dependencies": {
     "dref": "0.0.x",
     "disposable": "0.0.x",
-    "sift": "0.0.x",
     "underscore": "1.4.x",
     "hoist": "0.0.x",
     "isa": "0.1.x",
@@ -28,6 +27,7 @@
   "devDependencies": {
     "mocha": "1.8.x",
     "expect.js": "0.2.x",
-    "structr": "0.2.x"
+    "structr": "0.2.x",
+    "sift":"0.0.9"
   }
 }

@@ -74,11 +74,11 @@ class PropertyWatcher
     @callback value
 
 
-propertyWatcher = module.exports = poolParty({
+propertyWatcher = module.exports = poolParty
   max: 100
   factory: (options) -> return new PropertyWatcher options
   recycle: (watcher, options) -> watcher.reset options
-})
+
 
 
 

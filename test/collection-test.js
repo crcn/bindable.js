@@ -1,6 +1,7 @@
 var Collection = require("../").Collection,
 expect = require("expect.js"),
-_ = require("underscore");
+_ = require("underscore"),
+sift = require("sift");
 
 describe("bindable collection", function() {
   
@@ -98,7 +99,7 @@ describe("bindable collection", function() {
   });
 
   it("a binding with a filter can be created", function() {
-    bindings.col12 = col1.bind().filter({ lname: { $ne: "Monica" }}).transform(function(person) {
+    bindings.col12 = col1.bind().filter(sift({ lname: { $ne: "Monica" }}).test).transform(function(person) {
       return { name: person.lname }
     }).to(col2);
   });

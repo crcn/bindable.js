@@ -53,7 +53,7 @@ module.exports = class
 
   filter: (search) ->
     return @_filter if not arguments.length
-    @_filter = sift search
+    @_filter = search
     @
 
   ###

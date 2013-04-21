@@ -27,7 +27,7 @@ module.exports = class
   change: (event, item) ->
 
     if @_filter
-      return if not @_filter.test item
+      return if not @_filter item
 
     @__transform "to", item, (err, item) =>
       throw err if err
