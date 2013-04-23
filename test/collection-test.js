@@ -4,7 +4,7 @@ _ = require("underscore"),
 sift = require("sift");
 
 describe("bindable collection", function() {
-  
+
   var col1 = new Collection([
     {
       lname: "Craig"
@@ -34,6 +34,7 @@ describe("bindable collection", function() {
   it("can bind a col1 -> col3", function() {
     bindings.col13 = col1.bind().to(col3);
   });
+
 
   it("col3 has the same items as col1", function() {
     expect(_.intersection(col1.source(), col3.source()).length).to.be(3);

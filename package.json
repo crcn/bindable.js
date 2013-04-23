@@ -28,6 +28,7 @@
     "mocha": "1.8.x",
     "expect.js": "0.2.x",
     "structr": "0.2.x",
-    "sift": "0.0.9"
+    "sift": "0.0.9",
+    "sardines": "0.4.x"
   }
 }
