@@ -4,7 +4,7 @@
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "mocha --timeout 100 --reporter min"
+    "test": "make clean all test-web; mocha --timeout 100 --reporter min; karma start"
   },
   "repository": {
     "type": "git",
