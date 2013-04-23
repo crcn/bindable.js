@@ -29,6 +29,7 @@
     "expect.js": "0.2.x",
     "structr": "0.2.x",
     "sift": "0.0.9",
-    "sardines": "0.4.x"
+    "sardines": "0.4.x",
+    "karma": "0.8.x"
   }
 }
