@@ -133,7 +133,7 @@ module.exports = class Binding
    removes the binding
   ###
 
-  dispose: () =>
+  dispose: () ->
 
     @_callSetterFns "dispose"
 
@@ -154,7 +154,7 @@ module.exports = class Binding
    triggers the binding *if* it exists
   ###
 
-  _trigger: () =>
+  _trigger: () ->
     @_callSetterFns "change", [@_from.get(@_property)]
     if ~@_limit and ++@_triggerCount > @_limit
       @dispose()
@@ -172,10 +172,13 @@ module.exports = class Binding
   ###
 
   _listen: () ->
-    @_listener = deepPropertyWatcher.create { target: @_from, property: @_property, callback: @_trigger }
+    @_listener = deepPropertyWatcher.create { target: @_from, property: @_property, callback: () =>
+      @_trigger()
+    }
 
     # if the object is disposed, then remove this listener
-    @_disposeListener = @_from.once "dispose", @dispose
+    @_disposeListener = @_from.once "dispose", () =>
+      @dispose()
 
 Binding.fromOptions = (target, options) ->
   binding = target.bind options.property or options.from
