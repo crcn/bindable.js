@@ -19,6 +19,19 @@ describe("bindable object", function() {
   });
 
   
+  it("can reset an object", function() {
+    var obj = new BindableObject({
+      a:1,
+      b:2,
+      c:3
+    })
+
+    obj.reset({c:4,d:5});
+    expect(obj.get("a")).to.be(undefined)
+    expect(obj.get("b")).to.be(undefined)
+    expect(obj.get("c")).to.be(4)
+    expect(obj.get("d")).to.be(5)
+  })
   
   it("can bind to location.zip", function(next) {
 

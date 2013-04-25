@@ -69,6 +69,22 @@ module.exports = class Bindable extends EventEmitter
   ###
   ###
 
+  reset: (newData = {}) ->
+    
+    @set newData
+
+    for key of @data
+
+      # delete key
+      if not newData[key]
+        @set key, undefined
+
+    @
+
+
+  ###
+  ###
+
   _set: (key, value) ->
     return @ if not dref.set @, key, value
 
