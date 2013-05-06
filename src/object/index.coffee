@@ -46,6 +46,12 @@ module.exports = class Bindable extends EventEmitter
   ###
   ###
 
+  keys: () -> Object.keys @getFlatten()
+
+
+  ###
+  ###
+
   has: (key) -> !!@get key
 
   ###
@@ -55,6 +61,13 @@ module.exports = class Bindable extends EventEmitter
 
     # an object?
     if arguments.length is 1
+
+      if key.__isBindable
+        for k in key.keys()
+          @set k, key.get(k)
+        return
+
+
       for k of key
         @set k, key[k]
       return
@@ -76,7 +89,7 @@ module.exports = class Bindable extends EventEmitter
     for key of @data
 
       # delete key
-      if not newData[key]
+      if not dref.get(newData, key)?
         @set key, undefined
 
     @

@@ -1,6 +1,6 @@
 {
   "name": "bindable",
-  "version": "0.2.58",
+  "version": "0.2.60",
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
   "scripts": {
