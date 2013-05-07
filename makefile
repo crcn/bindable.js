@@ -8,6 +8,11 @@ clean:
 	rm -rf lib
 	rm -rf test-web;
 
+
+
+browser:
+	sardines ./lib/index.js -o ./build/bindable.js -p browser
+
 test-web:
 	rm -rf test-web;
 	cp -r test test-web;
