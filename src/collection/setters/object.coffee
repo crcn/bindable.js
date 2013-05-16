@@ -9,9 +9,9 @@ module.exports = class extends require("./base")
   init: () ->
 
     _.defaults(@target, {
-      insert: ((item) ->)
-      remove: ((item) ->)
-      update: ((item) ->)
+      insert : ((item) ->)
+      remove : ((item) ->)
+      reset  : ((item) ->)
     })
 
 

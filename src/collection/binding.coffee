@@ -70,7 +70,7 @@ module.exports = class
   _listen: () ->
     @_listeners = []
 
-    for event in ["insert", "remove", "update"] then do (event) =>
+    for event in ["insert", "remove", "reset"] then do (event) =>
       @_listeners.push @_from.on event, (item, index) =>
         @_callSetters event, item, index
 

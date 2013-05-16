@@ -105,6 +105,7 @@ describe("bindable collection", function() {
     }).to(col2);
   });
 
+
   it("col2 still doesn't have Monica", function() {
     expect(col2.indexOf({ name: "Monica" })).to.be(-1);
     bindings.col12.dispose();

@@ -20,11 +20,14 @@ module.exports = class extends require("./base")
         else
           @target.push(item)
 
-      update: (item, index) =>
+      update: (item) =>
         @target.update item
+
+      reset: (items) =>
+        @target.reset items 
+
       remove: (item) =>
         index = @target.indexOf item
-
         if ~index
           @target.splice(index, 1)
 

@@ -61,15 +61,19 @@ module.exports = class extends BindableObject
 
     @disposeSourceBinding()
 
-    @_remove @_source or []
+    #@_remove @_source or []
 
     if source.__isCollection  
       @_source = []
       @_id source._id()
       @_sourceBinding = source.bind().to @
       return @
+  
+    src = @_source = @_transform source
+    @_length = src.length
+    @emit "reset", src
+    @_resetInfo()
 
-    @_insert @_source = @_transform source
     @
 
   ###
@@ -86,6 +90,9 @@ module.exports = class extends BindableObject
   bind: (to) -> 
     return super(arguments...) if type(to) is "string"
     new Binding(@).to(to)
+
+  ###
+  ###
 
   set: (key, value) ->
     k = Number key

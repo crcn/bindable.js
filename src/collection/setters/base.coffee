@@ -1,4 +1,5 @@
 utils = require "../../core/utils"
+async = require "async"
 
 module.exports = class 
   
@@ -26,12 +27,40 @@ module.exports = class
 
   change: (event, item) ->
 
+    if event is "reset"
+      @_changeItems event, item
+    else
+      @_changeItem event, item
+
+
+  ###
+  ###
+
+  _changeItem: (event, item) ->
     if @_filter
       return if not @_filter item
 
     @__transform "to", item, (err, item) =>
       throw err if err
       @_change event, item
+
+  ###
+  ###
+
+  _changeItems: (event, items) ->
+    if @_filter
+      changed = items.filter @_filter
+    else
+      changed = items
+
+    async.map changed, ((item, next) =>
+      @__transform "to", item, (err, item) =>
+        throw err if err
+        next null, item
+    ), (err, items) => 
+      throw err if err
+      @_change event, items
+
   ###
   ###
 
