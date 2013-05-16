@@ -23,8 +23,8 @@ module.exports = class extends require("./base")
       update: (item) =>
         @target.update item
 
-      reset: (items) =>
-        @target.reset items 
+      reset: (items, oldItems) =>
+        @target.reset items, oldItems
 
       remove: (item) =>
         index = @target.indexOf item

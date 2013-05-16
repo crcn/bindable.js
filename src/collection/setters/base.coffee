@@ -25,29 +25,29 @@ module.exports = class
   ###
   ###
 
-  change: (event, item) ->
+  change: (event, item, oldItem) ->
 
     if event is "reset"
-      @_changeItems event, item
+      @_changeItems event, item, oldItem
     else
-      @_changeItem event, item
+      @_changeItem event, item, oldItem
 
 
   ###
   ###
 
-  _changeItem: (event, item) ->
+  _changeItem: (event, item, oldItem) ->
     if @_filter
       return if not @_filter item
 
     @__transform "to", item, (err, item) =>
       throw err if err
-      @_change event, item
+      @_change event, item, oldItem
 
   ###
   ###
 
-  _changeItems: (event, items) ->
+  _changeItems: (event, items, oldItems) ->
     if @_filter
       changed = items.filter @_filter
     else
@@ -59,7 +59,7 @@ module.exports = class
         next null, item
     ), (err, items) => 
       throw err if err
-      @_change event, items
+      @_change event, items, oldItems
 
   ###
   ###

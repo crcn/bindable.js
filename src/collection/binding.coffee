@@ -77,8 +77,8 @@ module.exports = class
   ###
   ###
 
-  _callSetters: (method, item) ->
+  _callSetters: (method, item, index) ->
     for setter in @_setters
-      setter.change method, item
+      setter.change method, item, index
 
 
