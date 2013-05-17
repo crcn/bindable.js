@@ -8,9 +8,9 @@ module.exports = class extends require("./base")
     super()
 
     # initial hydration
-    @change "reset", @binding._from.source(), []
-    #for item, i in @binding._from.source()
-    #  @change "insert", item
+    #@change "reset", @binding._from.source(), []
+    for item, i in @binding._from.source()
+      @change "insert", item
       
   ###
   ###

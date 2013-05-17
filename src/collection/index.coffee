@@ -61,7 +61,7 @@ module.exports = class extends BindableObject
 
     @disposeSourceBinding()
 
-    #@_remove @_source or []
+    @_remove @_source or []
 
     if source.__isCollection  
       @_source = []
@@ -69,10 +69,11 @@ module.exports = class extends BindableObject
       @_sourceBinding = source.bind().to @
       return @
     
-    oldSrc = @_source or []
-    src = @_source = @_transform source
-    @_length = src.length
-    @emit "reset", src, oldSrc
+    #oldSrc = @_source or []
+    #src = @_source = @_transform source
+    #@_length = src.length
+    #@emit "reset", src, oldSrc
+    @_insert @_source = @_transform source
     @_resetInfo()
 
     @

@@ -11,6 +11,7 @@ module.exports = class extends require("./base")
     @_setter = new ObjSetter @binding, methods = {
       insert: (item) =>
 
+
         # id might have changed - persist it.
         if @binding._copyId
           @target._id @binding._from._id()
@@ -24,7 +25,11 @@ module.exports = class extends require("./base")
         @target.update item
 
       reset: (items, oldItems) =>
-        @target.reset items, oldItems
+        for item in oldItems  
+          @target.remove item
+          
+        for item in items
+          methods.insert item
 
       remove: (item) =>
         index = @target.indexOf item
