@@ -4,7 +4,6 @@ expect = require("expect.js");
 
 describe("bindable object collection", function() {
   
-  
   var col1 = new BindableCollection([
     {
       lname: "Craig"

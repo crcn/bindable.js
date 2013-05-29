@@ -40,28 +40,23 @@ module.exports = class
     if @_filter
       return if not @_filter item
 
-    @__transform "to", item, (err, item) =>
-      throw err if err
-      @_change event, item, oldItem
+    @_change event, @__transform("to", item), oldItem
 
   ###
   ###
 
   _changeItems: (event, items, oldItems) ->
+
     if @_filter
       changed = items.filter @_filter
     else
-      changed = items
+      changed = items.concat()
 
+    for item, i in changed
+      changed[i] = @__transform "to", item
 
+    @_change events, changed, oldItems
 
-    async.map changed, ((item, next) =>
-      @__transform "to", item, (err, item) =>
-        throw err if err
-        next null, item
-    ), (err, items) => 
-      throw err if err
-      @_change event, items, oldItems
 
   ###
   ###
@@ -78,5 +73,5 @@ module.exports = class
   ###
   ###
 
-  __transform: (method, value, next) ->
-    utils.tryTransform @_transformer, method, value, next
+  __transform: (method, value) ->
+    utils.tryTransform @_transformer, method, value

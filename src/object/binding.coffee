@@ -34,7 +34,6 @@ module.exports = class Binding
     @_watch = value
     @
 
-
   ###
    casts this binding as a collection binding
   ###

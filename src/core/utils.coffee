@@ -1,8 +1,8 @@
 hoist = require "hoist"
 
-exports.tryTransform  = (transformer, method, value, callback) ->
-  return callback null, value if not transformer
-  transformer[method].call(transformer, value, callback)
+exports.tryTransform  = (transformer, method, value) ->
+  return value if not transformer
+  return transformer[method].call(transformer, value)
 
 
 

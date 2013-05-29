@@ -39,7 +39,5 @@ module.exports = class extends Base
   ###
 
   _changeFrom: (value) ->
-    @__transform "from", value, (err, transformedValue) =>
-      throw err if err
-      @binding._from.set @binding._property, @currentValue = transformedValue
+    @binding._from.set @binding._property, @currentValue = @__transform "from", value
 

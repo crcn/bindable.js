@@ -171,17 +171,6 @@ describe("bindable object", function() {
     expect(bindable.get("name2")).to.be("CRAIG");
   });
 
-  it("can transform an object asynchronously", function(next) {
-
-    bindable.set("name3", "sam").bind("name3").transform(function(value, next) {
-      setTimeout(next, 1, null, value.toUpperCase());
-    }).to("name4").once();
-
-    setTimeout(function() {
-      expect(bindable.get("name4")).to.be("SAM");
-      next();
-    }, 4);
-  });
 
   it("can transform an object to and from", function() {
     var binding = bindable.set("name", "chris").bind("name").transform({
