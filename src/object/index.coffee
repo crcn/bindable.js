@@ -2,7 +2,6 @@ dref = require "./dref"
 require("dref").use require("../shim/dref")
 EventEmitter = require("../core/eventEmitter")
 Binding = require("./binding")
-Builder = require("../core/builder")
 
 module.exports = class Bindable extends EventEmitter
 
@@ -142,8 +141,6 @@ module.exports = class Bindable extends EventEmitter
   toJSON: () -> @data
 
 
-
-new Builder(Binding, Bindable)
 
 
 module.exports.EventEmitter = EventEmitter

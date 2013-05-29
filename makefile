@@ -1,7 +1,7 @@
 all:
 	coffee -o lib -c src	
 
-watch: 
+all-watch: 
 	coffee -o lib -cw src
 
 clean:
