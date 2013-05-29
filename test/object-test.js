@@ -200,6 +200,20 @@ describe("bindable object", function() {
     binding.dispose();
   });
 
+
+  /*it("can set a sub-bindable value", function() {
+    var bindable = new BindableObject({
+      view: new BindableObject({
+        student: new BindableObject({
+          name: "craig"
+        })
+      })
+    });
+    expect(bindable.get("view.student.name")).to.be("craig");
+    bindable.set("view.student.name", "blah");
+    console.log(bindable.get("view.student.name"))
+  });*/
+
   /*
   not anymore!
   it("should be able to bind to a single property", function() {

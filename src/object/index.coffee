@@ -36,12 +36,16 @@ module.exports = class Bindable extends EventEmitter
     # so there isn't a circular call to .get()
     dref.get(@data, key, flatten) ? dref.get(@[key.split(".").shift()], key.split(".").slice(1).join("."), flatten)
 
-
   ###
   ###
 
-  getFlatten: (key) -> @get key, true
+  toObject: (key) -> @get key, true
 
+  ###
+   DEPRECATED
+  ###
+
+  getFlatten: (key) -> @toObject key
 
   ###
   ###
