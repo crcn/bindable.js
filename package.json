@@ -1,6 +1,6 @@
 {
   "name": "bindable",
-  "version": "0.2.64",
+  "version": "0.3.0",
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
   "scripts": {
@@ -23,8 +23,7 @@
     "toarray": "0.0.x",
     "outcome": "0.0.x",
     "type-component": "0.0.x",
-    "async": "0.2.x",
-    "staple": "0.0.x"
+    "async": "0.2.x"
   },
   "devDependencies": {
     "mocha": "1.8.x",

@@ -51,7 +51,6 @@ module.exports = class Bindable extends EventEmitter
 
   keys: () -> Object.keys @getFlatten()
 
-
   ###
   ###
 
@@ -139,6 +138,7 @@ module.exports = class Bindable extends EventEmitter
   ###
 
   toJSON: () -> @data
+
 
 
 

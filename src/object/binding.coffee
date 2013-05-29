@@ -1,7 +1,6 @@
 BindableSetter = require("./setters/factory")
 bindableSetter = new BindableSetter()
 utils = require "../core/utils"
-hoist = require "hoist"
 toarray = require "toarray"
 deepPropertyWatcher = require("./deepPropertyWatcher")
 
@@ -128,6 +127,7 @@ module.exports = class Binding
     @_callSetterFns "bothWays"
 
     @
+
 
   ###
    removes the binding
