@@ -11,12 +11,6 @@ module.exports = class
   ###
   ###
 
-  now: () -> 
-    @change @binding._from.get(@binding._property)
-
-  ###
-  ###
-
   change: (value) ->
 
     transformedValue = @__transform "to", value

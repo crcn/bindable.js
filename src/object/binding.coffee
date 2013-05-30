@@ -30,9 +30,14 @@ module.exports = class Binding
    executes the binding now
   ###
 
-  now: () ->
-    for setter in @_setters
-      setter.now()
+  now: () -> 
+    value = @_from.get(@_property)
+    return @ if @_value is value
+
+    @_callSetterFns "change", [value]
+
+    if ~@_limit and ++@_triggerCount > @_limit
+      @dispose()
     @
 
   ###
@@ -151,17 +156,6 @@ module.exports = class Binding
     @
 
   ###
-   triggers the binding *if* it exists
-  ###
-
-  _trigger: () ->
-    @_callSetterFns "change", [@_from.get(@_property)]
-    if ~@_limit and ++@_triggerCount > @_limit
-      @dispose()
-
-    @
-
-  ###
   ###
 
   _callSetterFns: (method, args) ->
@@ -173,7 +167,7 @@ module.exports = class Binding
 
   _listen: () ->
     @_listener = deepPropertyWatcher.create { target: @_from, property: @_property, callback: () =>
-      @_trigger()
+      @now()
     }
 
     # if the object is disposed, then remove this listener

@@ -11,15 +11,6 @@ module.exports = class extends Base
   ###
   ###
 
-  now: () ->
-    @_now = true
-    super()
-    @_bothWaysBinding?.now()
-
-
-  ###
-  ###
-
   _change: (value) ->
     @to.set @property, value
 
@@ -42,9 +33,6 @@ module.exports = class extends Base
     @_bothWaysBinding = @to.bind(@property).to (value) =>
       return if @_value is value
       @_changeFrom value
-
-    if @_now 
-      @_bothWaysBinding.now()
 
   ###
   ###

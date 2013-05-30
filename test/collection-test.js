@@ -4,7 +4,7 @@ _ = require("underscore"),
 sift = require("sift");
 
 describe("bindable collection", function() {
-  
+ 
   var col1 = new Collection([
     {
       lname: "Craig"

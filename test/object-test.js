@@ -5,7 +5,7 @@ describe("bindable object", function() {
 
   var bindable, binding;
   
-  
+
   it("can be created", function() {
     bindable = new BindableObject({
       name: {
@@ -42,6 +42,7 @@ describe("bindable object", function() {
 
     bindable.set("location.zip", "94102");
   });
+
 
 
   it("can do perform a deep bind", function(next) {
