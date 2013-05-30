@@ -13,17 +13,19 @@ module.exports = class
   ###
 
   now: () ->
-    @change @binding._from.get(@binding._property)
+    @change @binding._from.get(@binding._property), not @binding.watch()
 
 
   ###
   ###
 
-  change: (value) ->
+  change: (value, call) ->
     return if @currentValue is value
     transformedValue = @__transform "to", value
-    return if @currentValue is transformedValue
-    @_change @currentValue = transformedValue
+    return if @currentValue is transformedValue 
+    @currentValue = transformedValue
+    return if call is false
+    @_change transformedValue
 
 
   ###
