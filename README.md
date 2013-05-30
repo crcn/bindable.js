@@ -16,7 +16,7 @@ var item = new BindableObject({
 
 item.bind("location.zip", function(value) {
   
-});
+}).now();
 
 //triggers the binding
 item.set("location.zip", "94102"); 
@@ -24,20 +24,21 @@ item.set("location.zip", "94102");
 
 
 //bind location.zip to another property in the model, and do it only once
-item.bind("location.zip", "zip").once()
+item.bind("location.zip", "zip").once().now();
 
 //bind location.zip to another object, and make it go both ways!
-item.bind("location.zip").to(anotherModel, "location.zip").bothWays();
+item.bind("location.zip").to(anotherModel, "location.zip").bothWays().now();
 
 //chain to multiple items, and limit it!
 item.bind("location.zip").to("property").to("anotherProperty").to(function(value) {
   
-}).limit(5);
+}).limit(5).now();
 
 item.bind({
   property: "location.zip",
   limit: 5,
-  to: "anotherProperty"
+  to: "anotherProperty",
+  now: true
 })
 
 //you can even bind to values by setting a binding
@@ -46,7 +47,7 @@ anotherModel.set("location.zip", item.bind("location.zip"));
 //you can also transform data as it's being bound
 item.bind("name").transform(function(name) {
   return name.toUpperCase()
-}).to("name2");
+}).to("name2").now();
 
 ```
 
@@ -77,7 +78,7 @@ collection.bind().transform(function(item) {
 }).to(collection2);
 
 //binding to a collection with a filter
-collection.bind().filter({ name: {$nin: ["craig", "liam"] }}).to(collection2);
+collection.bind().filter({ name: {$nin: ["craig", "liam"] }}).to(collection2).now();
 
 
 var source = [];

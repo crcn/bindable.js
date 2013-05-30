@@ -202,6 +202,9 @@ Binding.fromOptions = (target, options) ->
   if options.bothWays
     binding.bothWays()
 
+  if options.now
+    binding.now()
+
   binding
 
 
