@@ -34,7 +34,7 @@ module.exports = class Binding
     value = @_from.get(@_property)
     return @ if @_value is value
 
-    @_callSetterFns "change", [value]
+    setter.change(value) for setter in @_setters
 
     if ~@_limit and ++@_triggerCount > @_limit
       @dispose()
@@ -130,7 +130,7 @@ module.exports = class Binding
     return @ if @_boundBothWays
     @_boundBothWays = true
 
-    @_callSetterFns "bothWays"
+    setter.bothWays() for setter in @_setters
 
     @
 
@@ -140,7 +140,7 @@ module.exports = class Binding
 
   dispose: () ->
 
-    @_callSetterFns "dispose"
+    setter.dispose() for setter in @_setters
 
     @_setters = []
 
@@ -158,13 +158,6 @@ module.exports = class Binding
   ###
   ###
 
-  _callSetterFns: (method, args) ->
-    for setter in @_setters
-      setter[method].apply(setter, (args or []))
-
-  ###
-  ###
-
   _listen: () ->
     @_listener = deepPropertyWatcher.create { target: @_from, property: @_property, callback: () =>
       @now()
@@ -173,6 +166,10 @@ module.exports = class Binding
     # if the object is disposed, then remove this listener
     @_disposeListener = @_from.once "dispose", () =>
       @dispose()
+
+###
+###
+
 
 Binding.fromOptions = (target, options) ->
   binding = target.bind options.property or options.from
