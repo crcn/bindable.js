@@ -20,6 +20,12 @@ module.exports = class
   ###
   ###
 
+  now: () -> 
+    # override me
+
+  ###
+  ###
+
   dispose: () ->
   
   ###

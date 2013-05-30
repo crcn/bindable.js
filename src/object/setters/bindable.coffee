@@ -11,6 +11,15 @@ module.exports = class extends Base
   ###
   ###
 
+  now: () ->
+    @_now = true
+    super()
+    @_bothWaysBinding?.now()
+
+
+  ###
+  ###
+
   _change: (value) ->
     @to.set @property, value
 
@@ -18,10 +27,9 @@ module.exports = class extends Base
   ###
 
   dispose: () ->
-    return if not @_disposable
-    @_disposable.dispose()
+    @_bothWaysBinding?.dispose()
 
-    @_disposable = 
+    @_bothWaysBinding = 
     @binding = 
     @to = 
     @property = null
@@ -31,13 +39,16 @@ module.exports = class extends Base
 
   bothWays: () ->
     # create a binding going the other way!
-    @_disposable = @to.bind(@property).to (value) =>
-      if @currentValue isnt value
-        @_changeFrom value
+    @_bothWaysBinding = @to.bind(@property).to (value) =>
+      return if @_value is value
+      @_changeFrom value
+
+    if @_now 
+      @_bothWaysBinding.now()
 
   ###
   ###
 
   _changeFrom: (value) ->
-    @binding._from.set @binding._property, @currentValue = @__transform "from", value
+    @binding._from.set @binding._property, @_value = @__transform "from", value
 

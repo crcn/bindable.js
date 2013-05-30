@@ -6,9 +6,13 @@ module.exports = class extends require("./base")
 
   init: () ->
     super()
+    
+  ###
+  ###
 
-    # initial hydration
-    #@change "reset", @binding._from.source(), []
+  now: () -> 
+    return if @_initialized
+    @_initialized = true
     for item, i in @binding._from.source()
       @change "insert", item
       

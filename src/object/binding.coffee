@@ -26,12 +26,13 @@ module.exports = class Binding
 
     @_listen()
 
-  ###
+  ### 
+   executes the binding now
   ###
 
-  watch: (value) ->
-    return @_watch if not arguments.length
-    @_watch = value
+  now: () ->
+    for setter in @_setters
+      setter.now()
     @
 
   ###
@@ -44,7 +45,7 @@ module.exports = class Binding
 
     # bind this object to the collection source
     @to @_collection.source
-
+    @now()
 
     # create the collection binding
     @_collectionBinding = @_collection.bind().copyId(true)
@@ -54,11 +55,13 @@ module.exports = class Binding
    binds to a target
   ###
 
-  to: (target, property) ->
+  to: (target, property, now = false) ->
     setter = bindableSetter.createSetter @, target, property
 
     if setter
       @_setters.push setter
+      if now is true
+        setter.now()
 
     @
 
@@ -114,7 +117,6 @@ module.exports = class Binding
 
   isBothWays: () -> !!@_boundBothWays
 
-
   ###  
    makes the binding go both ways.
   ###
@@ -126,7 +128,6 @@ module.exports = class Binding
     @_callSetterFns "bothWays"
 
     @
-
 
   ###
    removes the binding

@@ -23,6 +23,15 @@ module.exports = class
   ###
   ###
 
+  now: () ->
+    for setter in @_setters
+      setter.now()
+    @
+
+
+  ###
+  ###
+
   dispose: () ->
     @_dispose @_setters
     @_setters = undefined
@@ -58,10 +67,12 @@ module.exports = class
   ###
   ###
 
-  to: (collection) ->
+  to: (collection, now = true) ->
     setter = settersFactory.createSetter @, collection
     if setter
       @_setters.push setter
+      if now is true
+        setter.now()
     @
 
   ###

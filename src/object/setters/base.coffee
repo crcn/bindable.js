@@ -7,24 +7,27 @@ module.exports = class
 
   constructor: (@binding) ->
     @_transformer = @binding.transform()
-    @now()
 
   ###
   ###
 
-  now: () ->
-    @change @binding._from.get(@binding._property), not @binding.watch()
-
+  now: () -> 
+    @change @binding._from.get(@binding._property)
 
   ###
   ###
 
-  change: (value, call) ->
-    return if @currentValue is value
+  change: (value) ->
+
     transformedValue = @__transform "to", value
-    return if @currentValue is transformedValue 
-    @currentValue = transformedValue
-    return if call is false
+
+    # TODO - see if initialized
+    return if @_value is transformedValue 
+    #else
+    #  @_initialized = true
+
+    @_value = transformedValue
+
     @_change transformedValue
 
 

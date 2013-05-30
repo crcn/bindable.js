@@ -38,7 +38,7 @@ describe("bindable object", function() {
     bindable.bind("location.zip", function(value) {
       expect(value).not.to.be(undefined);
       next();
-    }).once();
+    }).once().now();
 
     bindable.set("location.zip", "94102");
   });
@@ -48,7 +48,7 @@ describe("bindable object", function() {
     bindable.bind("a.b.c.d.e", function(value) {
       expect(value).to.be(1);
       next();
-    }).once();
+    }).once().now();
 
     bindable.set("a", { b: {c: { d: { e: 1 }}}})
   });
@@ -57,7 +57,7 @@ describe("bindable object", function() {
 
   it("can bind to a property", function() {
 
-    bindable.bind("name", "name2").once()
+    bindable.bind("name", "name2").once().now();
     expect(bindable.get("name2.first")).to.be("craig");
 
     bindable.bind("doesntexist", "doesntexist2").once()
@@ -108,7 +108,7 @@ describe("bindable object", function() {
   });
 
   it("can be bound multiple times", function() {
-    bindable.bind("count").to("count2").to("count3").once();
+    bindable.bind("count").to("count2").to("count3").once().now();
     bindable.set("count", 99);
     expect(bindable.get("count")).to.be(99);
     expect(bindable.get("count2")).to.be(99);
@@ -128,7 +128,7 @@ describe("bindable object", function() {
 
     var pn, binding = bindable.bind("person.name.first").to(function(value) {
       pn = value;
-    });
+    }).now();
 
     bindable.set("person.name.first", "jake");
     expect(pn).to.be("jake");
@@ -139,7 +139,7 @@ describe("bindable object", function() {
 
 
   it("can be bound to a binding", function() {
-    binding = bindable.bind("fish");
+    binding = bindable.bind("fish").now();
     bindable.set("fish2", binding);
     binding._from.set("fish", "sauce");
   });
@@ -166,7 +166,7 @@ describe("bindable object", function() {
 
     bindable.set("name", "craig").bind("name").transform(function(value) {
       return value.toUpperCase();
-    }).to("name2").once();
+    }).to("name2").once().now();
 
     expect(bindable.get("name2")).to.be("CRAIG");
   });
@@ -180,7 +180,7 @@ describe("bindable object", function() {
       from: function(name) {
         return name.toLowerCase();
       }
-    }).to("name2").bothWays();
+    }).to("name2").bothWays().now();
 
     expect(bindable.get("name2")).to.be("CHRIS");
     bindable.set("name2", "LIAM");
@@ -375,7 +375,7 @@ describe("bindable object", function() {
         },
         "someName"
       ]
-    });
+    }).now();
 
     expect(bindable.get("someName")).to.be("craig");
     expect(name).to.be("craig");
@@ -413,7 +413,7 @@ describe("bindable object", function() {
     bindable.bind("form.isValid").to(function(value) {
       expect(value).to.be(false);
       next()
-    });
+    }).now();
 
   });
 

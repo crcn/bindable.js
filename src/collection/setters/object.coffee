@@ -18,6 +18,11 @@ module.exports = class extends require("./base")
     @_setter = new FnSetter @binding, (method, item, index) =>
       @target[method].call @target, item, index
 
+  ###
+  ###
+
+  now: () -> @_setter.now()
+
 
   ###
   ###

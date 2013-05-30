@@ -41,6 +41,11 @@ module.exports = class extends require("./base")
   ###
   ###
 
+  now: () -> @_setter.now()
+
+  ###
+  ###
+
   _change: () -> @_setter._change.apply(@_setter, arguments)
 
   ###

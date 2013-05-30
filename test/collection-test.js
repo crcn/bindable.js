@@ -32,7 +32,7 @@ describe("bindable collection", function() {
 
 
   it("can bind a col1 -> col3", function() {
-    bindings.col13 = col1.bind().to(col3);
+    bindings.col13 = col1.bind().to(col3).now();
   });
 
 
@@ -67,7 +67,7 @@ describe("bindable collection", function() {
           name: item.lname
         }
       }
-    }).to(col2);
+    }).to(col2).now();
   });
 
 
@@ -163,7 +163,7 @@ describe("bindable collection", function() {
     var newLength;
     var binding = col1.bind("length", function(value) {
       newLength = value;
-    })
+    }).now();
     col1.push({ lname: "abbba" });
     expect(newLength).to.be(col1.length());
     binding.dispose();
@@ -173,7 +173,7 @@ describe("bindable collection", function() {
     var isEmpty, col3 = new Collection([{_id:"craig"}, { _id: "john"}]);
     var binding = col3.bind("empty", function(value) {
       isEmpty = value;
-    });
+    }).now();
     expect(isEmpty).to.be(false);
     col3.reset();
     expect(isEmpty).to.be(true);
