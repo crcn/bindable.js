@@ -11,7 +11,8 @@ module.exports = class extends Base
   ###
   ###
 
-  _change: (value) -> @callback value
+  _change: (newValue, oldValue) ->
+    @callback newValue, oldValue
 
   ###
   ###

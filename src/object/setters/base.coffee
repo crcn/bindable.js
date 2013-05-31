@@ -19,10 +19,10 @@ module.exports = class
     return if @_value is transformedValue 
     #else
     #  @_initialized = true
-
+    oldValue = @_value
     @_value = transformedValue
 
-    @_change transformedValue
+    @_change transformedValue, oldValue
 
 
   ###

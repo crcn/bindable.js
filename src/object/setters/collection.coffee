@@ -11,8 +11,8 @@ module.exports = class extends Base
   ###
   ###
 
-  _change: (value) ->
-    @to.reset value
+  _change: (newValue, oldValue) ->
+    @to.reset newValue, oldValue
 
   ###
   ###
