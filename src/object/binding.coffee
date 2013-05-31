@@ -37,7 +37,7 @@ module.exports = class Binding
 
     setter.change(value) for setter in @_setters
 
-    if ~@_limit and ++@_triggerCount > @_limit
+    if ~@_limit and ++@_triggerCount >= @_limit
       @dispose()
     @
 
@@ -107,7 +107,7 @@ module.exports = class Binding
    runs the binding just once
   ###
 
-  once: () -> @limit 0
+  once: () -> @limit 1
 
   ###
    limits the number of times the binding can be called

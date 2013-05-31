@@ -404,6 +404,27 @@ describe("bindable object", function() {
   });
 
 
+  it("can pass the old value to the second param", function() {
+    var bindable = new BindableObject({name:"craig"});
+
+    var i = 0;
+    bindable.bind("name").to(function(value, oldValue) {
+
+
+      if(i++ == 0) {
+        expect(value).to.be("craig");
+        expect(oldValue).to.be(undefined);
+      } else {
+        expect(value).to.be("john");
+        expect(oldValue).to.be("craig");
+      }
+      
+    }).limit(2).now();
+
+    bindable.set("name", "john");
+  })
+
+
   it("can bind to a boolean value", function(next) {
     var bindable = new BindableObject({
       form: {
