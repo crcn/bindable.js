@@ -76,7 +76,7 @@ describe("bindable object", function() {
 
 
   it("can be bound both ways", function() {
-    bindable.bind("age", "age2").bothWays().limit(1)
+    bindable.bind("age", "age2").bothWays().limit(2)
     bindable.set("age", 5);
   });
 
@@ -418,7 +418,7 @@ describe("bindable object", function() {
         expect(value).to.be("john");
         expect(oldValue).to.be("craig");
       }
-      
+
     }).limit(2).now();
 
     bindable.set("name", "john");
