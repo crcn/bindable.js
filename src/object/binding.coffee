@@ -32,8 +32,8 @@ module.exports = class Binding
 
   now: () -> 
     value = @_from.get(@_property)
-    return @ if @_value is value
-    @_value = value
+    return @ if @value is value
+    @value = value
 
     setter.change(value) for setter in @_setters
 
