@@ -24,6 +24,9 @@ module.exports = class Bindable extends EventEmitter
   ###
 
   _initData: (@data = {}) ->
+    #for key of @constructor.prototype
+    #  continue if key.substr(0, 1) is "_"
+    #  dref.set @, key, @constructor.prototype[key]
 
 
   ###
@@ -33,7 +36,18 @@ module.exports = class Bindable extends EventEmitter
 
     # return the deep ref of the data, OR ref of this object. Note that we pop off the first key
     # so there isn't a circular call to .get()
-    dref.get(@data, key, flatten) ? dref.get(@[key.split(".").shift()], key.split(".").slice(1).join("."), flatten)
+    ret = dref.get(@data, key, flatten)
+
+    return ret if ret?
+
+    keyParts  = key.split(".")
+    firstProp = keyParts.shift()
+    ret       = dref.get(@[firstProp], keyParts.join("."), flatten) 
+
+    if ret?
+      dref.set @, firstProp, ret
+
+    ret
 
   ###
   ###
