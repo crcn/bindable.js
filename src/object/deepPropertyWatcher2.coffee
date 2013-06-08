@@ -25,8 +25,13 @@ class PropertyWatcher
     @callback   = options.callback
     @_children  = []
     @_bindings  = []
+    @_disposed  = false
     @_value     = undefined
     @_watching  = false
+
+    if @_updateTimeout
+      clearTimeout @_updateTimeout
+      @_updateTimeout = undefined
 
     # loop through the property?
     if @_each = @property.substr(0, 1) is "@"
@@ -60,7 +65,8 @@ class PropertyWatcher
   ###
   ###
 
-  _dispose: () ->   
+  _dispose: () ->  
+    @_disposed = true 
     @_listener?.dispose()
     @_listener = undefined
     binding.dispose() for binding in @_bindings
@@ -82,6 +88,8 @@ class PropertyWatcher
     return @_watch() unless ~@delay
     clearTimeout @_updateTimeout
     @_updateTimeout = setTimeout (() =>
+      return if @_disposed # disposed
+      @_updateTimeout = undefined
       @_watch()
     ), @delay
 
