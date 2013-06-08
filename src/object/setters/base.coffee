@@ -6,7 +6,7 @@ module.exports = class
   ###
 
   constructor: (@binding) ->
-    @_transformer = @binding.transform()
+    @_transformer = @binding._map or @binding.transform()
 
   ###
   ###
@@ -41,5 +41,7 @@ module.exports = class
   ###
   ###
 
-  __transform: (method, value) -> utils.tryTransform @_transformer, method, value
+  __transform: (method, value) -> 
+    return value if not @_transformer
+    utils.tryTransform @_transformer, method, value
 

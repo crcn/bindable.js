@@ -5,7 +5,7 @@ describe("bindable object", function() {
 
   var bindable, binding;
   
-
+  
   it("can be created", function() {
     bindable = new BindableObject({
       name: {
@@ -16,6 +16,15 @@ describe("bindable object", function() {
         city: "San Francisco"
       }
     });
+  });
+
+  it("can do perform a deep bind2", function(next) {
+    bindable.bind("f.g.h.i", function(value) {
+      expect(value).to.be(1);
+      next();
+    }).once().now();
+
+    bindable.set("f.g.h", { i: 1 })
   });
 
   
@@ -191,39 +200,6 @@ describe("bindable object", function() {
   });
 
 
-  /*it("can set a sub-bindable value", function() {
-    var bindable = new BindableObject({
-      view: new BindableObject({
-        student: new BindableObject({
-          name: "craig"
-        })
-      })
-    });
-    expect(bindable.get("view.student.name")).to.be("craig");
-    bindable.set("view.student.name", "blah");
-    console.log(bindable.get("view.student.name"))
-  });*/
-
-  /*
-  not anymore!
-  it("should be able to bind to a single property", function() {
-    var person = new BindableObject({
-      
-    });
-
-    person.name = { first: "craig" }
-    var p = {};
-
-    person.bind("name", function(value) {
-      p = value;
-    })
-
-    expect(p.first).to.be("craig");
-
-    person.set("name", { first: "jake" });
-    expect(person.name.first).to.be("jake");
-    expect(p.first).to.be("jake");
-  })*/
 
   it("can bind to a sub-binding", function() {
 
@@ -293,33 +269,21 @@ describe("bindable object", function() {
 
     expect(b3.get("lastName")).to.be("bubu");
   });
+  
 
-  /*
-  not anymore!
-  it("can bind to a regular property", function() {
-    var b1 = new BindableObject({
-
-    });
-
-    b1.sub = new BindableObject({
-      name: "craig"
-    });
-
-    b1.set("sub.name", "john");
-    expect(b1.sub.get("name")).to.be("john");
-  })
-*/
 
   it("can bind to a property where a bindable object is wrapping around another", function() {
     var bindable = new BindableObject(new BindableObject({
         name: "craig"
     }));
 
+
     var newName1, newName2;
 
     bindable.bind("name", function(value) {
       newName1 = value;
     });
+
 
 
     bindable.data.bind("name", function(value) {

@@ -2,7 +2,7 @@ BindableSetter = require("./setters/factory")
 bindableSetter = new BindableSetter()
 utils = require "../core/utils"
 toarray = require "toarray"
-deepPropertyWatcher = require("./deepPropertyWatcher")
+deepPropertyWatcher = require("./deepPropertyWatcher2")
 
 ###
  Glues stuff together
@@ -30,16 +30,8 @@ module.exports = class Binding
    executes the binding now
   ###
 
-  now: () -> 
-    value = @_from.get(@_property)
-    return @ if @value is value
-    @value = value
-
-    setter.change(value) for setter in @_setters
-
-    if ~@_limit and ++@_triggerCount >= @_limit
-      @dispose()
-    @
+  now: (value) -> 
+    @_onChange @_listener.value()
 
   ###
    casts this binding as a collection binding
@@ -55,7 +47,6 @@ module.exports = class Binding
 
     # create the collection binding
     @_collectionBinding = @_collection.bind().copyId(true)
-
   
   ###
    binds to a target
@@ -86,15 +77,19 @@ module.exports = class Binding
 
 
   ###
+   DEPRECATED - use map
   ###
 
-  transform: (options) ->
+  transform: (options) -> @map arguments...
 
-    return @_transform if not arguments.length
+  ###
+  ###
 
-    @_transform = utils.transformer options
-
+  map: (options) ->
+    return @_map if not arguments.length
+    @_map = utils.transformer options
     @
+
 
   ###
   ###
@@ -160,13 +155,27 @@ module.exports = class Binding
   ###
 
   _listen: () ->
-    @_listener = deepPropertyWatcher.create { target: @_from, property: @_property, callback: () =>
-      @now()
-    }
+    @_listener = deepPropertyWatcher.create { target: @_from, path: @_property.split("."), callback: @_onChange, index: 0, watchIndex: 0 }
 
     # if the object is disposed, then remove this listener
     @_disposeListener = @_from.once "dispose", () =>
       @dispose()
+
+
+  ###
+  ###
+
+  _onChange: (value) =>
+    value = @_listener?.value()
+    return @ if @value is value
+    @value = value
+
+    setter.change(value) for setter in @_setters
+
+    if ~@_limit and ++@_triggerCount >= @_limit
+      @dispose()
+    @
+
 
 ###
 ###

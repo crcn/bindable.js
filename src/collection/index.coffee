@@ -4,6 +4,7 @@ EventEmitter = require "../core/eventEmitter"
 type = require "type-component"
 hoist = require "hoist"
 BindableObject     = require "../object"
+computed = require "../utils/computed"
 
 
 ###
@@ -144,6 +145,13 @@ module.exports = class extends BindableObject
   ###
 
   filter: (cb) -> @_source.filter cb
+
+  ###
+  ###
+
+  each: computed "length", (fn) ->
+    for item in @_source
+      fn item
 
   ###
   ###

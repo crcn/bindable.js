@@ -56,7 +56,6 @@ describe("bindable object collection", function() {
   col1.oid = "col1";
 
 
-  
   it("can cast an object binding to a collection binding", function() {
 
     var b = bindable.bind("source").collection().to(col3).now();
@@ -68,6 +67,7 @@ describe("bindable object collection", function() {
     b.dispose()
 
   });
+
 
   it("binding to col3 doesn't exist anymore", function() {
     var n = col3.length();
