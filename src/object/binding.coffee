@@ -189,8 +189,8 @@ Binding.fromOptions = (target, options) ->
   for t in to
     tops = if typeof t is "object" then t.property else { property: t }
 
-    if tops.transform
-      bindings.transform tops.transform
+    if tops.transform or tops.map
+      bindings.map tops.transform or tops.map
 
     binding.to tops.property
 
