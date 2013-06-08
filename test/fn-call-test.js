@@ -2,7 +2,7 @@ var bindable = require(".."),
 expect = require("expect.js");
 
 describe("function call", function() {
-
+  
   var craig = new bindable.Object({
     name: {
       first: "craig",
@@ -135,5 +135,42 @@ describe("function call", function() {
 
     col.push(monica);
   });
+
+
+  it("can bind embedded computed property", function() {
+    var jake = new bindable.Object({
+      name: "jake",
+      age: 12
+    });
+
+    var sam = new bindable.Object({
+      name: "sam",
+      age: 22
+    });
+
+    var craig = new bindable.Object({
+      name: "craig",
+      age: 23
+    });
+
+    var liam = new bindable.Object({
+      name: "liam",
+      friends: [jake, sam, craig],
+      getFriendsOlderThan20: bindable.computed("friends.@forEach.age", function(next) {
+        var olderThan20 = this.get("friends").filter(function(friend) {
+          return friend.get("age") > 20;
+        });
+        olderThan20.forEach(next);
+      })
+    });
+
+
+    liam.bind("@getFriendsOlderThan20").to("friendsOlderThan20").now();
+    
+    expect(liam.get("friendsOlderThan20").length).to.be(2)
+
+    jake.set("age", 22);
+    expect(liam.get("friendsOlderThan20").length).to.be(3);
+  })
 
 });

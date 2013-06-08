@@ -23,7 +23,7 @@ class PropertyWatcher
     @property   = @path[@index] 
     @callback   = options.callback
     @_children  = []
-    @_listeners = []
+    @_bindings  = []
     @_value     = undefined
     @_watching  = false
 
@@ -60,10 +60,12 @@ class PropertyWatcher
   ###
 
   _dispose: () ->   
-    listener.dispose() for listener in @_listeners
+    @_listener?.dispose()
+    @_listener = undefined
+    binding.dispose() for binding in @_bindings
     child.dispose() for child in @_children
     @_children  = []
-    @_listeners = []
+    @_bindings = []
 
   ###
   ###
@@ -98,21 +100,20 @@ class PropertyWatcher
       @childIndex = @index + 1
     
 
-    if @_listeners.length
+    if @_listener
       @_dispose()
 
 
     @_value = value
 
-    events = ["change:#{@childPath.slice(0, @childIndex - 1).concat(@property).join(".")}"]
 
     # value is a function? check if it's computed!
     if ((t = type(value)) is "function") and value.refs
       for ref in value.refs
-        events.push "change:#{ref}"
+        @_watchRef ref
 
-    for event in events
-      @_listeners.push @watch.on event, @_changed
+
+    @_listener = @watch.on "change:#{@childPath.slice(0, @childIndex - 1).concat(@property).join(".")}", @_changed
 
     if @_each
       @_watchEachValue value, t
@@ -134,7 +135,9 @@ class PropertyWatcher
   ###
 
   _callEach: (fn) ->
+    @_value = []
     fn.call @target, (value) => 
+      @_value.push value
       @_watchValue value
 
   ###
@@ -152,13 +155,20 @@ class PropertyWatcher
     if @childIndex < @childPath.length
       @_children.push propertyWatcher.create { watch: @watch, target: value, path: @childPath, index: @childIndex, callback: @callback, root: @root }
 
+  ###
+  ###
 
+  _watchRef: (ref) ->
+    @_bindings.push propertyWatcher.create { target: @root.target, path: ref.split("."), index: 0, callback: @_changed }
+ 
   ###
   ###
 
   _changed: (@_value) =>
     @root._watch()
     @callback()
+
+
 
 
 

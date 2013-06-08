@@ -97,6 +97,77 @@ collection.bind(function(method, item, index) {
     break;
   }
 });
+```
+
+### Iteration helper
+
+```javascript
+var jake = new bindable.Object({
+  name: "jake",
+  age: 12
+});
+
+var sam = new bindable.Object({
+  name: "sam",
+  age: 22
+});
+
+var craig = new bindable.Object({
+  name: "craig",
+  age: 23
+});
+
+var liam = new bindable.Object({
+  name: "liam",
+  friends: [jake, sam, craig],
+  getFriendsOlderThan20: bindable.computed("friends.@forEach.age", function(next) {
+    this.get("friends").filter(function(friend) {
+      return friend.get("age") > 20;
+    }).forEach(next);
+  })
+});
+
+
+liam.bind("@getFriendsOlderThan20.name").to(function(friendsOlderThan20) {
+  //[sam, craig]
+}).now();
+
+jake.set("age", 22);
+
+//callback friendsOlderThan20 = [sam, craig, jake]
+```
+
+
+### Computed Properties
+
+
+```javascript
+var notification = new bindable.Object({
+  message: "hello",
+  read: false
+}),
+notification2 = new bindable.Object({
+  message: "hello 2",
+  read: true
+});
+
+var notifications = new bindable.Collection([notification, notification2]);
+
+//bind the number of unread notifications to numUnreadNotifications
+notifications.bind("@each.read").map(function(readNotifications) {
+  return readNotifications.filter(function(isRead) {
+    return !isRead;
+  }).length;
+}).to("numUnreadNotifications").now();
+
+console.log(notifications.get("numUnreadNotifications")); //1
+
+for(var i = notifications.length(); i--;) {
+  notifications.at(i).set("read", true);
+}
+console.log(notifications.get("numUnreadNotifications")); //0
+
+
 
 
 ```
