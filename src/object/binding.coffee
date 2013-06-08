@@ -1,6 +1,7 @@
 BindableSetter = require("./setters/factory")
 bindableSetter = new BindableSetter()
 utils = require "../core/utils"
+options = require "../utils/options"
 toarray = require "toarray"
 deepPropertyWatcher = require("./deepPropertyWatcher2")
 type = require "type-component"
@@ -21,9 +22,10 @@ module.exports = class Binding
 
   constructor: (@_from, @_property) ->
 
-    @_limit        = -1
-    @_setters      = []
-    @_triggerCount = 0
+    @_limit        = -1 # limit the number binding calls
+    @_delay        = options.delay # delay for binding changes
+    @_setters      = [] # listeners
+    @_triggerCount = 0  # keeps tally of bindings called
 
     @_listen()
 
@@ -63,7 +65,6 @@ module.exports = class Binding
 
     @
 
-
   ###
    from property? create a binding going the other way. This is useful for classes. see class-test.js
   ###
@@ -75,7 +76,6 @@ module.exports = class Binding
       from = @_from
 
     from.bind(property).to(@_from, @_property)
-
 
   ###
    DEPRECATED - use map
@@ -91,13 +91,11 @@ module.exports = class Binding
     @_map = utils.transformer options
     @
 
-
   ###
   ###
 
   _transformer: () ->
     @_transform or (@_transform = utils.transformer options)
-
 
   ###
    runs the binding just once
@@ -132,6 +130,15 @@ module.exports = class Binding
     @
 
   ###
+  ###
+
+  delay: (value) ->
+    return @_delay unless arguments.length
+    @_delay = value
+    @
+
+
+  ###
    removes the binding
   ###
 
@@ -156,7 +163,7 @@ module.exports = class Binding
   ###
 
   _listen: () ->
-    @_listener = deepPropertyWatcher.create { target: @_from, path: @_property.split("."), callback: @_onChange, index: 0, watchIndex: 0 }
+    @_listener = deepPropertyWatcher.create { target: @_from, path: @_property.split("."), callback: @_onChange, index: 0, delay: @_delay }
 
     # if the object is disposed, then remove this listener
     @_disposeListener = @_from.once "dispose", () =>

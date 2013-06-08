@@ -20,6 +20,7 @@ class PropertyWatcher
     @path       = options.path
     @index      = options.index
     @root       = options.root or @
+    @delay      = options.delay
     @property   = @path[@index] 
     @callback   = options.callback
     @_children  = []
@@ -65,7 +66,7 @@ class PropertyWatcher
     binding.dispose() for binding in @_bindings
     child.dispose() for child in @_children
     @_children  = []
-    @_bindings = []
+    @_bindings  = []
 
   ###
   ###
@@ -74,12 +75,21 @@ class PropertyWatcher
     @_dispose()
     propertyWatcher.add @
 
-
   ###
   ###
 
+  _update: () ->
+    return @_watch() unless ~@delay
+    clearTimeout @_updateTimeout
+    @_updateTimeout = setTimeout (() =>
+      @_watch()
+    ), @delay
+
+  ###
+  ###
 
   _watch: () ->
+
 
     if @target
       if @target.__isBindable
@@ -153,19 +163,19 @@ class PropertyWatcher
 
   _watchValue: (value) ->
     if @childIndex < @childPath.length
-      @_children.push propertyWatcher.create { watch: @watch, target: value, path: @childPath, index: @childIndex, callback: @callback, root: @root }
+      @_children.push propertyWatcher.create { watch: @watch, target: value, path: @childPath, index: @childIndex, callback: @callback, root: @root, delay: @delay }
 
   ###
   ###
 
   _watchRef: (ref) ->
-    @_bindings.push propertyWatcher.create { target: @root.target, path: ref.split("."), index: 0, callback: @_changed }
+    @_bindings.push propertyWatcher.create { target: @root.target, path: ref.split("."), index: 0, callback: @_changed, delay: @delay }
  
   ###
   ###
 
   _changed: (@_value) =>
-    @root._watch()
+    @root._update()
     @callback()
 
 
