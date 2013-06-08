@@ -3,6 +3,7 @@ bindableSetter = new BindableSetter()
 utils = require "../core/utils"
 toarray = require "toarray"
 deepPropertyWatcher = require("./deepPropertyWatcher2")
+type = require "type-component"
 
 ###
  Glues stuff together
@@ -182,17 +183,32 @@ module.exports = class Binding
 
 
 Binding.fromOptions = (target, options) ->
-  binding = target.bind options.property or options.from
-  to = toarray options.to
 
+  binding = target.bind options.from or options.property
 
-  for t in to
-    tops = if typeof t is "object" then t.property else { property: t }
+  if type(options.to) is "object"
+    for to of options.to
+      tops = options.to[to]
 
-    if tops.transform or tops.map
-      bindings.map tops.transform or tops.map
+      if tops.transform or tops.map
+        binding.map tops.transform or tops.map
 
-    binding.to tops.property
+      if tops.now
+        binding.now()
+
+      if tops.bothWays
+        binding.bothWays()
+
+      binding.to to
+  else
+    options.to = toarray options.to
+    for t in options.to
+      tops = if typeof t is "object" then t else { property: t }
+
+      if tops.transform or tops.map
+        bindings.map tops.transform or tops.map
+
+      binding.to tops.property
 
   if options.limit
     binding.limit options.limit
@@ -207,8 +223,6 @@ Binding.fromOptions = (target, options) ->
     binding.now()
 
   binding
-
-
 
 
 
