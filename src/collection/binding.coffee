@@ -15,7 +15,12 @@ module.exports = class
   ###
   ###
 
-  transform: (value) ->
+  transform: () -> @map arguments...
+
+  ###
+  ###
+
+  map: (value) -> 
     return @_transformer if not arguments.length
     @_transformer = utils.transformer value
     @

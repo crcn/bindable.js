@@ -45,7 +45,7 @@ item.bind({
 anotherModel.set("location.zip", item.bind("location.zip"));
 
 //you can also transform data as it's being bound
-item.bind("name").transform(function(name) {
+item.bind("name").map(function(name) {
   return name.toUpperCase()
 }).to("name2").now();
 
@@ -73,7 +73,7 @@ var collection = new bindable.Collection([{ name: "craig" }, { name: "sam" }, { 
 collection2 = new bindable.Collection();
 
 //binding to another collection, and transform that value into something else
-collection.bind().transform(function(item) {
+collection.bind().map(function(item) {
   return new BindableObject(item);
 }).to(collection2);
 
