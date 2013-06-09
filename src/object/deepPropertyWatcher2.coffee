@@ -1,5 +1,6 @@
 poolParty = require("poolparty")
 type      = require("type-component")
+options   = require("../utils/options")
 
 class PropertyWatcher
 
@@ -144,6 +145,11 @@ class PropertyWatcher
   ###
 
   _watchEachValue: (fnOrArray, t) ->
+
+    # computed properties should always have a delay
+    unless ~@root.delay
+      @root.delay = options.computedDelay
+
     switch t
       when "function" then @_callEach fnOrArray
       when "array" then @_loopEach fnOrArray

@@ -1,6 +1,8 @@
 var bindable = require(".."),
 expect = require("expect.js");
 
+bindable.options.computedDelay = -1
+
 describe("function call", function() {
   
   var craig = new bindable.Object({
