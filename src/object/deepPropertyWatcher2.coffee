@@ -29,6 +29,7 @@ class PropertyWatcher
     @_value     = undefined
     @_watching  = false
     @_updating  = false
+    @_disposed  = false
 
     # loop through the property?
     if @_each = @property.substr(0, 1) is "@"
