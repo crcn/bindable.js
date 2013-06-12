@@ -185,7 +185,7 @@ class PropertyWatcher
   ###
 
   _watchRef: (ref) ->
-    @_bindings.push propertyWatcher.create { target: @root.target, path: ref.split("."), index: 0, callback: @_changed, delay: @delay }
+    @_bindings.push propertyWatcher.create { target: @target, path: ref.split("."), index: 0, callback: @_changed, delay: @delay }
  
   ###
   ###
