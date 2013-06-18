@@ -31,7 +31,7 @@ module.exports = class extends BindableObject
       
     @_length = 0
     @_id _id
-    @__enforceId = true
+    @__enforceId = false
     @transform().postMap @_enforceItemId
     @reset source
 
