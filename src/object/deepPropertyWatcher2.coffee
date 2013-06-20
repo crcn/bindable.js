@@ -90,7 +90,7 @@ class PropertyWatcher
       
     return if @_updating
     @_updating = true
-    @_dipsosed = false
+    @_disposed = false
     setTimeout (() =>
       return if @_disposed # disposed
       @_watch()
