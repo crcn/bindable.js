@@ -444,6 +444,8 @@ describe("bindable object", function() {
     bindable.set("fullName", "John Doe");
     expect(bindable.get("firstName")).to.be("John");
     expect(bindable.get("lastName")).to.be("Doe");
-  })
+  });
+
+
 
 });

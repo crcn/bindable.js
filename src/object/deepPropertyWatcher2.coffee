@@ -174,6 +174,7 @@ class PropertyWatcher
   _loopEach: (values) ->
     for value in values
       @_watchValue value
+    undefined
 
   ###
   ###

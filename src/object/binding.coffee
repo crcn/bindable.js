@@ -170,8 +170,8 @@ module.exports = class Binding
       listener.dispose() for listener in @_listeners
       disposeListener.dispose() for disposeListener in @_disposeListeners
 
-    @_listener = undefined
-    @_disposeListener = undefined
+    @_listeners        = []
+    @_disposeListeners = []
     @
 
   ###
