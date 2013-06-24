@@ -167,7 +167,29 @@ for(var i = notifications.length(); i--;) {
 }
 console.log(notifications.get("numUnreadNotifications")); //0
 
+```
 
+#### Add some sugar...
 
+You cn also compute properties by watching multiple values. For instance:
 
+```javascript
+
+var person = new bindable.Object({
+  firstName: "John",
+  lastName: "Doe"
+});
+
+person.bind("firstName, lastName").map({
+  to: function(firstName, lastName) {
+    return [firstName, lastName].join(" ");
+  },
+  from: function(fullName) {
+    return String(fullName).split(" ");
+  }
+}).to("fullName").bothWays().now();
+
+console.log(person.get("fullName")); //John Doe
+person.set("fullName", "Jake Anderson"); 
+console.log(person.get("firstName"), person.get("lastName")); //Jake Anderson
 ```

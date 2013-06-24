@@ -4,7 +4,7 @@ _ = require("underscore"),
 sift = require("sift");
 
 describe("bindable collection", function() {
- 
+
   var col1 = new Collection([
     {
       lname: "Craig"
@@ -40,6 +40,7 @@ describe("bindable collection", function() {
     expect(_.intersection(col1.source(), col3.source()).length).to.be(3);
   });
 
+
   it("col1 can remove 'Craig'", function() {
     col1.remove({ lname: "Craig" })
   });
@@ -69,6 +70,7 @@ describe("bindable collection", function() {
       }
     }).to(col2).now();
   });
+
 
 
   it("col2 has all the transformed people", function() {

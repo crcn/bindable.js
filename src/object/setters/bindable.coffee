@@ -1,4 +1,5 @@
-Base = require "./base"
+Base    = require "./base"
+toarray = require "toarray"
 
 module.exports = class extends Base
   
@@ -12,7 +13,9 @@ module.exports = class extends Base
   ###
 
   _change: (newValue) ->
+    @_ignoreBothWays = true
     @to.set @property, newValue
+    @_ignoreBothWays = false
 
   ###
   ###
@@ -23,20 +26,18 @@ module.exports = class extends Base
     @_bothWaysBinding = 
     @binding = 
     @to = 
-    @property = null
+    @properties = null
 
   ###
   ###
 
   bothWays: () ->
-    # create a binding going the other way!
-    @_bothWaysBinding = @to.bind(@property).to (value) =>
-      return if @_value is value
-      @_changeFrom value
-
-  ###
-  ###
-
-  _changeFrom: (value) ->
-    @binding._from.set @binding._property, @_value = @__transform "from", value
+    @_bothWaysBinding = @to.bind(@property).map({
+      to: (value) => 
+        toarray @__transform "from", [value]
+    }).to (values) =>
+      return if @_ignoreBothWays
+      for value, i in values 
+        prop = @binding._properties[i]
+        @binding._from.set prop, value
 

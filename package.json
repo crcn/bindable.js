@@ -1,6 +1,6 @@
 {
   "name": "bindable",
-  "version": "0.3.21",
+  "version": "0.3.23",
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "underscore": "1.4.x",
     "hoist": "0.0.x",
     "poolparty": "0.0.x",
-    "toarray": "0.0.x",
+    "toarray": "0.0.1",
     "outcome": "0.0.x",
     "type-component": "0.0.x",
     "async": "0.2.x"

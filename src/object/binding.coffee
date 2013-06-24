@@ -20,21 +20,36 @@ module.exports = class Binding
   ###
   ###
 
-  constructor: (@_from, @_property) ->
+  constructor: (@_from, properties) ->
+
+    @_properties = if type(properties) is "string" then properties.split(/[,\s]+/g) else properties
 
     @_limit        = -1 # limit the number binding calls
     @_delay        = options.delay # delay for binding changes
     @_setters      = [] # listeners
+    @_cvalues      = []
+    @_listeners    = []
     @_triggerCount = 0  # keeps tally of bindings called
 
     @_listen()
+
+  ###
+  ###
+
+  _values: () ->
+    for listener, i in @_listeners
+      v = listener.value()
+      if v isnt @_cvalues[i]
+        @_cvalues[i] = v
+
+    @_cvalues
 
   ### 
    executes the binding now
   ###
 
   now: (value) -> 
-    @_onChange @_listener.value()
+    @_onChange @_values()
 
   ###
    casts this binding as a collection binding
@@ -75,7 +90,7 @@ module.exports = class Binding
       property = from
       from = @_from
 
-    from.bind(property).to(@_from, @_property)
+    from.bind(property).to(@_from, @_properties)
 
   ###
    DEPRECATED - use map
@@ -151,9 +166,9 @@ module.exports = class Binding
     if @_collectionBinding
       @_collectionBinding.dispose()
 
-    if @_listener
-      @_listener.dispose()
-      @_disposeListener.dispose()
+    if @_listeners
+      listener.dispose() for listener in @_listeners
+      disposeListener.dispose() for disposeListener in @_disposeListeners
 
     @_listener = undefined
     @_disposeListener = undefined
@@ -163,26 +178,35 @@ module.exports = class Binding
   ###
 
   _listen: () ->
-    @_listener = deepPropertyWatcher.create { target: @_from, path: @_property.split("."), callback: @_onChange, index: 0, delay: @_delay }
+
+    listeners = []
+    disposeListeners = []
+
+    for property in @_properties
+      listeners.push deepPropertyWatcher.create { target: @_from, path: property.split("."), callback: @_onChange, index: 0, delay: @_delay }
+      disposeListeners.push @_from.once "dispose", () =>
+        @dispose()
 
     # if the object is disposed, then remove this listener
-    @_disposeListener = @_from.once "dispose", () =>
-      @dispose()
+    @_disposeListeners = disposeListeners
+    @_listeners        = listeners
 
 
   ###
   ###
 
   _onChange: (value) =>
-    value = @_listener?.value()
-    return @ if @value is value
-    @value = value
+    values = @_values()
 
-    setter.change(value) for setter in @_setters
+    return @ unless values.length
+
+    setter.change(values) for setter in @_setters
 
     if ~@_limit and ++@_triggerCount >= @_limit
       @dispose()
     @
+
+
 
 
 ###

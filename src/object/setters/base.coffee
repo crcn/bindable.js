@@ -11,16 +11,17 @@ module.exports = class
   ###
   ###
 
-  change: (value) ->
+  change: (values) ->
 
-    transformedValue = @__transform "to", value
+    transformedValue = @__transform "to", values
 
     # TODO - see if initialized
     return if @_value is transformedValue 
     #else
     #  @_initialized = true
+
     oldValue = @_value
-    @_value = transformedValue
+    @_value  = transformedValue
 
     @_change transformedValue, oldValue
 
@@ -41,7 +42,7 @@ module.exports = class
   ###
   ###
 
-  __transform: (method, value) -> 
-    return value if not @_transformer
-    utils.tryTransform @_transformer, method, value
+  __transform: (method, values) -> 
+    return values[0] if not @_transformer
+    utils.tryTransform @_transformer, method, values
 

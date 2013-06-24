@@ -80,4 +80,4 @@ module.exports = class
   ###
 
   __transform: (method, value) ->
-    utils.tryTransform @_transformer, method, value
+    utils.tryTransform @_transformer, method, [value]

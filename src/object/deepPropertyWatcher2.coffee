@@ -135,7 +135,6 @@ class PropertyWatcher
       for ref in value.refs
         @_watchRef ref
 
-
     @_listener = @watch.on "change:#{@childPath.slice(0, @childIndex - 1).concat(@property).join(".")}", @_changed
 
     if @_each
@@ -204,8 +203,5 @@ propertyWatcher = module.exports = poolParty
   recycle: (watcher, options) -> watcher.reset options
 
 
-#propertyWatcher = 
-#  create: (options) -> new PropertyWatcher options
-#  add: (watcher) ->
 
 

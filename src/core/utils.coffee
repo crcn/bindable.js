@@ -1,7 +1,7 @@
 hoist = require "hoist"
 
 exports.tryTransform  = (transformer, method, value) ->
-  return value if not transformer
+  return value[0] if not transformer
   return transformer[method].call(transformer, value)
 
 
@@ -21,6 +21,8 @@ exports.transformer = (options) ->
   if not options.to
     options.to = (value) -> value
   
-  from: hoist.map(options.from)
-  to: hoist.map(options.to)
+  from: hoist.map (values) -> 
+    options.from.apply @, values
+  to: hoist.map (values) -> 
+    options.to.apply @, values
   

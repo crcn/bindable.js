@@ -10,7 +10,7 @@ describe("bindable object", function() {
     bindable = new BindableObject({
       name: {
         first: "craig",
-        last: "craig"
+        last: "con"
       },
       location: {
         city: "San Francisco"
@@ -24,8 +24,9 @@ describe("bindable object", function() {
       next();
     }).once().now();
 
-    bindable.set("f.g.h", { i: 1 })
+    bindable.set("f.g.h", { i: 1 });
   });
+
 
   
   it("can reset an object", function() {
@@ -78,6 +79,7 @@ describe("bindable object", function() {
   });
 
 
+
   it("previous name binding is not bound anymore", function() {
     bindable.set("doesntexist", 6);
     expect(bindable.get("doesntexist2")).to.be(5);
@@ -101,6 +103,7 @@ describe("bindable object", function() {
   it("age should be 6", function() {
     expect(bindable.get("age")).to.be(6);
   });
+
 
   it("age2 should be 6", function() {
     expect(bindable.get("age2")).to.be(6);
@@ -402,5 +405,45 @@ describe("bindable object", function() {
     }).now();
 
   });
+
+
+
+  it("can bind to a computed property", function() {
+    var bindable = new BindableObject({
+      firstName: "Jake",
+      lastName: "Anderson"
+    });
+
+    bindable.bind("firstName, lastName").
+      map(function(firstName, lastName) {
+        return [firstName, lastName].join(" ");
+      }).to("fullName").now();
+
+    expect(bindable.get("fullName")).to.be("Jake Anderson");
+    bindable.set("firstName", "John");
+    expect(bindable.get("fullName")).to.be("John Anderson");
+  });
+
+
+  it("can bind a computed property both ways", function() {
+    var bindable = new BindableObject({
+      firstName: "Jake",
+      lastName: "Anderson"
+    });
+
+    bindable.bind("firstName, lastName").
+      map({
+        to: function(firstName, lastName) {
+          return [firstName, lastName].join(" ");
+        },
+        from: function(fullName) {
+          return fullName.split(" ");
+        }
+      }).to("fullName").bothWays().now();
+
+    bindable.set("fullName", "John Doe");
+    expect(bindable.get("firstName")).to.be("John");
+    expect(bindable.get("lastName")).to.be("Doe");
+  })
 
 });
