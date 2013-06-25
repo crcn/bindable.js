@@ -1,7 +1,14 @@
 ## Bindable
 
+Incredibly flexible bi-directional data binding library for `objects`, and `collections`. 
 
-### Objects
+## Projects using bindable.js
+
+- [paperclip.js](/classdojo/paperclip.js) - data-bindable templating engine.
+- [linen.js](/classdojo/linen.js) - API library
+- [sherpa.js](/classdojo/sherpa.js) - online tours library
+
+### Objects Example
 
 ```javascript
 var BindableObject = require("bindable").Object;
@@ -51,22 +58,7 @@ item.bind("name").map(function(name) {
 
 ```
 
-Defining bindings in classes
-
-```coffeescript
-
-Bindable = require("bindable");
-
-class Person extends bindable
-
-  name: "craig",
-
-  name2: Bindable.from("name")
-
-```
-
-
-### Collections
+### Collections Example
 
 ```javascript
 var collection = new bindable.Collection([{ name: "craig" }, { name: "sam" }, { name: "liam" }]),
@@ -171,7 +163,7 @@ console.log(notifications.get("numUnreadNotifications")); //0
 
 #### Add some sugar...
 
-You cn also compute properties by watching multiple values. For instance:
+You can also compute properties by watching multiple values. For instance:
 
 ```javascript
 
@@ -193,3 +185,6 @@ console.log(person.get("fullName")); //John Doe
 person.set("fullName", "Jake Anderson"); 
 console.log(person.get("firstName"), person.get("lastName")); //Jake Anderson
 ```
+
+
+### API
