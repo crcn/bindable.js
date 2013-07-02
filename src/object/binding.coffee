@@ -31,7 +31,7 @@ module.exports = class Binding
     @_listeners    = []
     @_triggerCount = 0  # keeps tally of bindings called
 
-    @transform (value) -> value
+    @map (value) -> value
 
     @_listen()
 
@@ -96,12 +96,6 @@ module.exports = class Binding
       from = @_from
 
     from.bind(property).to(@_from, @_properties)
-
-  ###
-   DEPRECATED - use map
-  ###
-
-  transform: (options) -> @map arguments...
 
   ###
    maps the bound value
