@@ -6,18 +6,22 @@ module.exports = class
   ###
 
   constructor: (@binding) ->
+    @_map = binding.map()
 
   ###
   ###
 
-  change: (value) ->
+  change: (values) ->
 
-    return if @_value is value
+    value = @_map.to values...
+
+    return false if @_value is value
 
     oldValue = @_value
     @_value  = value
 
     @_change value, oldValue
+    true
 
 
   ###

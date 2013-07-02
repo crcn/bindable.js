@@ -8,7 +8,7 @@ type                = require "type-component"
 
 ###
  Glues stuff together
-###
+### 
 
 module.exports = class Binding
 
@@ -43,14 +43,14 @@ module.exports = class Binding
 
     nvalues = []
     nvalues.push listener.value() for listener in @_listeners
-    value = @_map.to.apply @, nvalues
+    
+    hasChanged = false
+    
+    for setter in @_setters
+      hasChanged = setter.change(nvalues) or hasChanged
 
-    return @ if @_cvalue is value
-    @_cvalue = value
 
-    setter.change(value) for setter in @_setters
-
-    if ~@_limit and ++@_triggerCount >= @_limit
+    if hasChanged and (~@_limit and ++@_triggerCount >= @_limit)
       @dispose()
 
     @

@@ -183,6 +183,35 @@ describe("bindable object", function() {
     expect(bindable.get("name2")).to.be("CRAIG");
   });
 
+  it("can perform multiple mappings", function() {
+    var bindable = new BindableObject({
+      name: "Craig"
+    });
+
+    bindable.bind("name").map(function(name) {
+      return String(name).toLowerCase();
+    }).to("nameLowerCase").
+    map(function(name) {
+      return String(name).toUpperCase()
+    }).
+    to("nameUpperCase").
+    now();
+
+    expect(bindable.get("nameLowerCase")).to.be("craig");
+    expect(bindable.get("nameUpperCase")).to.be("CRAIG");
+  });
+
+  it("can form an undefined mapping", function() {
+    var bindable = new BindableObject({
+    });
+
+    bindable.bind("name").map(function(name) {
+      return name || "Craig";
+    }).to("name2").now();
+
+    expect(bindable.get("name2")).to.be("Craig");
+  })
+
 
   it("can transform an object to and from", function() {
     var binding = bindable.set("name", "chris").bind("name").map({
