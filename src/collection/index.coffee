@@ -1,10 +1,10 @@
-dref         = require "dref"
-Binding      = require "./binding"
-EventEmitter = require "../core/eventEmitter"
-type = require "type-component"
-hoist = require "hoist"
-BindableObject     = require "../object"
-computed = require "../utils/computed"
+dref            = require "dref"
+Binding         = require "./binding"
+EventEmitter    = require "../core/eventEmitter"
+type            = require "type-component"
+hoist           = require "hoist"
+BindableObject  = require "../object"
+computed        = require "../utils/computed"
 
 
 ###

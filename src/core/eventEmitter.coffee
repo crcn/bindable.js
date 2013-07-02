@@ -1,5 +1,5 @@
-events = require("events")
-disposable = require("disposable")
+events     = require "events"
+disposable = require "disposable"
 
 module.exports = class EventEmitter extends events.EventEmitter
   

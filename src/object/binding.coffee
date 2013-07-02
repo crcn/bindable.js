@@ -1,10 +1,10 @@
-BindableSetter = require("./setters/factory")
-bindableSetter = new BindableSetter()
-utils = require "../core/utils"
-options = require "../utils/options"
-toarray = require "toarray"
+BindableSetter      = require("./setters/factory")
+bindableSetter      = new BindableSetter()
+utils               = require "../core/utils"
+options             = require "../utils/options"
+toarray             = require "toarray"
 DeepPropertyWatcher = require("./deepPropertyWatcher")
-type = require "type-component"
+type                = require "type-component"
 
 ###
  Glues stuff together

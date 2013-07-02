@@ -1,4 +1,6 @@
-Binding = require("./object/binding")
+require("dref").use require("./shim/dref")
+
+Binding = require "./object/binding"
 
 exports.Object       = require "./object"
 exports.Collection   = require "./collection"

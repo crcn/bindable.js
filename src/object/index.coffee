@@ -1,7 +1,6 @@
-dref = require "./dref"
-require("dref").use require("../shim/dref")
+dref         = require "./dref"
 EventEmitter = require("../core/eventEmitter")
-Binding = require("./binding")
+Binding      = require("./binding")
 
 module.exports = class Bindable extends EventEmitter
 

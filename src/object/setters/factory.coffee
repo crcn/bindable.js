@@ -1,6 +1,6 @@
-FnSetter = require("./fn")
-BindableSetter = require("./bindable")
-CollectionSetter = require("./collection")
+FnSetter         = require "./fn"
+BindableSetter   = require "./bindable"
+CollectionSetter = require "./collection"
 
 module.exports = class
   
