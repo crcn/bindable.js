@@ -70,10 +70,6 @@ module.exports = class extends BindableObject
       @_sourceBinding = source.bind().to(@).now()
       return @
     
-    #oldSrc = @_source or []
-    #src = @_source = @_transform source
-    #@_length = src.length
-    #@emit "reset", src, oldSrc
     @_insert @_source = @_transform source
     @_resetInfo()
 
