@@ -7,13 +7,6 @@ class PropertyWatcher
   ###
 
   constructor: (options) ->
-    @reset options
-
-    
-  ###
-  ###
-
-  reset: (options) ->
 
     @target     = options.target
     @watch      = options.watch
@@ -21,8 +14,9 @@ class PropertyWatcher
     @index      = options.index
     @root       = options.root or @
     @delay      = options.delay
-    @property   = @path[@index] 
     @callback   = options.callback
+
+    @property   = @path[@index] 
     @_children  = []
     @_bindings  = []
     @_value     = undefined
@@ -35,7 +29,6 @@ class PropertyWatcher
       @property = @property.substr 1
 
     @_watch()
-
 
   ###
   ###
@@ -62,7 +55,7 @@ class PropertyWatcher
   ###
   ###
 
-  _dispose: () ->  
+  dispose: () ->  
     @_disposed = true 
     @_listener?.dispose()
     @_listener = undefined
@@ -70,13 +63,6 @@ class PropertyWatcher
     child.dispose() for child in @_children
     @_children  = []
     @_bindings  = []
-
-  ###
-  ###
-
-  dispose: () ->  
-    @_dispose()
-    propertyWatcher.add @
 
   ###
   ###
@@ -123,7 +109,7 @@ class PropertyWatcher
     
 
     if @_listener
-      @_dispose()
+      @dispose()
 
 
     @_value = value
@@ -194,13 +180,4 @@ class PropertyWatcher
   _changed: (@_value) =>
     @root._update()
 
-
-
-
-#propertyWatcher = module.exports = poolParty
-#  max: 100
-#  factory: (options) -> new PropertyWatcher options
-#  recycle: (watcher, options) -> watcher.reset options
-
 module.exports = PropertyWatcher
-

@@ -3,7 +3,7 @@ bindableSetter = new BindableSetter()
 utils = require "../core/utils"
 options = require "../utils/options"
 toarray = require "toarray"
-deepPropertyWatcher = require("./deepPropertyWatcher2")
+DeepPropertyWatcher = require("./deepPropertyWatcher2")
 type = require "type-component"
 
 ###
@@ -189,7 +189,7 @@ module.exports = class Binding
     disposeListeners = []
 
     for property in @_properties
-      listeners.push deepPropertyWatcher.create { target: @_from, path: property.split("."), callback: @now, index: 0, delay: @_delay }
+      listeners.push new DeepPropertyWatcher { target: @_from, path: property.split("."), callback: @now, index: 0, delay: @_delay }
       disposeListeners.push @_from.once "dispose", () =>
         @dispose()
 
