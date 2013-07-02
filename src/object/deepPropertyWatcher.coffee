@@ -1,55 +1,34 @@
-dref      = require("dref")
-poolParty = require("poolparty")
 type      = require("type-component")
+options   = require("../utils/options")
 
 class PropertyWatcher
-  
-  ###
-  ###
-
-  constructor: (options) -> @reset options
 
   ###
   ###
 
-  reset: (options) ->
+  constructor: (options) ->
 
-    if options.property
-      options.path = options.property.split(".")
+    @target     = options.target
+    @watch      = options.watch
+    @path       = options.path
+    @index      = options.index
+    @root       = options.root or @
+    @delay      = options.delay
+    @callback   = options.callback
 
-    @index     = options.index or 0
-    @_fullPath = options.path
-    @_path     = @_fullPath.slice(0, @index)
-    @_property = @_path.join(".")
-    @target    = options.target
-    @callback  = options.callback
-    @_children = []
+    @property   = @path[@index] 
+    @_children  = []
+    @_bindings  = []
+    @_value     = undefined
+    @_watching  = false
+    @_updating  = false
+    @_disposed  = false
 
-
-    if @_property.substr(0, 1) is "@"
-      @_property = @_property.substr(1)
-      @_callFn   = true
+    # loop through the property?
+    if @_each = @property.substr(0, 1) is "@"
+      @property = @property.substr 1
 
     @_watch()
-
-  ###
-  ###
-
-  _dispose: () ->
-    if @_listener
-      @_listener.dispose()
-      @_listener = undefined
-
-    for child in @_children
-      child.dispose()
-      @_children = []
-
-  ###
-  ###
-
-  dispose: () ->
-    @_dispose()
-    propertyWatcher.add @
 
   ###
   ###
@@ -57,51 +36,110 @@ class PropertyWatcher
   value: () ->
     values = []
     @_addValues values
-
-    #if @_children.length is 1
-    if values.length is 1
-      return values[0]
-    else
-      return values
-
-
-
+    return if values.length > 1 then values else values[0]
 
   ###
   ###
 
   _addValues: (values) ->
 
-    # no children? add the value
     unless @_children.length
       values.push @_value
+      return
 
-    for child in @_children 
+    for child in @_children
       child._addValues values
+
+    undefined
+
+  ###
+  ###
+
+  dispose: () ->  
+    @_disposed = true 
+    @_listener?.dispose()
+    @_listener = undefined
+    binding.dispose() for binding in @_bindings
+    child.dispose() for child in @_children
+    @_children  = []
+    @_bindings  = []
+
+  ###
+  ###
+
+  _update: () ->
+    unless ~@delay
+      @_watch()
+      @callback()
+      return
+      
+    return if @_updating
+    @_updating = true
+    @_disposed = false
+    setTimeout (() =>
+      return if @_disposed # disposed
+      @_watch()
+      @callback()
+    ), @delay
 
   ###
   ###
 
   _watch: () ->
-    if @_property.length
-      value = @target.get(@_property)
-      @_listener = @target.on "change:#{@_property}", @_changed
-    else
-      value = @target.get()
+    @_updating = false
 
-    if @_callFn
-      @_watchEachValue value
+
+    if @target
+      if @target.__isBindable
+
+        if (nt = @target.get()).__isBindable
+          @target = nt
+
+        @watch      = @target
+        @childPath  = @path.slice(@index)
+        @childIndex = 1
+        value       = @target.get(@property)
+      else
+        value       = @target[@property]
+        @childPath  = @path
+        @childIndex = @index + 1
+    else
+      @childPath = @path
+      @childIndex = @index + 1
+    
+
+    if @_listener
+      @dispose()
+
+
+    @_value = value
+
+
+    # value is a function? check if it's computed!
+    if ((t = type(value)) is "function") and value.refs
+      for ref in value.refs
+        @_watchRef ref
+
+    @_listener = @watch.on "change:#{@childPath.slice(0, @childIndex - 1).concat(@property).join(".")}", @_changed
+
+    if @_each
+      @_watchEachValue value, t
     else
       @_watchValue value
 
-
   ###
   ###
 
-  _watchEachValue: (fnOrArray) ->
-    switch t = type fnOrArray
+  _watchEachValue: (fnOrArray, t) ->
+
+    # computed properties should always have a delay
+    unless ~@root.delay
+      @root.delay = options.computedDelay
+
+    switch t
       when "function" then @_callEach fnOrArray
       when "array" then @_loopEach fnOrArray
+      when "undefined" then return
       else throw Error "'@#{@_property}' is a #{t}. '@#{@_property}' must be either an array, or function."
     
   ###
@@ -109,7 +147,10 @@ class PropertyWatcher
   ###
 
   _callEach: (fn) ->
-    fn (value) => @_watchValue value
+    @_value = []
+    fn.call @target, (value) => 
+      @_value.push value
+      @_watchValue value
 
   ###
    synchronous
@@ -118,46 +159,25 @@ class PropertyWatcher
   _loopEach: (values) ->
     for value in values
       @_watchValue value
+    undefined
 
   ###
   ###
 
   _watchValue: (value) ->
-    @_value = value
-    if value and value.__isBindable
-      @_children.push propertyWatcher.create { value: value, target: value, path: @_fullPath.slice(@index), callback: @_changed }
-    else if @_path.length < @_fullPath.length
-      @_children.push propertyWatcher.create { value: value, target: @target, path: @_fullPath, callback: @callback, index: @index + 1}
-    else if !@_property.length
-      @_value = @target
-
-
+    if @childIndex < @childPath.length
+      @_children.push new PropertyWatcher { watch: @watch, target: value, path: @childPath, index: @childIndex, callback: @callback, root: @root, delay: @delay }
 
   ###
   ###
 
-  _changed: (value) =>
-    @_value = value
-    @_dispose()
-    @_watch()
-    @callback value
-
-
+  _watchRef: (ref) ->
+    @_bindings.push new PropertyWatcher { target: @target, path: ref.split("."), index: 0, callback: @_changed, delay: @delay }
+ 
   ###
   ###
 
-  _childValues: () ->
-    values = []
-    for child in @_children
-      values.push child
-    values
+  _changed: (@_value) =>
+    @root._update()
 
-
-propertyWatcher = module.exports = poolParty
-  max: 100
-  factory: (options) -> return new PropertyWatcher options
-  recycle: (watcher, options) -> watcher.reset options
-
-
-
-
+module.exports = PropertyWatcher

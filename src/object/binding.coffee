@@ -3,7 +3,7 @@ bindableSetter = new BindableSetter()
 utils = require "../core/utils"
 options = require "../utils/options"
 toarray = require "toarray"
-DeepPropertyWatcher = require("./deepPropertyWatcher2")
+DeepPropertyWatcher = require("./deepPropertyWatcher")
 type = require "type-component"
 
 ###
@@ -66,7 +66,6 @@ module.exports = class Binding
     # bind this object to the collection source
     @to @_collection.source
     @now()
-
 
     # create the collection binding
     @_collectionBinding = @_collection.bind().copyId(true)
