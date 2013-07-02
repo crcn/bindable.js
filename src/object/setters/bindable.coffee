@@ -1,5 +1,5 @@
 Base    = require "./base"
-toarray = require "toarray"
+type    = require "type-component"
 
 module.exports = class extends Base
   
@@ -33,8 +33,14 @@ module.exports = class extends Base
 
   bothWays: () ->
     @_bothWaysBinding = @to.bind(@property).map({
-      to: () => toarray @binding._map.from arguments...
+      to: () =>
+        value = @binding._map.from arguments...
+        if type(value) is "array"
+          return value
+        else
+          return [value]
     }).to (values) =>
+
       return if @_ignoreBothWays
       for value, i in values 
         prop = @binding._properties[i]

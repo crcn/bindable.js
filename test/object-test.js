@@ -446,5 +446,22 @@ describe("bindable object", function() {
   });
 
 
+  it("can bind an undefined value the other way", function() {
+    var bindable = new BindableObject({
+      firstName: "Craig"
+    });
+
+    bindable.bind("firstName", "firstName2").bothWays().now();
+
+    expect(bindable.get("firstName2")).to.be("Craig");
+
+    //control
+    bindable.set("firstName2", "John");
+    expect(bindable.get("firstName")).to.be("John");
+    bindable.set("firstName2", undefined);
+    expect(bindable.get("firstName")).to.be(undefined);
+  })
+
+
 
 });
