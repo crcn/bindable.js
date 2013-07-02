@@ -1,4 +1,3 @@
-poolParty = require("poolparty")
 type      = require("type-component")
 options   = require("../utils/options")
 
@@ -181,13 +180,13 @@ class PropertyWatcher
 
   _watchValue: (value) ->
     if @childIndex < @childPath.length
-      @_children.push propertyWatcher.create { watch: @watch, target: value, path: @childPath, index: @childIndex, callback: @callback, root: @root, delay: @delay }
+      @_children.push new PropertyWatcher { watch: @watch, target: value, path: @childPath, index: @childIndex, callback: @callback, root: @root, delay: @delay }
 
   ###
   ###
 
   _watchRef: (ref) ->
-    @_bindings.push propertyWatcher.create { target: @target, path: ref.split("."), index: 0, callback: @_changed, delay: @delay }
+    @_bindings.push new PropertyWatcher { target: @target, path: ref.split("."), index: 0, callback: @_changed, delay: @delay }
  
   ###
   ###
@@ -198,8 +197,10 @@ class PropertyWatcher
 
 
 
-propertyWatcher = module.exports = poolParty
-  max: 100
-  factory: (options) -> new PropertyWatcher options
-  recycle: (watcher, options) -> watcher.reset options
+#propertyWatcher = module.exports = poolParty
+#  max: 100
+#  factory: (options) -> new PropertyWatcher options
+#  recycle: (watcher, options) -> watcher.reset options
+
+module.exports = PropertyWatcher
 
