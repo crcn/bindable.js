@@ -22,7 +22,7 @@ module.exports = class Binding
 
   constructor: (@_from, properties) ->
 
-    @_properties = if type(properties) is "string" then properties.split(/[,\s]+/g) else properties
+    @_properties = properties.split(/[,\s]+/g)
 
     @_limit        = -1 # limit the number binding calls
     @_delay        = options.delay # delay for binding changes
@@ -107,12 +107,6 @@ module.exports = class Binding
     @
 
   ###
-  ###
-
-  _transformer: () ->
-    @_transform or (@_transform = utils.transformer options)
-
-  ###
    runs the binding just once
   ###
 
@@ -152,7 +146,6 @@ module.exports = class Binding
     @_delay = value
     @
 
-
   ###
    removes the binding
   ###
@@ -190,8 +183,6 @@ module.exports = class Binding
     # if the object is disposed, then remove this listener
     @_disposeListeners = disposeListeners
     @_listeners        = listeners
-
-
 
 
 ###
