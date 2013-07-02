@@ -11,6 +11,7 @@ module.exports = class
     @_limit = -1
     @_setters = []
     @_listen()
+    @map (value) -> value
 
   ###
   ###
@@ -97,12 +98,6 @@ module.exports = class
   ###
 
   _callSetters: (method, item, index) ->
-    if @_filter
-      return unless @_filter(item)
-
-    if @_transformer
-      item = @_transformer.to item
-
       
 
     for setter in @_setters
