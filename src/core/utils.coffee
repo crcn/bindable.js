@@ -21,8 +21,5 @@ exports.transformer = (options) ->
   if not options.to
     options.to = (value) -> value
   
-  from: hoist.map (values) -> 
-    options.from.apply @, values
-  to: hoist.map (values) -> 
-    options.to.apply @, values
+  options
   

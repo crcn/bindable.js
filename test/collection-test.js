@@ -88,6 +88,7 @@ describe("bindable collection", function() {
   });
 
 
+
   it("can dispose a binding", function() {
     bindings.col12.dispose();
   });
@@ -104,7 +105,7 @@ describe("bindable collection", function() {
   it("a binding with a filter can be created", function() {
     bindings.col12 = col1.bind().filter(sift({ lname: { $ne: "Monica" }}).test).transform(function(person) {
       return { name: person.lname }
-    }).to(col2);
+    }).to(col2).now();
   });
 
 
@@ -117,7 +118,7 @@ describe("bindable collection", function() {
   it("a binding can be created without a filter", function() {
     bindings.col12 = col1.bind().transform(function(person) {
       return { name: person.lname }
-    }).to(col2);
+    }).to(col2).now();
   });
 
   it("col2 has Monica", function() {
@@ -127,7 +128,7 @@ describe("bindable collection", function() {
 
 
   it("can bind to multiple collections", function() {
-    bindings.col345 = col1.bind().to(col4).to(col5);
+    bindings.col345 = col1.bind().to(col4).to(col5).now();
   });
 
 

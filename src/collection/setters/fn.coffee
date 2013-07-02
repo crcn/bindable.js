@@ -13,8 +13,8 @@ module.exports = class extends require("./base")
   now: () -> 
     return if @_initialized
     @_initialized = true
-    for item, i in @binding._from.source()
-      @change "insert", item
+    #for item, i in @binding._from.source()
+    #  @change "insert", item
       
   ###
   ###

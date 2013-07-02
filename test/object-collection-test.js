@@ -4,7 +4,6 @@ expect = require("expect.js");
 
 describe("bindable object collection", function() {
   
-  
   var col1 = new BindableCollection([
     {
       lname: "Craig"
@@ -68,7 +67,6 @@ describe("bindable object collection", function() {
     b.dispose()
 
   });
-
 
   it("binding to col3 doesn't exist anymore", function() {
     var n = col3.length();

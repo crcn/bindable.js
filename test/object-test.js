@@ -5,7 +5,6 @@ describe("bindable object", function() {
 
   var bindable, binding;
   
-  
   it("can be created", function() {
     bindable = new BindableObject({
       name: {
@@ -26,7 +25,6 @@ describe("bindable object", function() {
 
     bindable.set("f.g.h", { i: 1 });
   });
-
 
   
   it("can reset an object", function() {
@@ -90,6 +88,7 @@ describe("bindable object", function() {
     bindable.bind("age", "age2").bothWays().limit(2)
     bindable.set("age", 5);
   });
+
 
   it("age should be 5", function() {
     expect(bindable.get("age")).to.be(5);

@@ -6,24 +6,18 @@ module.exports = class
   ###
 
   constructor: (@binding) ->
-    @_transformer = @binding._map or @binding.transform()
 
   ###
   ###
 
-  change: (values) ->
+  change: (value) ->
 
-    transformedValue = @__transform "to", values
-
-    # TODO - see if initialized
-    return if @_value is transformedValue 
-    #else
-    #  @_initialized = true
+    return if @_value is value
 
     oldValue = @_value
-    @_value  = transformedValue
+    @_value  = value
 
-    @_change transformedValue, oldValue
+    @_change value, oldValue
 
 
   ###
@@ -37,12 +31,4 @@ module.exports = class
 
   _change: (value) ->
     # OVERRIDE ME
-
-
-  ###
-  ###
-
-  __transform: (method, values) -> 
-    return values[0] if not @_transformer
-    utils.tryTransform @_transformer, method, values
 

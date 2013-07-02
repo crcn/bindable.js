@@ -7,8 +7,6 @@ module.exports = class
   ###
 
   constructor: (@binding, @target) ->
-    @_transformer = binding.transform()
-    @_filter = binding.filter()
     @init()
 
   ###
@@ -43,16 +41,14 @@ module.exports = class
   ###
 
   _changeItem: (event, item, oldItem) ->
-    if @_filter
-      return if not @_filter item
-
-    @_change event, @__transform("to", item), oldItem
+    @_change event, item, oldItem
 
   ###
   ###
 
   _changeItems: (event, items, oldItems) ->
 
+    ###
     if @_filter
       changed = items.filter @_filter
     else
@@ -62,6 +58,7 @@ module.exports = class
       changed[i] = @__transform "to", item
 
     @_change events, changed, oldItems
+    ###
 
 
   ###

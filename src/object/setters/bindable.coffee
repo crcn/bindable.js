@@ -33,8 +33,7 @@ module.exports = class extends Base
 
   bothWays: () ->
     @_bothWaysBinding = @to.bind(@property).map({
-      to: (value) => 
-        toarray @__transform "from", [value]
+      to: () => toarray @binding._map.from arguments...
     }).to (values) =>
       return if @_ignoreBothWays
       for value, i in values 

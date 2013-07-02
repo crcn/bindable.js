@@ -67,7 +67,7 @@ module.exports = class extends BindableObject
     if source.__isCollection  
       @_source = []
       @_id source._id()
-      @_sourceBinding = source.bind().to @
+      @_sourceBinding = source.bind().to(@).now()
       return @
     
     #oldSrc = @_source or []

@@ -203,6 +203,3 @@ propertyWatcher = module.exports = poolParty
   factory: (options) -> new PropertyWatcher options
   recycle: (watcher, options) -> watcher.reset options
 
-
-
-

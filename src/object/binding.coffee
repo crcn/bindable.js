@@ -31,25 +31,29 @@ module.exports = class Binding
     @_listeners    = []
     @_triggerCount = 0  # keeps tally of bindings called
 
+    @transform (value) -> value
+
     @_listen()
-
-  ###
-  ###
-
-  _values: () ->
-    for listener, i in @_listeners
-      v = listener.value()
-      if v isnt @_cvalues[i]
-        @_cvalues[i] = v
-
-    @_cvalues
 
   ### 
    executes the binding now
   ###
 
-  now: (value) -> 
-    @_onChange @_values()
+  now: () => 
+
+    nvalues = []
+    nvalues.push listener.value() for listener in @_listeners
+    value = @_map.to.apply @, nvalues
+
+    return @ if @_cvalue is value
+    @_cvalue = value
+
+    setter.change(value) for setter in @_setters
+
+    if ~@_limit and ++@_triggerCount >= @_limit
+      @dispose()
+
+    @
 
   ###
    casts this binding as a collection binding
@@ -62,6 +66,7 @@ module.exports = class Binding
     # bind this object to the collection source
     @to @_collection.source
     @now()
+
 
     # create the collection binding
     @_collectionBinding = @_collection.bind().copyId(true)
@@ -99,6 +104,7 @@ module.exports = class Binding
   transform: (options) -> @map arguments...
 
   ###
+   maps the bound value
   ###
 
   map: (options) ->
@@ -179,32 +185,17 @@ module.exports = class Binding
 
   _listen: () ->
 
-    listeners = []
+    listeners        = []
     disposeListeners = []
 
     for property in @_properties
-      listeners.push deepPropertyWatcher.create { target: @_from, path: property.split("."), callback: @_onChange, index: 0, delay: @_delay }
+      listeners.push deepPropertyWatcher.create { target: @_from, path: property.split("."), callback: @now, index: 0, delay: @_delay }
       disposeListeners.push @_from.once "dispose", () =>
         @dispose()
 
     # if the object is disposed, then remove this listener
     @_disposeListeners = disposeListeners
     @_listeners        = listeners
-
-
-  ###
-  ###
-
-  _onChange: (value) =>
-    values = @_values()
-
-    return @ unless values.length
-
-    setter.change(values) for setter in @_setters
-
-    if ~@_limit and ++@_triggerCount >= @_limit
-      @dispose()
-    @
 
 
 

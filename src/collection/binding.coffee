@@ -31,6 +31,9 @@ module.exports = class
   now: () ->
     for setter in @_setters
       setter.now()
+
+    for item in @_from.source()
+      @_callSetters "insert", item
     @
 
 
@@ -94,6 +97,14 @@ module.exports = class
   ###
 
   _callSetters: (method, item, index) ->
+    if @_filter
+      return unless @_filter(item)
+
+    if @_transformer
+      item = @_transformer.to item
+
+      
+
     for setter in @_setters
       setter.change method, item, index
 
