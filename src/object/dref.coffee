@@ -3,7 +3,7 @@
 
 exports.get = (target, key, flatten = true) ->
 
-  return if not target
+  return target unless target
   keyParts = if key then key.split "." else []
   ct = target
 

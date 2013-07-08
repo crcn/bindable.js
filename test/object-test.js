@@ -493,4 +493,14 @@ describe("bindable object", function() {
 
 
 
+  it("value isn't undefined if get('') is calling from bindable obj", function() {
+    var bindable = new BindableObject({});
+    bindable.control = "hello";
+    bindable.name = false;
+    bindable.name2 = 0;
+    expect(bindable.get("control")).to.be("hello");
+    expect(bindable.get("name")).to.be(false);
+    expect(bindable.get("name2")).to.be(0);
+  })
+
 });
