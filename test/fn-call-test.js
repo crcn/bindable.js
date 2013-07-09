@@ -5,6 +5,7 @@ bindable.options.computedDelay = -1
 
 describe("function call", function() {
   
+  
   var craig = new bindable.Object({
     name: {
       first: "craig",
@@ -57,6 +58,8 @@ describe("function call", function() {
 
     binding.dispose()
   });
+
+
 
 
   it("can call forEach on an array", function() {
@@ -173,6 +176,28 @@ describe("function call", function() {
 
     jake.set("age", 22);
     expect(liam.get("friendsOlderThan20").length).to.be(3);
+  })
+
+
+  it("can compute an array with just one item", function(next) {
+    var classroom = new bindable.Object({
+      name: "Demo Class",
+      archived: true
+    });
+
+
+    var teacher = new bindable.Object({
+      classes: [classroom]
+    });
+
+    teacher.bind("classes.@forEach.archived").map(function(archived) {
+      expect(archived.length).to.be(1);
+      return true;
+    }).to(function() {
+      next();
+    }).now();
+
+
   })
 
 });

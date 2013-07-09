@@ -12,7 +12,7 @@ module.exports = class
   ###
 
   change: (values) ->
-
+    
     value = @_map.to values...
 
     return false if @_value is value

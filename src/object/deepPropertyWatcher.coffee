@@ -20,12 +20,14 @@ class PropertyWatcher
     @_children  = []
     @_bindings  = []
     @_value     = undefined
+    @_values    = undefined
     @_watching  = false
     @_updating  = false
     @_disposed  = false
 
     # loop through the property?
     if @_each = @property.substr(0, 1) is "@"
+      @root._computeEach = true
       @property = @property.substr 1
 
     @_watch()
@@ -36,7 +38,7 @@ class PropertyWatcher
   value: () ->
     values = []
     @_addValues values
-    return if values.length > 1 then values else values[0]
+    return if @_computeEach then values else values[0]
 
   ###
   ###
@@ -44,7 +46,10 @@ class PropertyWatcher
   _addValues: (values) ->
 
     unless @_children.length
-      values.push @_value
+      if @_values
+        values.push @_values...
+      else
+        values.push @_value
       return
 
     for child in @_children
@@ -147,9 +152,9 @@ class PropertyWatcher
   ###
 
   _callEach: (fn) ->
-    @_value = []
+    @_values = []
     fn.call @target, (value) => 
-      @_value.push value
+      @_values.push value
       @_watchValue value
 
   ###
