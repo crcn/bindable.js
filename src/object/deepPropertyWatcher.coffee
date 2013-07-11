@@ -48,7 +48,7 @@ class PropertyWatcher
     unless @_children.length
       if @_values
         values.push @_values...
-      else
+      else if @_value?
         values.push @_value
       return
 
