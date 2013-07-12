@@ -1,5 +1,6 @@
 events     = require "events"
 disposable = require "disposable"
+type       = require "type-component"
 
 module.exports = class EventEmitter extends events.EventEmitter
   
@@ -40,6 +41,10 @@ module.exports = class EventEmitter extends events.EventEmitter
 
   once: (key, listener) ->
     oldListener = listener
+
+    unless type(listener) is "function"
+      throw new Error "listener must be a function"
+
 
     disp = @on key, () ->
       disp.dispose()
