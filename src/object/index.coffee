@@ -27,6 +27,10 @@ module.exports = class Bindable extends EventEmitter
     #  continue if key.substr(0, 1) is "_"
     #  dref.set @, key, @constructor.prototype[key]
 
+  ###
+  ###
+
+  _watching: (property) ->
 
   ###
   ###

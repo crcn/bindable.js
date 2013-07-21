@@ -125,7 +125,12 @@ class PropertyWatcher
       for ref in value.refs
         @_watchRef ref
 
-    @_listener = @watch.on "change:#{@childPath.slice(0, @childIndex - 1).concat(@property).join(".")}", @_changed
+    prop = @childPath.slice(0, @childIndex - 1).concat(@property).join(".")
+
+    # notifies the target that this property is being watched
+    @watch._watching prop
+    
+    @_listener = @watch.on "change:#{prop}", @_changed
 
     if @_each
       @_watchEachValue value, t
