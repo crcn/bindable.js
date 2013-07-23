@@ -23,7 +23,6 @@ module.exports = class
     @_change value, oldValue
     true
 
-
   ###
   ###
 

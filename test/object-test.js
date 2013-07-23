@@ -503,4 +503,23 @@ describe("bindable object", function() {
     expect(bindable.get("name2")).to.be(0);
   })
 
+
+  //TODO - this should eventually apss
+  if(false)
+  it("can bind an undefined property and still get triggered", function() {
+    var bindable = new BindableObject({ name: "Craig" }),
+    a, b = 0;
+
+    bindable.bind("name").to(function(value) {
+      a = value;
+    }).now().to(function(value) {
+      b = value;
+    });
+
+    bindable.set("name", undefined)
+
+    expect(a).to.be("Craig");
+    expect(b).to.be(undefined);
+  })
+
 });
