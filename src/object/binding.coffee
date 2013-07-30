@@ -49,7 +49,6 @@ module.exports = class Binding
     for setter in @_setters
       hasChanged = setter.change(nvalues) or hasChanged
 
-
     if hasChanged and (~@_limit and ++@_triggerCount >= @_limit)
       @dispose()
 

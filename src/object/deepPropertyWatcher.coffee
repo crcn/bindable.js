@@ -126,9 +126,6 @@ class PropertyWatcher
         @_watchRef ref
 
     prop = @childPath.slice(0, @childIndex - 1).concat(@property).join(".")
-
-    # notifies the target that this property is being watched
-    @watch._watching prop
     
     @_listener = @watch.on "change:#{prop}", @_changed
 
@@ -136,6 +133,9 @@ class PropertyWatcher
       @_watchEachValue value, t
     else
       @_watchValue value
+
+    # notifies the target that this property is being watched
+    @watch._watching prop
 
   ###
   ###
