@@ -520,6 +520,27 @@ describe("bindable object", function() {
 
     expect(a).to.be("Craig");
     expect(b).to.be(undefined);
-  })
+  });
+
+
+  describe("with delays", function() {
+
+    it("can be added to a map", function() {
+      var bo = new BindableObject({
+      });
+
+      bo.bind("a, b").delay(1).map(function(a, b) {
+        expect(a).to.be(true);
+        expect(b).to.be(true);
+        return a && b;
+      }).to(function(v) {
+        expect(v).to.be(true);
+      });
+
+      bo.set("a", true);
+      bo.set("b", true);
+
+    })
+  });
 
 });

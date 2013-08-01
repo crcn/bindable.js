@@ -25,7 +25,7 @@ module.exports = class Binding
     @_properties = properties.split(/[,\s]+/g)
 
     @_limit        = -1 # limit the number binding calls
-    @_delay        = options.delay # delay for binding changes
+    @_delay        = if @_properties.length is 1 then options.delay else options.computedDelay # delay for binding changes
     @_setters      = [] # listeners
     @_cvalues      = []
     @_listeners    = []
@@ -35,12 +35,10 @@ module.exports = class Binding
 
     @_listen()
 
-  ### 
-   executes the binding now
+  ###
   ###
 
-  now: () => 
-
+  now: () =>
     nvalues = []
     nvalues.push listener.value() for listener in @_listeners
     
@@ -53,6 +51,7 @@ module.exports = class Binding
       @dispose()
 
     @
+
 
   ###
    casts this binding as a collection binding
@@ -142,6 +141,7 @@ module.exports = class Binding
   delay: (value) ->
     return @_delay unless arguments.length
     @_delay = value
+    @_listen()
     @
 
   ###
@@ -157,24 +157,36 @@ module.exports = class Binding
     if @_collectionBinding
       @_collectionBinding.dispose()
 
+    @_dlisteners()
+    @
+
+  ###
+  ###
+
+  _dlisteners: () ->
     if @_listeners
       listener.dispose() for listener in @_listeners
+
+    if @_disposeListeners
       disposeListener.dispose() for disposeListener in @_disposeListeners
 
     @_listeners        = []
     @_disposeListeners = []
-    @
+
 
   ###
   ###
 
   _listen: () ->
 
+    @_dlisteners()
+
     listeners        = []
     disposeListeners = []
 
+
     for property in @_properties
-      listeners.push new DeepPropertyWatcher { target: @_from, path: property.split("."), callback: @now, index: 0, delay: @_delay }
+      listeners.push new DeepPropertyWatcher { binding: @, target: @_from, path: property.split("."), callback: @now, index: 0, delay: @_delay }
       disposeListeners.push @_from.once "dispose", () =>
         @dispose()
 
