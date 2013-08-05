@@ -7,11 +7,23 @@ bindable      = require("..");
 var person = new bindable.Object({
   firstName: "craig",
   lastName: "condon"
-})
+}),
+binding = person.bind("firstName", "firstName3").now(),
+i = 0;
+
 
 suite.add("firstName -> firstName2", function() {
   person.bind("firstName", "firstName2").once().now();
 });
+
+
+suite.add("change unbound value", function() {
+  person.set("abba", "abba" + (i++));
+}); 
+
+suite.add("change firstName with pre-defined binding", function() {
+  person.set("firstName", "abba" + (i++));
+})
 
 suite.add("compute firstName + lastName", function() {
   person.bind("firstName, lastName").map({
