@@ -15,7 +15,7 @@
   "readmeFilename": "README.md",
   "gitHead": "7edb2889d669a6f42b537b50772f9e86cf6337f1",
   "dependencies": {
-    "dref": "0.0.x",
+    "dref": "0.1.x",
     "disposable": "0.0.x",
     "underscore": "1.4.x",
     "hoist": "0.0.x",

@@ -1,4 +1,3 @@
-require("dref").use require("./shim/dref")
 
 Binding = require "./object/binding"
 
