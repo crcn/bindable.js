@@ -179,9 +179,16 @@ module.exports = class extends BindableObject
 
   indexOf: (searchItem) ->  
     for item, i in @_source
-      if dref.get(item, @__id) is dref.get(searchItem, @__id)
+      if @_get(item, @__id) is @_get(searchItem, @__id)
         return i
     return -1
+
+  ###
+  ###
+
+  _get: (item, id) ->
+    return undefined unless item
+    item.get?(id) ? item[id]
 
   ###
   ###
@@ -253,7 +260,7 @@ module.exports = class extends BindableObject
 
   _enforceItemId: (item) =>
     return item if not @__enforceId
-    _id = dref.get(item, @__id)
+    _id = @_get(item, @__id)
     if (_id is undefined) or (_id is null)
       throw new Error "item '#{item}' must have a '#{@__id}'"
 
