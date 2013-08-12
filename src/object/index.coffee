@@ -90,12 +90,7 @@ module.exports = class Bindable extends EventEmitter
       for k of key
         @set k, key[k]
       return
-
-    # a binding?
-    if value and value.__isBinding
-      value.to @, key
-      return
-
+      
     @_set key, value
 
   ###

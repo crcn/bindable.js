@@ -151,8 +151,7 @@ describe("bindable object", function() {
 
 
   it("can be bound to a binding", function() {
-    binding = bindable.bind("fish").now();
-    bindable.set("fish2", binding);
+    binding = bindable.bind("fish", "fish2").now();
     binding._from.set("fish", "sauce");
   });
 
