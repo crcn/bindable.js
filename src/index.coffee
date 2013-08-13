@@ -1,4 +1,4 @@
-
+require("dref").use require("./shim/dref")
 Binding = require "./object/binding"
 
 exports.Object       = require "./object"
