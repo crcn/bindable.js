@@ -45,4 +45,5 @@ module.exports = class extends Base
       for value, i in values 
         prop = @binding._properties[i]
         @binding._from.set prop, value
+      return
 

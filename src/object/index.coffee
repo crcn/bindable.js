@@ -125,6 +125,7 @@ module.exports = class Bindable extends EventEmitter
   _ref: (context, key) -> 
     return context if not key
     dref.get context, key
+    @
 
   ###
   ###
