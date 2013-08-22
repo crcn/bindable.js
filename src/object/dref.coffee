@@ -28,7 +28,7 @@ exports.set = (target, key, value) ->
 
   keyParts = key.split(".")
 
-  ct = target.data
+  ct = target.__context
 
   n = keyParts.length
 

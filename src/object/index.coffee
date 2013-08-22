@@ -12,20 +12,17 @@ module.exports = class Bindable extends EventEmitter
   ###
   ###
 
-  constructor: (data) ->
+  constructor: (@__context = {}) ->
     super()
-    @_initData data
     @_bindings = []
 
-
-
   ###
   ###
 
-  _initData: (@data = {}) ->
-    #for key of @constructor.prototype
-    #  continue if key.substr(0, 1) is "_"
-    #  dref.set @, key, @constructor.prototype[key]
+  context: (data) ->
+    return @__context unless arguments.length
+    @__context = data
+
 
   ###
   ###
@@ -39,7 +36,7 @@ module.exports = class Bindable extends EventEmitter
 
     # return the deep ref of the data, OR ref of this object. Note that we pop off the first key
     # so there isn't a circular call to .get()
-    ret = dref.get(@data, key, flatten)
+    ret = dref.get(@__context, key, flatten)
 
     return ret if ret?
 
@@ -56,12 +53,6 @@ module.exports = class Bindable extends EventEmitter
   ###
 
   toObject: (key) -> @get key, true
-
-  ###
-   DEPRECATED
-  ###
-
-  getFlatten: (key) -> @toObject key
 
   ###
   ###
@@ -100,7 +91,7 @@ module.exports = class Bindable extends EventEmitter
     
     @set newData
 
-    for key of @data
+    for key of @__context
 
       # delete key
       if not dref.get(newData, key)?
@@ -119,13 +110,6 @@ module.exports = class Bindable extends EventEmitter
     @emit "change", key, value
     @
 
-  ###
-  ###
-
-  _ref: (context, key) -> 
-    return context if not key
-    dref.get context, key
-    @
 
   ###
   ###
@@ -145,15 +129,12 @@ module.exports = class Bindable extends EventEmitter
   ###
   ###
 
-  dispose: () ->
-    @emit "dispose"
+  dispose: () -> @emit "dispose"
 
   ###
   ###
 
-  toJSON: () -> @data
-
-
+  toJSON: () -> @__context
 
 
 

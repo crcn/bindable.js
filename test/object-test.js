@@ -316,10 +316,10 @@ describe("bindable object", function() {
 
 
 
-    bindable.data.bind("name", function(value) {
+    bindable.context().bind("name", function(value) {
       newName2 = value;
     });
-    bindable.data.set("name", "jake");
+    bindable.context().set("name", "jake");
     expect(newName1).to.be("jake");
     expect(newName2).to.be("jake");
   });
@@ -383,12 +383,12 @@ describe("bindable object", function() {
 
   it("can set a bindable object to a bindable object", function() {
     var bindable = new BindableObject(new BindableObject({ name: "craig" }));
-    expect(bindable.getFlatten("name")).to.be("craig");
+    expect(bindable.toObject("name")).to.be("craig");
   });
 
   it("can get an object of a nested bindable object", function() {
     var bindable = new BindableObject(new BindableObject({ name: "craig" }));
-    expect(bindable.getFlatten().name).to.be("craig");
+    expect(bindable.toObject().name).to.be("craig");
   });
 
 
