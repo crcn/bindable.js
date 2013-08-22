@@ -491,18 +491,6 @@ describe("bindable object", function() {
   })
 
 
-
-  it("value isn't undefined if get('') is calling from bindable obj", function() {
-    var bindable = new BindableObject({});
-    bindable.control = "hello";
-    bindable.name = false;
-    bindable.name2 = 0;
-    expect(bindable.get("control")).to.be("hello");
-    expect(bindable.get("name")).to.be(false);
-    expect(bindable.get("name2")).to.be(0);
-  })
-
-
   //TODO - this should eventually apss
   if(false)
   it("can bind an undefined property and still get triggered", function() {
@@ -526,6 +514,13 @@ describe("bindable object", function() {
     var bindable = new BindableObject();
     bindable.name = "craig";
     expect(bindable.get("name")).to.be(undefined);
+  });
+
+  it("can change the context of the bindable object to itself", function() {
+    var bindable = new BindableObject();
+    bindable.context(bindable);
+    bindable.set("name", "craig");
+    expect(bindable.name).to.be("craig");
   })
 
 

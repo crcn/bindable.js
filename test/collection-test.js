@@ -168,7 +168,7 @@ describe("bindable collection", function() {
       newLength = value;
     }).now();
     col1.push({ lname: "abbba" });
-    expect(newLength).to.be(col1.length());
+    expect(newLength).to.be(col1.length);
     binding.dispose();
   });
 

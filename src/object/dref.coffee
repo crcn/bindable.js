@@ -34,7 +34,8 @@ exports.set = (target, key, value) ->
 
   for k, i in keyParts
 
-    if ct.__isBindable
+    # context can be self
+    if ct.__isBindable and ct isnt target
       return ct.set keyParts.slice(i).join("."), value
     else
       if i is n-1
