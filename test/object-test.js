@@ -522,6 +522,13 @@ describe("bindable object", function() {
   });
 
 
+  it("cannot reference a property on the bindable object if the context isn't the bindable property", function() {
+    var bindable = new BindableObject();
+    bindable.name = "craig";
+    expect(bindable.get("name")).to.be(undefined);
+  })
+
+
   describe("with delays", function() {
 
     it("can be added to a map", function() {
