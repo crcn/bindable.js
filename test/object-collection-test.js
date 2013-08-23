@@ -60,7 +60,7 @@ describe("bindable object collection", function() {
 
     var b = bindable.bind("source").collection().to(col3).now();
 
-    for(var i = col1.length(); i--;) {
+    for(var i = col1.length; i--;) {
       expect(col3.indexOf(col1.at(i))).to.be(i);
     }
 
@@ -69,22 +69,22 @@ describe("bindable object collection", function() {
   });
 
   it("binding to col3 doesn't exist anymore", function() {
-    var n = col3.length();
+    var n = col3.length;
     col1.push({ lname: "blah" });
-    expect(col3.length()).to.be(n);
+    expect(col3.length).to.be(n);
   })
 
   it("can change the source & be reflected in the target collection", function() {
       
     var binding = bindable.bind("source").collection().to(col3).now();
 
-    for(var i = col1.length(); i--;) {
+    for(var i = col1.length; i--;) {
       expect(col3.indexOf(col1.at(i))).to.be(i);
     }
 
     bindable.set("source", col2);
 
-    for(var i = col2.length(); i--;) {
+    for(var i = col2.length; i--;) {
       expect(col3.indexOf(col2.at(i))).to.be(i);
     }
 
@@ -95,7 +95,7 @@ describe("bindable object collection", function() {
 
   it("binding to source doesn't work anymore", function() {
     bindable.set("source", col1);
-    for(var i = col2.length(); i--;) {
+    for(var i = col2.length; i--;) {
       expect(col3.indexOf(col2.at(i))).to.be(i);
     }
   });

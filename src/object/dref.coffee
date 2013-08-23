@@ -1,43 +1,46 @@
 
 
 
-exports.get = (target, key, flatten = true) ->
+exports.get = (bindable, context, keyParts, flatten = true) ->
 
-  return target unless target
-  keyParts = if key then key.split "." else []
-  ct = target
+  return context if not context
 
+  unless keyParts
+    keyParts = []
+
+  if typeof keyParts is "string"
+    keyParts = keyParts.split(".")
+
+  ct = context
 
   for k, i in keyParts
 
     return if not ct
 
-    # current target is bindable? pass the get along to it
-    return ct.get(keyParts.slice(i).join(".")) if ct.__isBindable
+    # current context is bindable? pass the get along to it
+    return ct.get(keyParts.slice(i)) if ct.__isBindable and ct isnt bindable
     ct = ct[k]
 
   if flatten and ct and ct.__isBindable
     return ct.get()
 
   return ct
-
+ 
 
   
-exports.set = (target, key, value) ->
-  return if not target or not key
-
+exports.set = (bindable, key, value) ->
   keyParts = key.split(".")
 
-  ct = target.__context
-
   n = keyParts.length
+  ct = bindable.__context
 
   for k, i in keyParts
 
     # context can be self
-    if ct.__isBindable and ct isnt target
+    if ct.__isBindable and ct isnt bindable
       return ct.set keyParts.slice(i).join("."), value
     else
+
       if i is n-1
         return false if ct[k] is value
         ct[k] = value

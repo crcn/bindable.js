@@ -377,8 +377,12 @@ describe("bindable object", function() {
   })
 
 
-  it("can set null key and not fail", function() {
-    bindable.set(null, 0);
+  it("can set null key and fail", function() {
+    try {
+      bindable.set(null, 0);
+    } catch(e) {
+      expect(e).not.to.be(undefined);
+    }
   });
 
   it("can set a bindable object to a bindable object", function() {
@@ -444,7 +448,7 @@ describe("bindable object", function() {
     bindable.bind("firstName, lastName").
       map(function(firstName, lastName) {
         return [firstName, lastName].join(" ");
-      }).to("fullName").now();
+      }).delay(-1).to("fullName").now();
 
     expect(bindable.get("fullName")).to.be("Jake Anderson");
     bindable.set("firstName", "John");
@@ -521,6 +525,7 @@ describe("bindable object", function() {
     bindable.context(bindable);
     bindable.set("name", "craig");
     expect(bindable.name).to.be("craig");
+    expect(bindable.get("name")).to.be("craig");
   })
 
 

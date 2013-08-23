@@ -23,7 +23,6 @@ module.exports = class Bindable extends EventEmitter
     return @__context unless arguments.length
     @__context = data
 
-
   ###
   ###
 
@@ -32,7 +31,7 @@ module.exports = class Bindable extends EventEmitter
   ###
   ###
 
-  get: (key, flatten = false) -> dref.get(@__context, key, flatten)
+  get: (key, flatten = false) -> dref.get(@, @__context, key, flatten)
 
   ###
   ###
@@ -42,7 +41,7 @@ module.exports = class Bindable extends EventEmitter
   ###
   ###
 
-  keys: () -> Object.keys @getFlatten()
+  keys: () -> Object.keys @toObject()
 
   ###
   ###
@@ -79,11 +78,10 @@ module.exports = class Bindable extends EventEmitter
     for key of @__context
 
       # delete key
-      if not dref.get(newData, key)?
+      if not dref.get(@, newData, key)?
         @set key, undefined
 
     @
-
 
   ###
   ###
@@ -95,11 +93,11 @@ module.exports = class Bindable extends EventEmitter
     @emit "change", key, value
     @
 
-
   ###
   ###
 
   bind: (property, to) -> 
+
 
     if typeof property is "object"
       return Binding.fromOptions @, property
@@ -119,8 +117,7 @@ module.exports = class Bindable extends EventEmitter
   ###
   ###
 
-  toJSON: () -> @__context
-
+  toJSON: () -> @toObject()
 
 
 module.exports.EventEmitter = EventEmitter
