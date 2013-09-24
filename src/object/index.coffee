@@ -26,7 +26,7 @@ module.exports = class Bindable extends EventEmitter
   ###
   ###
 
-  _watching: (property) ->
+  _watching: (property) -> @emit "watching", property
 
   ###
   ###
