@@ -6,7 +6,7 @@ module.exports = class extends Base
   ###
   ###
 
-  constructor: (@binding, @to, @property) -> 
+  constructor: (@binding, @to) -> 
     super @binding
 
   ###
@@ -14,7 +14,7 @@ module.exports = class extends Base
 
   _change: (newValue) ->
     @_ignoreBothWays = true
-    @to.set @property, newValue
+    @to.set newValue
     @_ignoreBothWays = false
 
   ###
@@ -27,23 +27,3 @@ module.exports = class extends Base
     @binding = 
     @to = 
     @properties = null
-
-  ###
-  ###
-
-  bothWays: () ->
-    @_bothWaysBinding = @to.bind(@property).map({
-      to: () =>
-        value = @binding._map.from arguments...
-        if type(value) is "array"
-          return value
-        else
-          return [value]
-    }).to (values) =>
-
-      return if @_ignoreBothWays
-      for value, i in values 
-        prop = @binding._properties[i]
-        @binding._from.set prop, value
-      return
-

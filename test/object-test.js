@@ -526,7 +526,15 @@ describe("bindable object", function() {
     bindable.set("name", "craig");
     expect(bindable.name).to.be("craig");
     expect(bindable.get("name")).to.be("craig");
-  })
+  });
+
+
+  it("can bind a property directly to another bindable object", function() {
+    var bindable = new BindableObject({ data: { name: "craig" }}),
+    bindable2 = new BindableObject();
+    bindable.bind("data").to(bindable2).now();
+    expect(bindable2.get("name")).to.be("craig");
+  });
 
 
   describe("with delays", function() {

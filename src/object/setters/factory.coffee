@@ -1,4 +1,5 @@
 FnSetter         = require "./fn"
+PropertySetter   = require "./property"
 BindableSetter   = require "./bindable"
 CollectionSetter = require "./collection"
 
@@ -36,6 +37,10 @@ module.exports = class
       if target.__isBinding
         throw new Error "Cannot bind to a binding."
 
+      # bindable.bind("property").to(anotherBindable)
+      else if target.__isBindable
+        return new BindableSetter binding, target
+
       # bindable.bind("source").to(collection);
       else if target.__isCollection
         return new CollectionSetter binding, target
@@ -47,7 +52,7 @@ module.exports = class
     #else if to and to.to
       #return new BindingSetter binding, to
     else if to and toProperty
-      return new BindableSetter binding, to, toProperty
+      return new PropertySetter binding, to, toProperty
 
 
     return null
