@@ -114,12 +114,6 @@ module.exports = class extends BindableObject
   ###
   ###
 
-  update: (item) -> 
-    #O TODO
-
-  ###
-  ###
-
   remove: (item) ->
     index = @indexOf item
     if not ~index
@@ -165,9 +159,21 @@ module.exports = class extends BindableObject
   slice: (start, end) -> @_source.slice start, end
 
   ###
+   deprecated
   ###
 
   indexOf: (searchItem) ->  
+    @searchIndex searchItem
+
+  ###
+  ###
+  update: (item) ->
+    # TODO
+
+  ###
+  ###
+
+  searchIndex: (searchItem) ->
     for item, i in @_source
       if @_get(item, @__id) is @_get(searchItem, @__id)
         return i
