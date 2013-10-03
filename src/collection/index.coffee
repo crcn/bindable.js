@@ -229,12 +229,14 @@ module.exports = class extends BindableObject
   ###
 
   pop: () ->
+    return unless @_source.length
     @_remove([@_source.pop()], @_length)[0]
 
   ###
   ###
 
   shift: () ->
+    return unless @_source.length
     @_remove([@_source.shift()], 0)[0]
 
   ###

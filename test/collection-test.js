@@ -205,4 +205,11 @@ describe("bindable collection", function() {
     }
   });
 
+
+  it("can pop a collection with no items", function() {
+    var col = new Collection([]);
+    col.pop();
+    col.shift();
+  });
+
 });
