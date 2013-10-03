@@ -53,6 +53,9 @@
             exports.computed = require("bindable/lib/utils/computed.js");
             exports.options = require("bindable/lib/utils/options.js");
             Binding.Collection = exports.Collection;
+            if (typeof window !== "undefined") {
+                window.bindable = exports;
+            }
         }).call(this);
         return module.exports;
     });
