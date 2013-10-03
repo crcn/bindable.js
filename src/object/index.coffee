@@ -46,7 +46,7 @@ module.exports = class Bindable extends EventEmitter
   ###
   ###
 
-  has: (key) -> !!@get key
+  has: (key) -> @get(key)?
 
   ###
   ###

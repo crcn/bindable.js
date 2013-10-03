@@ -1,14 +1,18 @@
-## Bindable
+# Bindable.js
 
 Incredibly flexible bi-directional data binding library for `objects`, and `collections`. 
 
 ## Projects using bindable.js
 
-- [paperclip.js](/classdojo/paperclip.js) - data-bindable templating engine.
-- [linen.js](/classdojo/linen.js) - API library
-- [sherpa.js](/classdojo/sherpa.js) - online tours library
+- [Paperclip.js](/classdojo/paperclip.js) - data-bindable templating engine.
+- [Linen.js](/classdojo/linen.js) - API library
+- [Sherpa.js](/classdojo/sherpa.js) - online tours library
+- [Mojo.js](/classdojo/mojo.js) - javascript framework.
+- [ECTwo](/crcn/node-ectwo)
+- [cortado](/crcn/cortado) - full integration testing framework. 
 
-### Objects Example
+
+## BindableObject Example
 
 ```javascript
 var BindableObject = require("bindable").Object;
@@ -58,7 +62,7 @@ item.bind("name").map(function(name) {
 
 ```
 
-### Collections Example
+## BindableCollection Example
 
 ```javascript
 var collection = new bindable.Collection([{ name: "craig" }, { name: "sam" }, { name: "liam" }]),
@@ -91,7 +95,7 @@ collection.bind(function(method, item, index) {
 });
 ```
 
-### Iteration helper
+## Iteration helper
 
 ```javascript
 var jake = new bindable.Object({
@@ -130,7 +134,7 @@ jake.set("age", 22);
 ```
 
 
-### Computed Properties
+## Computed Properties
 
 
 ```javascript
@@ -161,7 +165,7 @@ console.log(notifications.get("numUnreadNotifications")); //0
 
 ```
 
-#### Add some sugar...
+## Add some sugar...
 
 You can also compute properties by watching multiple values. For instance:
 
@@ -187,4 +191,35 @@ console.log(person.get("firstName"), person.get("lastName")); //Jake Anderson
 ```
 
 
-### API
+## API
+
+
+### value bindable.get(property)
+
+Returns a property on the bindable object
+
+```javascript
+var bindable = new bindable.Object({ city: { name: "SF" } });
+
+console.log(bindable.get("city.name")); // SF
+```
+
+### bindable.set(property, value)
+
+Sets a value to the bindable object
+
+```javascript
+var bindable= new bindable.Object();
+bindable.set("city.name", "sf");
+console.log(bindable.get("city.name")); // SF
+```
+
+### Object bindable.context()
+
+returns the context of the bindable object.
+
+```javascript
+var context = {};
+var bindable = new bindable.Object(context);
+console.log(bindable.context() == context); // true
+```

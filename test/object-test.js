@@ -39,6 +39,15 @@ describe("bindable object", function() {
     expect(obj.get("b")).to.be(undefined)
     expect(obj.get("c")).to.be(4)
     expect(obj.get("d")).to.be(5)
+  });
+
+
+  it("can check if a property exists", function() {
+    var obj = new BindableObject({ age: 0, gen: false, v: "" });
+    expect(obj.has("age")).to.be(true);
+    expect(obj.has("gen")).to.be(true);
+    expect(obj.has("v")).to.be(true);
+    expect(obj.has("baa")).to.be(false);
   })
   
   it("can bind to location.zip", function(next) {
