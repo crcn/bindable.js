@@ -298,7 +298,7 @@ obj.bind("name").to(function (value, oldValue) {
 obj.set("name", "craig"); // craig
 ```
 
-You can also chan `to` together:
+You can also chain `to` together:
 
 ```javascript
 var obj = new bindable.Object();
@@ -332,6 +332,25 @@ console.log(person.get("name2")); // john
 console.log(person.get("name3")); // john
 ```
 
+### binding.bothWays()
+
+binds properties the other way around.
+
+```javascript
+var person = new bindable.Object();
+person.bind("name").to("name2").bothWays().now();
+
+person.set("name", "craig");
+
+console.log(person.get("name")); // craig
+console.log(person.get("name2")); // craig
+
+person.set("name2", "john");
+
+console.log(person.get("name")); // john
+console.log(person.get("name2")); // john
+```
+
 ### binding.map(options)
 
 Transforms a value:
@@ -359,7 +378,7 @@ person.bind("firstName, lastName").map({
     return [firstName, lastName].join(" ")
   },
   from: function(fullName) {
-    fullName.split(" ");
+    return fullName.split(" ");
   }
 }).to("fullName").bothWays().now();
 
@@ -369,13 +388,50 @@ person.set("fullName", "john anderson");
 
 console.log(person.get("firstName")); // john
 console.log(person.get("lastName")); // anderson
-
 ```
 
-### binding.bothWays()
+### binding.limit(count)
 
-binds properties the other way around.
+Limits the number of times a binding ca be triggered.
 
 ```javascript
+var person = new bindable.Object();
+person.bind("count").to("count2").limit(2).now();
+
+person.set("count", 1);
+console.log(person.get("count2")); // 1
+person.set("count", 2);
+console.log(person.get("count2")); // 2
+person.set("count", 3);
+console.log(person.get("count2")); // 2
 ```
 
+### binding.once()
+
+Triggers the binding once.
+
+```javascript
+var person = new bindable.Object({ name: "craig" });
+person.bind("name").map(function(name) {
+  return name.toUpperCase();
+}).to("nameUpper").once().now();
+
+console.log(person.get("nameUpper")); // CRAIG
+person.set("name", "john"); // not triggered
+console.log(person.get("nameUpper")); // CRAIG
+```
+
+
+### binding.dispose()
+
+Disposes the binding.
+
+```javascript
+var person = new bindable.Object({ name: "craig" });
+person.bind("name").to("name2").now().dispose();
+
+console.log(person.get("name2")); // craig
+person.set("name2", "john");
+console.log(person.get("name2")); // craig
+
+```
