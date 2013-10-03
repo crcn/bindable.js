@@ -9,3 +9,8 @@ exports.options      = require "./utils/options"
 
 # beats circular dependency
 Binding.Collection   = exports.Collection
+
+
+
+if typeof window isnt "undefined"
+  window.bindable = exports
