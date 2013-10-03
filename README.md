@@ -433,5 +433,16 @@ person.bind("name").to("name2").now().dispose();
 console.log(person.get("name2")); // craig
 person.set("name2", "john");
 console.log(person.get("name2")); // craig
+```
 
+
+## Chaining
+
+bindable.js allows you to easily chain bindings together. Here are a few examples
+
+```javascript
+var person = new bindable.Object();
+
+//bind property to multiple values. Run through multiple mappers.
+person.bind(property).map(fn).to(value).map(fn2).to(anotherValue).now()
 ```
