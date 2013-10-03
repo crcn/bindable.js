@@ -209,9 +209,22 @@ console.log(bindable.get("city.name")); // SF
 Sets a value to the bindable object
 
 ```javascript
-var bindable= new bindable.Object();
+var obj = new bindable.Object();
 bindable.set("city.name", "sf");
-console.log(bindable.get("city.name")); // SF
+console.log(obj.get("city.name")); // SF
+```
+
+### bindable.has(property)
+
+Returns true if the bindable object has a given property
+
+```javascript
+var obj = new bindable.Object({ count: 0, male: false, name: "craig" });
+
+console.log(obj.has("count")); // true
+console.log(obj.has("male")); // true
+console.log(obj.has("name")); // true
+console.log(obj.has("city")); // false
 ```
 
 ### Object bindable.context()
@@ -220,6 +233,149 @@ returns the context of the bindable object.
 
 ```javascript
 var context = {};
-var bindable = new bindable.Object(context);
-console.log(bindable.context() == context); // true
+var obj     = new bindable.Object(context);
+
+console.log(obj.context() == context); // true
 ```
+
+### bindable.dispose()
+
+Emits a `dispose` event, destroying all data-bindings and listeners on the given bindable object.
+
+```javascript
+var obj = new bindable.Object({ name: "craig" });
+
+obj.bind("name").to("name2").now();
+
+console.log(obj.get("name2")); // craig
+
+obj.dispose();
+
+obj.set("name", "abba");
+console.log(obj.get("name2")); // craig
+```
+
+### binding bindable.bind(from [, to])
+
+Creates a new binding object.
+
+```javascript
+var obj = new bindable.Object({ name: "craig" });
+
+//bind to name2
+obj.bind("name", "name2").now();
+
+//same as above, different style.
+obj.bind("name").to("name2").now();
+```
+
+### binding.to(targetOrFnOrProperty [, property])
+
+Binds to another object, or property.
+
+```javascript
+var obj = new bindable.Object(),
+obj2    = new bindable.Object();
+
+obj.bind("name").to(obj2, "name").now();
+obj.bind("name").to("name2").now();
+
+obj.set("name", "craig");
+console.log(obj2.get("name")); // craig
+console.log(obj.get("name2")); // craig
+```
+
+Binding to a function:
+
+```javascript
+var obj = new bindable.Object();
+
+//triggered after setting name
+obj.bind("name").to(function (value, oldValue) {
+  console.log(value); // craig
+}).now();
+
+obj.set("name", "craig"); // craig
+```
+
+You can also chan `to` together:
+
+```javascript
+var obj = new bindable.Object();
+obj.bind("name").to(function(value, oldValue) {
+  console.log(value); // craig
+}).to("name2").now();
+
+obj.set("name", "craig");
+console.log(obj.get("name2")); // craig
+```
+
+### binding.now()
+
+Executes the binding now. For example:
+
+```javascript
+var person = new bindable.Object({ name: "craig" });
+
+//only executes on change
+person.bind("name").to("name2");
+
+//executes now, name must be present.
+person.bind("name").to("name3").now();
+
+console.log(person.get("name2")); // undefined
+console.log(person.get("name3")); // craig
+
+person.set("name", "john"); 
+
+console.log(person.get("name2")); // john
+console.log(person.get("name3")); // john
+```
+
+### binding.map(options)
+
+Transforms a value:
+
+```javascript
+var person = new bindable.Object({ firstName: "craig", lastName: "condon" });
+
+//map TO fullName
+person.bind("firstName, lastName").map(function(firstName, lastName) {
+  return [firstName, lastName].join(" ")
+}).to("fullName").now();
+
+console.log(person.get("fullName")); // craig condon
+```
+
+You can also map from another value:
+
+```javascript
+
+var person = new bindable.Object({ firstName: "craig", lastName: "condon" });
+
+//map TO fullName
+person.bind("firstName, lastName").map({
+  to: function(firstName, lastName) {
+    return [firstName, lastName].join(" ")
+  },
+  from: function(fullName) {
+    fullName.split(" ");
+  }
+}).to("fullName").bothWays().now();
+
+console.log(person.get("fullName")); // craig condon
+
+person.set("fullName", "john anderson");
+
+console.log(person.get("firstName")); // john
+console.log(person.get("lastName")); // anderson
+
+```
+
+### binding.bothWays()
+
+binds properties the other way around.
+
+```javascript
+```
+
