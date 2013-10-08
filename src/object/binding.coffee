@@ -27,7 +27,6 @@ module.exports = class Binding
     @_limit        = -1 # limit the number binding calls
     @_delay        = if @_properties.length is 1 then options.delay else options.computedDelay # delay for binding changes
     @_setters      = [] # listeners
-    @_cvalues      = []
     @_listeners    = []
     @_triggerCount = 0  # keeps tally of bindings called
 
@@ -73,10 +72,11 @@ module.exports = class Binding
   ###
 
   to: (target, property) ->
+
     setter = bindableSetter.createSetter @, target, property
 
     if setter
-      @_setters.push @_setter = setter
+      @_setters.push setter
 
     @
 
