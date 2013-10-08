@@ -72,13 +72,13 @@ module.exports = class Binding
    binds to a target
   ###
 
-  to: (target, property, now = false) ->
+  to: (target, property) ->
     setter = bindableSetter.createSetter @, target, property
+
+
 
     if setter
       @_setters.push setter
-      if now is true
-        setter.now()
 
     @
 
