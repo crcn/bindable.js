@@ -75,10 +75,8 @@ module.exports = class Binding
   to: (target, property) ->
     setter = bindableSetter.createSetter @, target, property
 
-
-
     if setter
-      @_setters.push setter
+      @_setters.push @_setter = setter
 
     @
 
