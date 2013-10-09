@@ -292,6 +292,8 @@ module.exports = class extends BindableObject
 
   _resetInfo: () ->
     @set "length", @_length
+    @set "first", @at(0)
+    @set "last", @at(@length - 1)
     @set "empty", not @_length
 
 
