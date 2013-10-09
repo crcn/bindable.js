@@ -18,7 +18,7 @@ exports.get = (bindable, context, keyParts, flatten = true) ->
     return if not ct
 
     # current context is bindable? pass the get along to it
-    return ct.get(keyParts.slice(i)) if ct.__isBindable and ct isnt bindable
+    return ct.get(keyParts.slice(i).join(".")) if ct.__isBindable and ct isnt bindable
     ct = ct[k]
 
   if flatten and ct and ct.__isBindable
