@@ -184,18 +184,6 @@ describe("bindable collection", function() {
   });
 
 
-  it("can transform objects", function() {
-    col3.reset([]);
-    col3._id("name");
-    col3.transform().map(function(value){ return { name: value }});
-    col3.push("John");
-  });
-
-  it("has transformed john", function() {
-    expect(col3.indexOf({ name: "John" })).to.be(0);
-  });
-
-
   it("can be JSON encoded", function() {
     var data = JSON.parse(JSON.stringify(col1));
     for(var i = data.length; i--;) {

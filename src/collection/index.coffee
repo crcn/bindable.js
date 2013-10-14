@@ -32,7 +32,6 @@ module.exports = class extends BindableObject
     @_length = 0
     @_id _id
     @__enforceId = false
-    @transform().postMap @_enforceItemId
     @reset source
 
   ###
@@ -60,7 +59,7 @@ module.exports = class extends BindableObject
       @_sourceBinding = source.bind().to(@).now()
       return @
     
-    @_insert @_source = @_transform source
+    @_insert @_source = source
     @_resetInfo()
 
     @
@@ -139,7 +138,7 @@ module.exports = class extends BindableObject
   splice: (index, count) ->
     args = Array.prototype.slice.call(arguments)
     args.splice(0, 2) # remove index & count. Leave only items to replace with
-    args = @_transform args
+    args = args
 
     remove = @slice(index, index + count)
 
@@ -147,11 +146,6 @@ module.exports = class extends BindableObject
 
     @_remove remove, index
     @_insert args, index
-
-  ###
-  ###
-
-  transform: () -> @_transformer or (@_transformer = hoist())
 
   ###
   ###
@@ -193,16 +187,13 @@ module.exports = class extends BindableObject
     return @__id if not arguments.length
     return @ if @__id is key
     @__id = key
-
-    if @_source
-      @_enforceId()
     @
 
   ###
   ###
 
   push: () ->
-    items = @_transform Array.prototype.slice.call(arguments)
+    items = Array.prototype.slice.call(arguments)
     @_source.push.apply @_source, items
     @_insert items, @_length
 
@@ -210,7 +201,7 @@ module.exports = class extends BindableObject
   ###
 
   unshift: () ->
-    items = @_transform Array.prototype.slice.call(arguments)
+    items = Array.prototype.slice.call(arguments)
     @_source.unshift.apply @_source, items
     @_insert items
 
@@ -246,23 +237,6 @@ module.exports = class extends BindableObject
     return @__enforceId if not arguments.length
     @__enforceId = value
 
-  ###
-  ###
-
-  _enforceId: () ->
-    for item in @_source
-      @_enforceItemId item
-
-  ###
-  ###
-
-  _enforceItemId: (item) =>
-    return item if not @__enforceId
-    _id = @_get(item, @__id)
-    if (_id is undefined) or (_id is null)
-      throw new Error "item '#{item}' must have a '#{@__id}'"
-
-    item
 
   ###
   ###
@@ -295,21 +269,6 @@ module.exports = class extends BindableObject
     @set "first", @at(0)
     @set "last", @at(@length - 1)
     @set "empty", not @_length
-
-
-
-  ###
-  ###
-
-  _transform: (item, index, start) ->
-    return item if not @_transformer
-    if type(item) is "array"
-      results = []
-      for i in item
-        results.push @_transformer i
-      return results
-    return @_transformer item
-
 
 
 
