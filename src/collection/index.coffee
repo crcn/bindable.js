@@ -16,6 +16,11 @@ module.exports = class extends BindableObject
   ###
 
   __isCollection: true
+
+  ###
+  ###
+
+  uniqueKey: "_id"
   
   ###
   ###
@@ -30,7 +35,7 @@ module.exports = class extends BindableObject
       source = []
       
     @_length = 0
-    @_id _id
+    @setUniqueKey _id
     @__enforceId = false
     @transform().postMap @_enforceItemId
     @reset source
@@ -159,11 +164,11 @@ module.exports = class extends BindableObject
   slice: (start, end) -> @_source.slice start, end
 
   ###
-   deprecated
+   deprecated - should search physical object
   ###
 
   indexOf: (searchItem) ->  
-    @searchIndex searchItem
+    @searchIndex(searchItem)
 
   ###
   ###
@@ -175,7 +180,7 @@ module.exports = class extends BindableObject
 
   searchIndex: (searchItem) ->
     for item, i in @_source
-      if @_get(item, @__id) is @_get(searchItem, @__id)
+      if @_get(item, @uniqueKey) is @_get(searchItem, @uniqueKey)
         return i
     return -1
 
@@ -187,15 +192,17 @@ module.exports = class extends BindableObject
     item.get?(id) ? item[id]
 
   ###
+   DEPRECATED
   ###
 
-  _id: (key) ->
-    return @__id if not arguments.length
-    return @ if @__id is key
-    @__id = key
+  _id: (key) -> @setUniqueKey arguments...
 
-    if @_source
-      @_enforceId()
+  ###
+  ###
+
+  setUniqueKey: (key) ->
+    return @uniqueKey if not arguments.length
+    @uniqueKey = @__id = key
     @
 
   ###
@@ -258,9 +265,9 @@ module.exports = class extends BindableObject
 
   _enforceItemId: (item) =>
     return item if not @__enforceId
-    _id = @_get(item, @__id)
+    _id = @_get(item, @uniqueKey)
     if (_id is undefined) or (_id is null)
-      throw new Error "item '#{item}' must have a '#{@__id}'"
+      throw new Error "item '#{item}' must have a '#{@uniqueKey}'"
 
     item
 
