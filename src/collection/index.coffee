@@ -25,7 +25,7 @@ module.exports = class extends BindableObject
   ###
   ###
 
-  constructor: (source = [], _id = "_id") ->
+  constructor: (source = [], _id) ->
     super @
 
     @_source = []
@@ -35,7 +35,9 @@ module.exports = class extends BindableObject
       source = []
       
     @_length = 0
-    @setUniqueKey _id
+
+    if _id
+      @setUniqueKey _id
     @__enforceId = false
     @transform().postMap @_enforceItemId
     @reset source
