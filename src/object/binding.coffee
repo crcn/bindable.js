@@ -185,8 +185,9 @@ module.exports = class Binding
 
     for property in @_properties
       listeners.push new DeepPropertyWatcher { binding: @, target: @_from, path: property.split("."), callback: @now, index: 0, delay: @_delay }
-      disposeListeners.push @_from.once "dispose", () =>
-        @dispose()
+      
+    disposeListeners.push @_from.once "dispose", () =>
+      @dispose()
 
     # if the object is disposed, then remove this listener
     @_disposeListeners = disposeListeners
