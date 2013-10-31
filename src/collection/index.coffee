@@ -83,6 +83,13 @@ module.exports = class extends BindableObject
   ###
   ###
 
+  dispose: () ->
+    super()
+    @disposeSourceBinding()
+
+  ###
+  ###
+
   bind: (to) -> 
     return super(arguments...) if type(to) is "string"
     new Binding(@).to(to)

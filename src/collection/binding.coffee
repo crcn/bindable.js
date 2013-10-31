@@ -94,6 +94,9 @@ module.exports = class
       @_listeners.push @_from.on event, (item, index) =>
         @_callSetters event, item, index
 
+    @_listeners.push @_from.once "dispose", () -> 
+      @dispose()
+
   ###
   ###
 

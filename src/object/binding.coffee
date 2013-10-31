@@ -154,6 +154,7 @@ module.exports = class Binding
 
     if @_collectionBinding
       @_collectionBinding.dispose()
+      @_collection.dispose()
 
     @_dlisteners()
     @
