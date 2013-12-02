@@ -1,4 +1,4 @@
-# Bindable.js
+# Bindable.js [![Alt ci](https://travis-ci.org/classdojo/bindable.js.png)](https://travis-ci.org/classdojo/bindable.js)
 
 Incredibly flexible bi-directional data binding library for `objects`, and `collections`. 
 
