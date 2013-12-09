@@ -4,4 +4,4 @@
 
 module.exports = 
   delay: -1
-  computedDelay: 0
+  computedDelay: if typeof window isnt "undefined" then 0 else -1
