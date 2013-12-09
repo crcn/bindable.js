@@ -113,7 +113,13 @@ module.exports = class Bindable extends EventEmitter
   ###
   ###
 
-  dispose: () -> @emit "dispose"
+  dispose: () -> 
+
+    # emit dispose
+    @emit "dispose"
+
+    # then remove all events
+    @_events = {}
 
   ###
   ###

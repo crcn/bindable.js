@@ -566,4 +566,19 @@ describe("bindable object", function() {
     })
   });
 
+  /**
+   */
+
+  it("doesn't have any event listeners on dispose", function () {
+    var bindable = new BindableObject();
+    var emits = 0;
+    bindable.on("blah", function () {
+      emits++;
+    })
+    bindable.emit("blah");
+    bindable.dispose();
+    bindable.emit("blah");
+    expect(emits).to.be(1);
+  });
+
 });

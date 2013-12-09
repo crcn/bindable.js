@@ -1,10 +1,10 @@
 {
   "name": "bindable",
-  "version": "0.4.12",
+  "version": "0.4.14",
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "make clean all test-web; mocha --timeout 100 --reporter min; karma start"
+	"test": "mocha"
   },
   "repository": {
     "type": "git",
