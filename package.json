@@ -1,10 +1,10 @@
 {
   "name": "bindable",
-  "version": "0.4.15",
+  "version": "0.4.16",
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
   "scripts": {
-	"test": "mocha"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,8 @@
     "toarray": "0.0.1",
     "outcome": "0.0.x",
     "type-component": "0.0.x",
-    "async": "0.2.x"
+    "async": "0.2.x",
+    "protoclass": "0.0.5"
   },
   "devDependencies": {
     "mocha": "1.8.x",

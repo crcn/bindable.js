@@ -21,6 +21,8 @@ suite.add("new bindable.Object", function() {
 });
 
 
+
+
 suite.add("new bindable.Collection", function() {
   new bindable.Collection();
 })
@@ -39,6 +41,14 @@ suite.add("split dot", function () {
   "prop".split(".")
 })
 
+
+suite.add("check dot", function() {
+  var k = "prop", ks = ~k.indexOf(".") ? k.split(".") : [k];
+});
+
+suite.add("split dot", function() {
+  var k = "prop", ks =  [k];
+});
 
 
 suite.add("create binding", function() {
