@@ -5,6 +5,11 @@ module.exports = class
   ###
   ###
 
+  __isSetter: true
+
+  ###
+  ###
+
   constructor: (@binding) ->
     @_map = binding.map()
 

@@ -6,6 +6,11 @@ module.exports = class
   ###
   ###
 
+  __isSetter: true
+  
+  ###
+  ###
+
   constructor: (@binding, @target) ->
     @_transformer = binding.transform()
     @_filter = binding.filter()
