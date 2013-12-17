@@ -29,7 +29,14 @@ suite.add("new bindable.Collection", function() {
 
 suite.add("split regexp with coma", function () {
   "abba,abbbb".split(/[,\s]+/g)
-})
+});
+
+
+suite.add("bindable.on(event, cb)", function () {
+  new bindable.Object().on("change:firstName", function () {
+
+  });
+});
 
 
 
@@ -64,9 +71,9 @@ suite.add("change unbound value", function() {
   person.set("abba", "abba" + (i++));
 }); 
 
-suite.add("change firstName with pre-defined binding", function() {
+/*suite.add("change firstName with pre-defined binding", function() {
   person.set("firstName", "abba" + (i++));
-})
+})*/
 
 suite.add("compute firstName + lastName", function() {
   person.bind("firstName, lastName").map({
