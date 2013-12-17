@@ -17,7 +17,7 @@
   "dependencies": {
     "dref": "0.1.x",
     "disposable": "0.0.x",
-    "underscore": "1.4.x",
+    "underscore": "~1.4.4",
     "hoist": "0.0.x",
     "toarray": "0.0.1",
     "outcome": "0.0.x",

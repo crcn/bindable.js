@@ -12,46 +12,12 @@ binding = person.bind("firstName", "firstName3").now(),
 i = 0;
 
 
-suite.add("new Object", function () {
-  new Object();
-})
-
-suite.add("new bindable.Object", function() {
-  new bindable.Object();
-});
-
-
-
-
-suite.add("new bindable.Collection", function() {
-  new bindable.Collection();
-})
-
-
-suite.add("bindable.on(event, cb)", function () {
-  new bindable.Object().on("change:firstName", function () {
-
-  });
-});
-
 
 
 suite.add("create binding", function() {
-  person.bind("firstName", "firstName2");
+  person.bind("firstName3", "firstName2").dispose();
 });
 
-suite.add("firstName -> firstName2", function() {
-  person.bind("firstName", "firstName2").once().now();
-});
-
-
-suite.add("change unbound value", function() {
-  person.set("abba", "abba" + (i++));
-}); 
-
-/*suite.add("change firstName with pre-defined binding", function() {
-  person.set("firstName", "abba" + (i++));
-})*/
 
 suite.add("compute firstName + lastName", function() {
   person.bind("firstName, lastName").map({
