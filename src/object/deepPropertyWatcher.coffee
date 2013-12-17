@@ -8,7 +8,6 @@ class PropertyWatcher
 
   constructor: (options) ->
 
-    @binding    = options.biding
     @target     = options.target
     @watch      = options.watch
     @path       = options.path
