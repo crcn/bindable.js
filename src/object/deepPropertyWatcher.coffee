@@ -14,6 +14,7 @@ class PropertyWatcher
 
   constructor: (options) ->
 
+
     @target     = options.target
     @watch      = options.watch
     @path       = options.path
@@ -33,7 +34,9 @@ class PropertyWatcher
     @_disposed  = false
 
     # loop through the property?
-    if @_each = @property.substr(0, 1) is "@"
+    # @
+    if @property.charCodeAt(0) is 64
+      @_each = true
       @root._computeEach = true
       @property = @property.substr 1
 
@@ -128,16 +131,19 @@ class PropertyWatcher
 
 
     # value is a function? check if it's computed!
-    if ((t = type(value)) is "function") and value.refs
+    if (typeof value is "function") and value.refs
       for ref in value.refs
         @_watchRef ref
 
-    prop = @childPath.slice(0, @childIndex - 1).concat(@property).join(".")
+    if @childIndex is 1
+      prop = @property
+    else 
+      prop = @childPath.slice(0, @childIndex - 1).concat(@property).join(".")
     
     @_listener = @watch.on "change:#{prop}", @now
 
     if @_each
-      @_watchEachValue value, t
+      @_watchEachValue value, type(value)
     else
       @_watchValue value
 
