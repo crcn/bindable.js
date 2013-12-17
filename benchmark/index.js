@@ -27,10 +27,6 @@ suite.add("new bindable.Collection", function() {
   new bindable.Collection();
 })
 
-suite.add("split regexp with coma", function () {
-  "abba,abbbb".split(/[,\s]+/g)
-});
-
 
 suite.add("bindable.on(event, cb)", function () {
   new bindable.Object().on("change:firstName", function () {
@@ -38,24 +34,6 @@ suite.add("bindable.on(event, cb)", function () {
   });
 });
 
-
-
-suite.add("split regexp without coma", function () {
-  "agaba".split(/[,\s]+/g)
-})
-
-suite.add("split dot", function () {
-  "prop".split(".")
-})
-
-
-suite.add("check dot", function() {
-  var k = "prop", ks = ~k.indexOf(".") ? k.split(".") : [k];
-});
-
-suite.add("split dot", function() {
-  var k = "prop", ks =  [k];
-});
 
 
 suite.add("create binding", function() {
