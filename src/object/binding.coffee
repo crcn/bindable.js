@@ -22,7 +22,7 @@ module.exports = class Binding
 
   constructor: (@_from, properties) ->
 
-    @_properties = properties.split(/[,\s]+/g)
+    @_properties = if ~properties.indexOf(",") then properties.split(/[,\s]+/g) else [properties]
 
     @_limit        = -1 # limit the number binding calls
     @_delay        = if @_properties.length is 1 then options.delay else options.computedDelay # delay for binding changes

@@ -18,11 +18,28 @@ suite.add("new Object", function () {
 
 suite.add("new bindable.Object", function() {
   new bindable.Object();
-})
+});
+
 
 suite.add("new bindable.Collection", function() {
   new bindable.Collection();
 })
+
+suite.add("split regexp with coma", function () {
+  "abba,abbbb".split(/[,\s]+/g)
+})
+
+
+
+suite.add("split regexp without coma", function () {
+  "agaba".split(/[,\s]+/g)
+})
+
+suite.add("split dot", function () {
+  "prop".split(".")
+})
+
+
 
 suite.add("create binding", function() {
   person.bind("firstName", "firstName2");

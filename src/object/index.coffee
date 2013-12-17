@@ -14,7 +14,6 @@ module.exports = class Bindable extends EventEmitter
 
   constructor: (@__context = {}) ->
     super()
-    @_bindings = []
     @setMaxListeners 0
 
   ###
