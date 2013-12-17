@@ -12,6 +12,9 @@ binding = person.bind("firstName", "firstName3").now(),
 i = 0;
 
 
+suite.add("new Object", function () {
+  new Object();
+})
 
 suite.add("new bindable.Object", function() {
   new bindable.Object();
@@ -20,6 +23,10 @@ suite.add("new bindable.Object", function() {
 suite.add("new bindable.Collection", function() {
   new bindable.Collection();
 })
+
+suite.add("create binding", function() {
+  person.bind("firstName", "firstName2");
+});
 
 suite.add("firstName -> firstName2", function() {
   person.bind("firstName", "firstName2").once().now();
