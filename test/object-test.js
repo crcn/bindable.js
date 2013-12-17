@@ -3,6 +3,16 @@ expect = require("expect.js");
 
 describe("bindable object", function() {
 
+
+
+  it("can bind a property directly to another bindable object", function() {
+    var bindable = new BindableObject({ data: { name: "craig" }}),
+    bindable2 = new BindableObject();
+    bindable.bind("data").to(bindable2).now();
+    expect(bindable2.get("name")).to.be("craig");
+  });
+
+
   var bindable, binding;
   
   it("can be created", function() {

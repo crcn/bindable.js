@@ -2,6 +2,12 @@ type      = require("type-component")
 options   = require("../utils/options")
 
 class PropertyWatcher
+  
+  ###
+  ###
+
+
+  __isPropertyWatcher: true
 
   ###
   ###
@@ -14,7 +20,8 @@ class PropertyWatcher
     @index      = options.index
     @root       = options.root or @
     @delay      = options.delay
-    @callback   = options.callback
+    @parent     = options.parent
+
 
     @property   = @path[@index] 
     @_children  = []
@@ -75,7 +82,7 @@ class PropertyWatcher
   _update: () ->
     unless ~@delay
       @_watch()
-      @callback()
+      @parent.now()
       return
       
     return if @_updating
@@ -84,7 +91,7 @@ class PropertyWatcher
     setTimeout (() =>
       return if @_disposed # disposed
       @_watch()
-      @callback()
+      @parent.now()
     ), @delay
 
   ###
@@ -127,7 +134,7 @@ class PropertyWatcher
 
     prop = @childPath.slice(0, @childIndex - 1).concat(@property).join(".")
     
-    @_listener = @watch.on "change:#{prop}", @_changed
+    @_listener = @watch.on "change:#{prop}", @now
 
     if @_each
       @_watchEachValue value, t
@@ -176,18 +183,18 @@ class PropertyWatcher
 
   _watchValue: (value) ->
     if @childIndex < @childPath.length
-      @_children.push new PropertyWatcher { watch: @watch, target: value, path: @childPath, index: @childIndex, callback: @callback, root: @root, delay: @delay }
+      @_children.push new PropertyWatcher { watch: @watch, target: value, path: @childPath, index: @childIndex, parent: @, root: @root, delay: @delay }
 
   ###
   ###
 
   _watchRef: (ref) ->
-    @_bindings.push new PropertyWatcher { target: @target, path: ref.split("."), index: 0, callback: @_changed, delay: @delay }
+    @_bindings.push new PropertyWatcher { target: @target, path: ref.split("."), index: 0, parent: @, delay: @delay }
  
   ###
   ###
 
-  _changed: (@_value) =>
+  now: (@_value) =>
     @root._update()
 
 module.exports = PropertyWatcher
