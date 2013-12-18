@@ -107,7 +107,7 @@ class PropertyWatcher
     if @target
       if @target.__isBindable
 
-        if (nt = @target.get()).__isBindable
+        if (nt = @target.__context)?.__isBindable
           @target = nt
 
         @watch      = @target

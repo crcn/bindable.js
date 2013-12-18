@@ -5,7 +5,7 @@ all-watch:
 	coffee -o lib -cw src
 
 browser:
-	sardines ./lib/index.js -o ./build/bindable.js -p browser
+	sardines ./lib/index.js -o ./build/bindable2.js -p browser
 
 test-web:
 	rm -rf test-web;

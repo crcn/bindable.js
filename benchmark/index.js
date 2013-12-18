@@ -14,8 +14,16 @@ i = 0;
 
 
 
-suite.add("create binding", function() {
-  person.bind("firstName3", "firstName2").dispose();
+suite.add("create string binding", function() {
+  person.bind("firstName3", "firstName2").now().dispose();
+});
+
+suite.add("create function binding", function() {
+  person.bind("firstName", function(){}).now().dispose();
+});
+
+suite.add("create function binding", function() {
+  person.bind("firstName", function(){}).now().dispose();
 });
 
 
