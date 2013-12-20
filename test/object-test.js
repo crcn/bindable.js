@@ -194,7 +194,8 @@ describe("bindable object", function() {
 
   it("can transform one finding type to another synchronously", function() {
 
-    bindable.set("name", "craig").bind("name").map(function(value) {
+    bindable.set("name", "craig");
+    bindable.bind("name").map(function(value) {
       return value.toUpperCase();
     }).to("name2").once().now();
 
@@ -232,7 +233,8 @@ describe("bindable object", function() {
 
 
   it("can transform an object to and from", function() {
-    var binding = bindable.set("name", "chris").bind("name").map({
+    bindable.set("name", "chris");
+    var binding = bindable.bind("name").map({
       to: function(name) {
         return name.toUpperCase();
       },
