@@ -4,49 +4,62 @@ bindable      = require("..");
 
 
 
+
 var person = new bindable.Object({
   firstName: "craig",
-  lastName: "condon"
-}),
-binding = person.bind("firstName", "firstName3").now(),
-i = 0;
-
-
-
-
-suite.add("create string binding", function() {
-  person.bind("firstName3", "firstName2").now().dispose();
-});
-
-suite.add("create function binding", function() {
-  person.bind("firstName", function(){}).now().dispose();
-});
-
-suite.add("create function binding", function() {
-  person.bind("firstName", function(){}).now().dispose();
-});
-
-
-suite.add("compute firstName + lastName", function() {
-  person.bind("firstName, lastName").map({
-    to: function(firstName, lastName) {
-      return [firstName, lastName].join(" ");
+  lastName: "condon",
+  city: {
+    zip: 99999
+  },
+  a: {
+    b: {
+      c: {
+        d: 5
+      }
     }
-  }).to("fullName").once().now();
+  }
 });
 
-suite.add("compute firstName + lastName both ways", function() {
-  person.bind("firstName, lastName").map({
-    to: function(firstName, lastName) {
-      return [firstName, lastName].join(" ");
-    },
-    from: function(fullName) {
-      return String(fullName).split(" ");
-    }
-  }).to("fullName").once().now();
 
-  person.set("fullName", "jake anderson");
+suite.add("new bindable.Object()", function() {
+  new bindable.Object();
 });
+
+
+
+suite.add("bindable.get('firstName')", function() {
+  person.get("firstName")
+});
+
+
+suite.add("bindable.get('city.zip')", function() {
+  person.get("city.zip");
+});
+
+
+suite.add("bindable.get('a.b.c')", function() {
+  person.get("a.b.c");
+});
+
+
+suite.add("bindable.get('a.b.c.d')", function() {
+  person.get("a.b.c.d");
+});
+
+suite.add("bindable.set('firstName', value)", function() {
+  person.set("firstName", "jake");
+});
+
+
+suite.add("bindable.set('city.zip', 94111) new", function() {
+  person.set("city.zip", 99999);
+});
+
+
+suite.add("bindable.set('city.zip', 94111) existing", function() {
+  person.set("city.zip", 99999);
+});
+
 
 
 
