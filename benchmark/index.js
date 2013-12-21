@@ -26,10 +26,14 @@ suite.add("new bindable.Object()", function() {
 });
 
 
+suite.add("bindable.bind('a.b.c.d').dispose()", function() {
+  person.bind("a.b.c.d.e", function(){}).dispose();
+});
 
 suite.add("bindable.get('firstName')", function() {
   person.get("firstName")
 });
+
 
 
 suite.add("bindable.get('city.zip')", function() {
