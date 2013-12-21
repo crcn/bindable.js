@@ -1,6 +1,6 @@
 {
   "name": "bindable",
-  "version": "0.5.x",
+  "version": "0.5.0",
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
   "scripts": {
@@ -32,6 +32,8 @@
     "sift": "0.0.9",
     "sardines": "0.4.x",
     "karma": "0.8.x",
-    "benchmark": "~1.0.0"
+    "benchmark": "~1.0.0",
+    "istanbul": "~0.2.1",
+    "coveralls": "~2.6.0"
   }
 }
