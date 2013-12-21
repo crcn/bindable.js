@@ -48,6 +48,40 @@ describe("object-basic#", function () {
     expect(obj.get(["city", "zip"])).to.be(99999);
   });
 
+
+  it("can check if a property exists", function () {
+    var obj = new bindable.Object({
+      a: true,
+      b: 0,
+      c: "true"
+    });
+    expect(obj.has("a")).to.be(true);
+    expect(obj.has("b")).to.be(true);
+    expect(obj.has("c")).to.be(true);
+  });
+
+  it("returns the friend object", function () {
+    var friend = new bindable.Object();
+    var obj = new bindable.Object({ 
+      friend: friend
+    });
+
+    expect(obj.get("friend")).to.be(friend);
+    expect(obj.get(["friend"])).to.be(friend);
+  });
+
+  it("properly jsonifys a bindable object", function () {
+    var obj = new bindable.Object({
+      name: "craig",
+      friend: new bindable.Object({
+        name: "tim"
+      })
+    });
+    var json = obj.toJSON();
+    expect(json.name).to.be("craig");
+    expect(json.friend.name).to.be("tim");
+  });
+
   it("properly get()s when a property is a bindable object", function () {
     var obj = new bindable.Object({ 
       friend: new bindable.Object({ 
@@ -60,6 +94,7 @@ describe("object-basic#", function () {
     expect(obj.get("friend.name")).to.be("jake");
     expect(obj.get("friend.friend.name")).to.be("jeff");
   });
+
 
   it("properly get()s when the context of the bindable object is itself", function () {
     var obj = new bindable.Object();

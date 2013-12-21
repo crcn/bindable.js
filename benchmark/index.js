@@ -3,10 +3,12 @@ suite         = new Benchmark.Suite,
 bindable      = require("..");
 
 
+var friend = new bindable.Object({ name: "jake" });
 
 var person = new bindable.Object({
   firstName: "craig",
   lastName: "condon",
+  friend: friend,
   city: {
     zip: 99999
   },
@@ -23,8 +25,6 @@ var person = new bindable.Object({
 suite.add("new bindable.Object()", function() {
   new bindable.Object();
 });
-
-
 
 suite.add("bindable.get('firstName')", function() {
   person.get("firstName")
@@ -75,6 +75,23 @@ suite.add("bindable.set(['city', 'zip'], 55555) existing", function() {
 });
 
 
+suite.add("bindable.bind('name', fn).dispose()", function () {
+  person.bind("name", function(){}).dispose()
+})
+
+suite.add("bindable.bind('city.zip', fn).dispose()", function () {
+  person.bind("city.zip", function(){}).dispose()
+})
+
+
+suite.add("sub bindable.bind('friend.name', fn).dispose()", function () {
+  person.bind("friend.name", function(){}).dispose()
+})
+
+
+suite.add("bindable.bind('a.b.c.d.e', fn).dispose()", function () {
+  person.bind("a.b.c.d.e", function(){}).dispose()
+})
 
 
 suite.on("cycle", function(event) {
