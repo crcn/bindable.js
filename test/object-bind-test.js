@@ -3,12 +3,6 @@ expect       = require("expect.js");
 
 describe("object-basic#", function () {
 
-  // - bind one
-  // - bind path
-  // - bind now
-  // - bind computed (@each)
-  // - bind multiple
-  // - bind now
 
   it("can bind one property", function (next) {
     var obj = new bindable.Object();
