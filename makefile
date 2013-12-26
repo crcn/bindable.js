@@ -1,19 +1,25 @@
+TESTS = $(shell find ./test -name "*-test.js")
+BROWSERS = BS_IE_10 BS_Chrome BS_Firefox BS_Safari
+
 all:
-	coffee -o lib -c src	
+	coffee -o lib -c src;
 
-all-watch: 
-	coffee -o lib -cw src
+all-watch:
+	coffee -o lib -cw src;
 
-browser:
-	sardines ./lib/index.js -o ./build/bindable2.js -p browser
+clean:
+	rm -rf coverage;
 
-test-web:
-	rm -rf test-web;
-	cp -r test test-web;
-	for F in `ls test-web | grep test`; do ./node_modules/.bin/sardines "test-web/$$F" -o "test-web/$$F" -p browser; done
+testt:
+	./node_modules/.bin/_mocha $(TESTS) --ignore-leaks
 
+test-cov:
+	./node_modules/.bin/istanbul cover \
+	./node_modules/.bin/_mocha $(TESTS) --ignore-leaks
 
-
-
-
+test-coveralls:
+	./node_modules/.bin/istanbul cover \
+	./node_modules/.bin/_mocha $(TESTS) --ignore-leaks --timeout 100 --report lcovonly -- -R spec && \
+	cat ./coverage/lcov.info | ./node_modules/.bin/coveralls --verbose
+	
 
