@@ -228,4 +228,13 @@ describe("object-basic#", function () {
     expect(emittedFriend).to.be("blake");
     expect(emittedObj).to.be("blake");
   });
+
+  it("emits dispose after calling dispose()", function () {
+    var obj = new bindable.Object(), disposed;
+    obj.once("dispose", function () {
+      disposed = true;
+    });
+    obj.dispose();
+    expect(disposed).to.be(true);
+  })
 });
