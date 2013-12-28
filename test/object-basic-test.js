@@ -22,6 +22,12 @@ describe("object-basic#", function () {
     obj.context(obj);
   });
 
+  it("can return the context", function () {
+    var obj = new bindable.Object();
+    obj.context(obj);
+    expect(obj.context()).to.be(obj);
+  })
+
   it("can call get() with one property", function () {
     var obj = new bindable.Object({ name: "jeff" });
     expect(obj.get("name")).to.be("jeff");
