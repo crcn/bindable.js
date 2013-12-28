@@ -199,16 +199,16 @@
     <h1>Code coverage report for <span class="entity">lib/object/watchProperty.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">91.76% <small>(78 / 85)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">91.21% <small>(83 / 91)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Branches: <span class="metric">85.29% <small>(29 / 34)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">84.21% <small>(32 / 38)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
         Functions: <span class="metric">93.75% <small>(15 / 16)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">93.75% <small>(75 / 80)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">93.02% <small>(80 / 86)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
@@ -425,7 +425,13 @@
 207
 208
 209
-210</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+210
+211
+212
+213
+214
+215
+216</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -475,26 +481,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">50</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">23</span>
-<span class="cline-any cline-yes">23</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">23</span>
-<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">6</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">23</span>
+<span class="cline-any cline-yes">6</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">23</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -529,11 +535,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">11</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">23</span>
+<span class="cline-any cline-yes">11</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11</span>
@@ -543,13 +551,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">39</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">66</span>
 <span class="cline-any cline-yes">66</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-yes">64</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-yes">24</span>
 <span class="cline-any cline-yes">24</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -672,8 +684,7 @@ function watchChain (bindable, hasComputed, chain, fn) {
 &nbsp;
   function bind (target, chain) {
 &nbsp;
-    var subChain, subValue, currentProperty, j, computed, hadComputed;
-&nbsp;
+    var currentChain = [], subValue, currentProperty, j, computed, hadComputed, pv, cv = target.context();
 &nbsp;
     // need to run through all variations of the property chain incase it changes
     // in the bindable.object. For instance:
@@ -689,32 +700,33 @@ function watchChain (bindable, hasComputed, chain, fn) {
 &nbsp;
       for (var i = 0, n = chain.length; i &lt; n; i++) {
 &nbsp;
-        subChain        = chain.slice(0, i + 1);
+        currentChain.push(chain[i]);
         currentProperty = chain[i];
 &nbsp;
         // check for @ at the beginning
         if (computed = (currentProperty.charCodeAt(0) === 64)) {
           hadComputed = true;
           // remove @ - can't be used to fetch the propertyy
-          subChain[i] = subChain[i].substr(1);
+          currentChain[i] = currentProperty = currentChain[i].substr(1);
+        }
+    
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (cv) {
+          cv = cv[currentProperty];
         }
 &nbsp;
-        // fetch the property
-        subValue        = target.get(subChain);
-&nbsp;
         // check if 
-        if (computed &amp;&amp; subValue) {
+        if (computed &amp;&amp; cv) {
 &nbsp;
           if (!values) values = [];
 &nbsp;
           // context of the function
-          var context = target.get(subChain.slice(0, subChain.length - 1));
+          var context = target.get(currentChain.slice(0, currentChain.length - 1));
 &nbsp;
           // used in cases where the collection might change that would affect 
           // this binding. length for instance on the collection...
-          <span class="missing-if-branch" title="if path not taken" >I</span>if (subValue.compute) {
-<span class="cstat-no" title="statement not covered" >            for (var i = subValue.compute.length; i--;) {</span>
-<span class="cstat-no" title="statement not covered" >              bind(target, subValue.compute[i]);</span>
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (cv.compute) {
+<span class="cstat-no" title="statement not covered" >            for (var i = cv.compute.length; i--;) {</span>
+<span class="cstat-no" title="statement not covered" >              bind(target, cv.compute[i]);</span>
             }
           }
 &nbsp;
@@ -722,7 +734,7 @@ function watchChain (bindable, hasComputed, chain, fn) {
           var eachChain = chain.slice(i + 1);
 &nbsp;
           // call the function, looping through items
-          subValue.call(context, function (item) {
+          cv.call(context, function (item) {
 &nbsp;
             if (!eachChain.length) {
               values.push(item);
@@ -738,33 +750,39 @@ function watchChain (bindable, hasComputed, chain, fn) {
 &nbsp;
             bind(item, eachChain);
           });
-        } else <span class="missing-if-branch" title="if path not taken" >I</span>if (subValue &amp;&amp; subValue.__isBindable) {
-<span class="cstat-no" title="statement not covered" >          bind(subValue, chain.slice(i + 1));</span>
+          break;
+        } else <span class="missing-if-branch" title="if path not taken" >I</span>if (cv &amp;&amp; cv.__isBindable) {
+<span class="cstat-no" title="statement not covered" >          bind(cv, chain.slice(i + 1));</span>
+<span class="cstat-no" title="statement not covered" >          cv = cv.__context;</span>
         }
 &nbsp;
-        listeners.push(target.on("change:" + subChain.join("."), onChange));
+        listeners.push(target.on("change:" + currentChain.join("."), onChange));
       } 
 &nbsp;
       if (!hadComputed) {
-        values.push(subValue);
+        values.push(cv);
       }
 &nbsp;
     } else {
 &nbsp;
       for (var i = 0, n = chain.length; i &lt; n; i++) {
+        currentProperty = chain[i];
+        currentChain.push(currentProperty);
 &nbsp;
-        subChain        = chain.slice(0, i + 1);
-        subValue        = target.get(subChain);
+        if (cv) {
+          cv = cv[currentProperty];
+        }
 &nbsp;
         // pass the watch onto the bindable object, but also listen 
         // on the current target for any
-        if (subValue &amp;&amp; subValue.__isBindable) {
-          bind(subValue, chain.slice(i + 1));
+        if (cv &amp;&amp; cv.__isBindable) {
+          bind(cv, chain.slice(i + 1));
+          cv = cv.__context;
         }
 &nbsp;
-        listeners.push(target.on("change:" + subChain.join("."), onChange));
+        listeners.push(target.on("change:" + currentChain.join("."), onChange));
       }
-      values = subValue;
+      values = cv;
     }
 &nbsp;
 &nbsp;
@@ -848,7 +866,7 @@ module.exports = watchProperty;</pre></td></tr>
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Dec 28 2013 06:46:45 GMT-0800 (PST)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Dec 28 2013 07:10:54 GMT-0800 (PST)</div>
 </div>
 
 <script src="../../prettify.js"></script>
