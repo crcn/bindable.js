@@ -3,6 +3,7 @@ expect       = require("expect.js");
 
 describe("transform#", function () {
 
+  // bindable.bind("some.property", bindable.transform().map())
   it("can transform to a function", function () { });
   it("can transform to another bindable object", function () { });
   it("can transform to multiple items", function () { });
