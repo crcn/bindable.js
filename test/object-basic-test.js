@@ -27,6 +27,13 @@ describe("object-basic#", function () {
     expect(obj.get("name")).to.be("jeff");
   });
 
+  it("can return the keys of an object", function () {
+    var obj = new bindable.Object({ name: "craig", age: 99 }),
+    keys = obj.keys();
+    expect(keys).to.contain("name");
+    expect(keys).to.contain("age");
+  })
+
   it("can call get() with a string property chain", function () {
     var obj = new bindable.Object({ city: { zip: 99999 }, a: { b: { c: { d: 5}}} });
     expect(obj.get("city.zip")).to.be(99999);
@@ -118,6 +125,13 @@ describe("object-basic#", function () {
     obj.set("name", "craig");
     expect(obj.get("name")).to.be("craig");
   });
+
+  it("can set multiple properties", function () {
+    var obj = new bindable.Object();
+    obj.setProperties({ name: "craig", age: 99 });
+    expect(obj.get("name")).to.be("craig");
+    expect(obj.get("age")).to.be(99);
+  })
 
   it("can call set() with a string property chain", function () {
     var obj = new bindable.Object();
