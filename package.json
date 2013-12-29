@@ -3,6 +3,7 @@
   "version": "0.5.2",
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
+  "browserify": "./lib/browser.js",
   "scripts": {
     "test": "mocha"
   },
