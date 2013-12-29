@@ -21,6 +21,9 @@ var person = new bindable.Object({
   }
 });
 
+
+
+
 suite.add("bindable.bind('name', fn).dispose()", function () {
   person.bind("name", function(){}).dispose()
 })
