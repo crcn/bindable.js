@@ -77,15 +77,6 @@ suite.add("bindable.set('firstName', value)", function() {
 });
 
 
-suite.add("bindable.set('city.zip', 94111) new", function() {
-  person.set("city.zip", 99999);
-});
-
-
-suite.add("bindable.set('city.zip', 94111) existing", function() {
-  person.set("city.zip", 99999);
-});
-
 
 suite.add("bindable.set(['city', 'zip'], 55555) new", function() {
   person.set(["city", "zip"], 55555);
@@ -93,6 +84,15 @@ suite.add("bindable.set(['city', 'zip'], 55555) new", function() {
 
 suite.add("bindable.set(['city', 'zip'], 55555) existing", function() {
   person.set(["city", "zip"], 55555);
+});
+
+suite.add("bindable.set('city.zip', 94111) new", function() {
+  person.set("city.zip", 99999);
+});
+
+
+suite.add("bindable.set('city.zip', 94111) existing", function() {
+  person.set("city.zip", 99999);
 });
 
 
