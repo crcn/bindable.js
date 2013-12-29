@@ -3,7 +3,6 @@ expect = require("expect.js")
 
 describe("event-emitter#", function () {
 
-
   it("can create an event emitter", function () {
     new EventEmitter().setMaxListeners();
   });

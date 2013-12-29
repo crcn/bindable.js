@@ -31,6 +31,17 @@ describe("object-basic#", function () {
     }).now();
   });
 
+  it("can call 'now' multiple times", function () {
+    var obj = new bindable.Object({ name: "steph" }), called = 0;
+    var binding = obj.bind("name", function (value) {
+      expect(value).to.be("steph");
+      called++;
+    });
+    binding.now();
+    binding.now();
+    expect(called).to.be(2);
+  });
+
   it("can bind now to an undefined value", function (next) {
     var obj = new bindable.Object();
     obj.bind("name", function (value) {
