@@ -44,4 +44,25 @@ describe("object-computed#", function () {
     }).now();
   });
 
+  it("can explicitly define what properties to watch on a function", function (next) {
+    var friends  = [{ name: "sam" }, { name: "monica"}, { name: "tim" } ];
+    var obj = new bindable.Object(), calls = 0;
+    obj.context(obj);
+    obj.friends = friends;
+    obj.eachFriend = bindable.computed(["friends"], function (fn) {
+      friends.forEach(fn);
+    });
+
+    obj.bind("@eachFriend.name", function (names) {
+      expect(names).not.to.contain(friends);
+      expect(names).to.contain(friends[0].name);
+      expect(names).to.contain(friends[1].name);
+      expect(names).to.contain(friends[2].name);
+      if (calls++ === 1) {
+        next();
+      }
+    }).now();
+
+    obj.set("friends", friends = [ {name:"a"}, { name: "b"}, { name: "c"} ]);
+  });
 });
