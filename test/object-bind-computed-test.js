@@ -3,7 +3,6 @@ expect       = require("expect.js");
 
 describe("object-computed#", function () {
 
-
   it("can bind to a computed property", function (next) {
     var friends = [{ name: "sam" }, { name: "liam" }];
     var obj = new bindable.Object({
