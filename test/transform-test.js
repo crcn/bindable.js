@@ -12,7 +12,8 @@ describe("transform#", function () {
       err = e;
     }
     expect(err.message).to.be("missing 'to' option");
-  })
+  });
+
 
   it("can transform into a function, and pass", function () {
     var obj = new bindable.Object({ name: "craig" }),
@@ -52,6 +53,17 @@ describe("transform#", function () {
     binding.now();
 
     expect(called).to.be(1);
+  });
+
+
+  it("throws an error if 'to' is an unknown type", function () {
+    var err;
+    try {
+      new bindable.Object().bind("abba", { to: 0 }).now();
+    } catch(e) {
+      err = e;
+    }
+    expect(err.message).to.be("'to' must be a function");
   });
 
   it("can map a value", function (next) {
