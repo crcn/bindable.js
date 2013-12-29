@@ -207,7 +207,6 @@ describe("object-basic#", function () {
     obj.set("name", "liam");
   });
 
-
   it("doesn't emit a change event when a property changes", function () {
     var obj = new bindable.Object({ name: "liam" }), emitted;
     obj.once("change", function (key, value) {
