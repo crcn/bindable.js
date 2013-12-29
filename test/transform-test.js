@@ -3,6 +3,17 @@ expect       = require("expect.js");
 
 describe("transform#", function () {
 
+
+  it("throw an error if 'to' is missing", function () {
+    var err;
+    try {
+      new bindable.Object().bind("prop", {});
+    } catch(e) {
+      err = e;
+    }
+    expect(err.message).to.be("missing 'to' option");
+  })
+
   it("can transform into a function, and pass", function () {
     var obj = new bindable.Object({ name: "craig" }),
     called = 0;
@@ -68,6 +79,19 @@ describe("transform#", function () {
     }).now();
     obj.set("name", "liam");
   });
+
+  it("can use regexp for the 'when' option", function () {
+    var obj = new bindable.Object({ name: "craig" });
+    obj.bind("name", {
+      when: /ben/,
+      to: "name2"
+    }).now();
+    expect(obj.get("name2")).to.be(undefined);
+    obj.set("name", "blah");
+    expect(obj.get("name2")).to.be(undefined);
+    obj.set("name", "ben");
+    expect(obj.get("name2")).to.be("ben");
+  }); 
 
   it("can bind a property both ways", function () {
     var obj = new bindable.Object({ name: "frank" });
