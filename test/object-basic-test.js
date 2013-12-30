@@ -132,6 +132,12 @@ describe("object-basic#", function () {
     expect(obj.get("name")).to.be("craig");
   });
 
+  it("returns the same value on set() even if it hasn't changed", function () {
+    var obj = new bindable.Object({ name: "craig" });
+    expect(obj.set("name", "craig"));
+    expect(obj.get("name")).to.be("craig");
+  })
+
   it("can set multiple properties", function () {
     var obj = new bindable.Object();
     obj.setProperties({ name: "craig", age: 99 });
