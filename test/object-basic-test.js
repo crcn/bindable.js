@@ -154,6 +154,13 @@ describe("object-basic#", function () {
     expect(obj.get("a.b.c.d.e")).to.be(33333);
   });
 
+
+  it("can set a value to undefined", function () {
+    var obj = new bindable.Object({ a: { b: "blah" }});
+    obj.set("a.b", undefined);
+    expect(obj.get("a.b")).to.be(undefined);
+  })
+
   it("can call set() with an array property", function () {
     var obj = new bindable.Object();
     obj.set(["a", "b", "c", "d", "e"], 99999);
