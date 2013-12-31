@@ -4,6 +4,7 @@ expect       = require("expect.js");
 describe("object-basic#", function () {
 
 
+  // emit watching
   it("can bind one property", function (next) {
     var obj = new bindable.Object();
     obj.bind("name", function (value) {
