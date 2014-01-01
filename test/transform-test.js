@@ -206,4 +206,5 @@ describe("transform#", function () {
     obj.set("a", 3);
     expect(calls).to.be(2);
   });
+
 });

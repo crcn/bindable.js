@@ -127,25 +127,4 @@ describe("object-basic#", function () {
     }).now();
   });
 
-
-  it("blah", function () {
-    var teacher;
-    var view = new bindable.Object(),
-    models = new bindable.Object();
-
-
-    view.bind("models.teacher", { to: "teacher" });
-
-    view.bind("teacher.classrooms", { to: function () {
-      console.log("OK", arguments[0]);
-    }});
-    teacher = new bindable.Object()
-    teacher.on("watching", function (property) {
-      console.log(property);
-    });
-    models.set("teacher", teacher);
-    view.set("models", models);
-    teacher.set("classrooms", new bindable.Object({ name: "craig" }));
-
-  })
 });

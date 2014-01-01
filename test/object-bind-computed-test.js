@@ -3,6 +3,8 @@ expect       = require("expect.js");
 
 describe("object-computed#", function () {
 
+
+
   // emit watching
   it("can bind to a computed property", function (next) {
     var friends = [{ name: "sam" }, { name: "liam" }];
@@ -65,4 +67,14 @@ describe("object-computed#", function () {
 
     obj.set("friends", friends = [ {name:"a"}, { name: "b"}, { name: "c"} ]);
   });
+
+
+
+  it("always returns an array", function () {
+    var obj = new bindable.Object({});
+    obj.bind("a.@each.name", function (value) {
+      expect(value).not.to.be(undefined);
+      expect(value.length).to.be(0);
+    }).now()
+  })
 });
