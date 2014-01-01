@@ -172,4 +172,38 @@ describe("transform#", function () {
       next();
     }, 1)
   });
+
+  it("can listen to a binding once", function () {
+    var obj = new bindable.Object({ name: "a" }), calls = 0;
+    obj.bind("name", { once: true, to: function () {
+      calls++;
+    }}).now();
+    expect(calls).to.be(1);
+    obj.set("name", "b");
+    expect(calls).to.be(1);
+
+  });
+
+  // chains use a different watcher
+  it("can listen to a chain once", function () {
+    var obj = new bindable.Object({ a: { b: 1 }}), calls = 0;
+    obj.bind("a.b", { once: true, to: function () {
+      calls++;
+    }}).now();
+    expect(calls).to.be(1);
+    obj.set("a.b", 2);
+    expect(calls).to.be(1);
+  });
+
+  it("can set a max number of calls", function () {
+    var obj = new bindable.Object({ a: 1 }), calls = 0;
+    obj.bind("a", { max: 2, to: function () {
+      calls++;
+    }}).now();
+    expect(calls).to.be(1);
+    obj.set("a", 2);
+    expect(calls).to.be(2);
+    obj.set("a", 3);
+    expect(calls).to.be(2);
+  });
 });
