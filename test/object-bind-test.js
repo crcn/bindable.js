@@ -1,7 +1,7 @@
 var bindable = require(".."),
 expect       = require("expect.js");
 
-describe("object-basic#", function () {
+describe("object-bind#", function () {
 
 
   // emit watching
@@ -121,8 +121,8 @@ describe("object-basic#", function () {
     });
 
     obj.bind("friends.@forEach", function (people) {
-      expect(people[0].name).to.be("sam");
-      expect(people[1].name).to.be("liam");
+      expect(people[0].get("name")).to.be("sam");
+      expect(people[1].get("name")).to.be("liam");
       next();
     }).now();
   });

@@ -13,8 +13,8 @@ describe("object-computed#", function () {
     });
 
     obj.bind("friends.@forEach", function (people) {
-      expect(people[0].name).to.be("sam");
-      expect(people[1].name).to.be("liam");
+      expect(people[0].get("name")).to.be("sam");
+      expect(people[1].get("name")).to.be("liam");
       next();
     }).now();
   });
@@ -68,13 +68,21 @@ describe("object-computed#", function () {
     obj.set("friends", friends = [ {name:"a"}, { name: "b"}, { name: "c"} ]);
   });
 
-
-
   it("always returns an array", function () {
     var obj = new bindable.Object({});
     obj.bind("a.@each.name", function (value) {
       expect(value).not.to.be(undefined);
       expect(value.length).to.be(0);
     }).now()
+  });
+
+  it("does not return the context of a value that is a bindable object if watched", function () {
+    var friend;
+    var obj = new bindable.Object({ a: {friends: [{ name: "sam" }, { name: "monica"}, { name: "tim" } ].map(function(v) { return new bindable.Object(v); }) } });
+    obj.bind("a.friends.@forEach", function (friends) {
+      friends.forEach(function (friend) {
+        expect(friend.__context).not.to.be(undefined);
+      });
+    }).now();
   })
 });

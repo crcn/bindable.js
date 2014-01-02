@@ -254,5 +254,13 @@ describe("object-basic#", function () {
     });
     obj.dispose();
     expect(disposed).to.be(true);
+  });
+
+  it("does not return the context of a value that is a bindable object if watched", function () {
+    var friend;
+    var obj = new bindable.Object({ a: {friend: friend = new bindable.Object() } });
+    obj.bind("a.friend", function (friend2) {
+      expect(friend2).to.be(friend);
+    }).now();
   })
 });
