@@ -199,4 +199,18 @@ describe("collection-test#", function () {
     });
     src.splice(0, 2, [8, 9, 10]);
   });
+
+
+  it("can pop an item", function () {
+    var src = new bindable.Collection([0, 1]);
+    expect(src.pop()).to.be(1);
+    expect(src.at(0)).to.be(0);
+  });
+
+
+  it("can shift an item", function () {
+    var src = new bindable.Collection([0, 1]);
+    expect(src.shift()).to.be(0);
+    expect(src.at(0)).to.be(1);
+  });
 });
