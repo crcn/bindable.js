@@ -23,7 +23,8 @@
     "outcome": "0.0.x",
     "type-component": "0.0.x",
     "async": "0.2.x",
-    "protoclass": "0.0.5"
+    "protoclass": "0.0.5",
+    "sift": "0.0.12"
   },
   "devDependencies": {
     "mocha": "1.8.x",
