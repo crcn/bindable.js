@@ -262,5 +262,12 @@ describe("object-basic#", function () {
     obj.bind("a.friend", function (friend2) {
       expect(friend2).to.be(friend);
     }).now();
+  });
+
+  it("can bind with an array", function () {
+    var obj = new bindable.Object({ name: "john" });
+    obj.bind(["name"], function (name) {
+      expect(name).to.be("john");
+    }).now();
   })
 });
