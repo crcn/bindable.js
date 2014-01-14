@@ -207,4 +207,18 @@ describe("transform#", function () {
     expect(calls).to.be(2);
   });
 
+  it("can map a sub-value", function () {
+    var obj = new bindable.Object({});
+    obj.bind("a", {
+      to: {
+        abba: {
+          map: function (v) {
+            return v || "b";
+          }
+        }
+      }
+    }).now();
+    expect(obj.get("abba")).to.be("b");
+  })
+
 });
