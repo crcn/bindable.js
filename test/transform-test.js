@@ -207,6 +207,17 @@ describe("transform#", function () {
     expect(calls).to.be(2);
   });
 
+  it("can set max number of calls, and disposes only when there is a value", function () {
+    var obj = new bindable.Object(),
+    calls = 0;
+    obj.bind("a", { max: 1, to: function (v) {
+      expect(v).to.be(1);
+      calls++;
+    }}).now();
+    obj.set("a", 1);
+    expect(calls).to.be(1);
+  })
+
   it("can map a sub-value", function () {
     var obj = new bindable.Object({});
     obj.bind("a", {
