@@ -230,6 +230,14 @@ describe("transform#", function () {
       }
     }).now();
     expect(obj.get("abba")).to.be("b");
+  });
+
+  it("doesn't set undefined property to another property that is defined", function () {
+    var obj = new bindable.Object({ b: 5 });
+    obj.bind("a", { to: "b" }).now();
+    obj.bind("b", { to: "c" }).now();
+    expect(obj.get("b")).to.be(5);
+    expect(obj.get("c")).to.be(5);
   })
 
 });
