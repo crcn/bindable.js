@@ -213,4 +213,41 @@ describe("collection-test#", function () {
     expect(src.shift()).to.be(0);
     expect(src.at(0)).to.be(1);
   });
+
+
+  it("can bind to the first item in an array", function (){
+    var src = new bindable.Collection([0, 1]), c = 0;
+    src.bind("first", function (v) {
+      c++;
+      this.dispose();
+      expect(v).to.be(0);
+    }).now();
+
+    src.splice(0, 1, 2)
+
+    src.bind("first", function (v) {
+      c++;
+      this.dispose();
+      expect(v).to.be(2);
+    }).now();
+    expect(c).to.be(2);
+  });
+
+  it("can bind to the last item in an array", function (){
+    var src = new bindable.Collection([0, 1]), c = 0;
+    src.bind("last", function (v) {
+      c++;
+      this.dispose();
+      expect(v).to.be(1);
+    }).now();
+
+    src.splice(1, 1, 2)
+
+    src.bind("last", function (v) {
+      c++;
+      this.dispose();
+      expect(v).to.be(2);
+    }).now();
+    expect(c).to.be(2);
+  });
 });
