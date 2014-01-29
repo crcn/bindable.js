@@ -238,6 +238,35 @@ describe("transform#", function () {
     obj.bind("b", { to: "c" }).now();
     expect(obj.get("b")).to.be(5);
     expect(obj.get("c")).to.be(5);
-  })
+  });
+
+  it("doesn't maintain 'undefined' after mapping multiple values to one property", function (next) {
+    var obj = new bindable.Object({
+      a: true
+    });
+
+    obj.bind("a, b, c, d", {
+      "to": {
+        "abcd" : {
+          map: function (a, b, c, d) {
+            return a && b && c && d;
+          }
+        }
+      }
+    }).now();
+
+
+
+    setTimeout(function () {
+      obj.set("b", true);
+      obj.set("c", true);
+      obj.set("d", true);
+      setTimeout(function () {
+        expect(obj.get("abcd")).to.be(true);
+        next();
+      }, 50);
+    }, 10);
+
+  });
 
 });
