@@ -1,23 +1,44 @@
 # Bindable.js [![Alt ci](https://travis-ci.org/classdojo/bindable.js.png)](https://travis-ci.org/classdojo/bindable.js)
 
-Incredibly flexible bi-directional data binding library for `objects`, and `collections`. 
+Incredibly flexible, fast bi-directional data binding library for `objects`, and `collections`. 
 
 ## Projects using bindable.js
 
 - [Paperclip.js](/classdojo/paperclip.js) - data-bindable templating engine.
-- [Linen.js](/classdojo/linen.js) - API library
 - [Sherpa.js](/classdojo/sherpa.js) - online tours library
 - [Mojo.js](/classdojo/mojo.js) - javascript framework.
-- [ECTwo](/crcn/node-ectwo)
-- [cortado](/crcn/cortado) - full integration testing framework. 
+- [AWSM](/crcn/node-awsm) - aws library.
+
+### Benchmark
+
+Bindable.js is pretty fast. Here are a few benchmarks on a Mac 2.3 GHz Intel Core i7 with 16 GB (1600 MHz DDR3) of memory.
+
+```
+bindable.bind('name', { to: fn }).dispose() x 602,661 ops/sec ±1.96% (85 runs sampled)
+bindable.bind('name', fn).dispose() x 1,220,053 ops/sec ±0.57% (92 runs sampled)
+bindable.bind('city.zip', fn).dispose() x 266,628 ops/sec ±1.01% (87 runs sampled)
+sub bindable.bind('friend.name', fn).dispose() x 176,746 ops/sec ±1.04% (88 runs sampled)
+bindable.bind('a.b.c.d.e', fn).dispose() x 143,059 ops/sec ±0.77% (91 runs sampled)
+new bindable.Object() x 17,267,440 ops/sec ±0.72% (91 runs sampled)
+bindable.get('firstName') x 14,650,011 ops/sec ±1.06% (88 runs sampled)
+bindable.get('city.zip') x 5,896,941 ops/sec ±1.25% (91 runs sampled)
+bindable.get('a.b.c') x 5,056,329 ops/sec ±0.97% (82 runs sampled)
+bindable.get('a.b.c.d') x 4,661,307 ops/sec ±0.91% (90 runs sampled)
+bindable.get(['city','zip']) x 28,287,374 ops/sec ±1.37% (81 runs sampled)
+bindable.set('firstName', value) x 13,668,137 ops/sec ±0.98% (88 runs sampled)
+bindable.set(['city', 'zip'], 55555) new x 1,895,868 ops/sec ±0.66% (95 runs sampled)
+bindable.set(['city', 'zip'], 55555) existing x 1,939,437 ops/sec ±0.77% (86 runs sampled)
+bindable.set('city.zip', 94111) new x 1,416,434 ops/sec ±0.69% (90 runs sampled)
+bindable.set('city.zip', 94111) existing x 1,426,653 ops/sec ±0.85% (86 runs sampled)
+```
 
 
 ## BindableObject Example
 
 ```javascript
-var BindableObject = require("bindable").Object;
+var bindable = require("bindable");
 
-var item = new BindableObject({
+var item = new bindable.Object({
   name: "craig",
   last: "condon",
   location: {
@@ -26,7 +47,7 @@ var item = new BindableObject({
 });
 
 item.bind("location.zip", function(value) {
-  
+  // 94102
 }).now();
 
 //triggers the binding
@@ -35,186 +56,50 @@ item.set("location.zip", "94102");
 
 
 //bind location.zip to another property in the model, and do it only once
-item.bind("location.zip", "zip").once().now();
+item.bind("location.zip", { to: "zip", max: 1 }).now();
 
 //bind location.zip to another object, and make it go both ways!
-item.bind("location.zip").to(anotherModel, "location.zip").bothWays().now();
+item.bind("location.zip", { target: anotherModel, to: "location.zip", bothWays: true }).now();
 
 //chain to multiple items, and limit it!
-item.bind("location.zip").to("property").to("anotherProperty").to(function(value) {
-  
-}).limit(5).now();
+item.bind("location.zip", { to: ["property", "anotherProperty"], max: 1}).now();
 
-item.bind({
-  property: "location.zip",
-  limit: 5,
-  to: "anotherProperty",
-  now: true
-})
-
-//you can even bind to values by setting a binding
-anotherModel.set("location.zip", item.bind("location.zip"));
 
 //you can also transform data as it's being bound
-item.bind("name").map(function(name) {
-  return name.toUpperCase()
-}).to("name2").now();
-
-```
-
-## BindableCollection Example
-
-```javascript
-var collection = new bindable.Collection([{ name: "craig" }, { name: "sam" }, { name: "liam" }]),
-collection2 = new bindable.Collection();
-
-//binding to another collection, and transform that value into something else
-collection.bind().map(function(item) {
-  return new BindableObject(item);
-}).to(collection2);
-
-//binding to a collection with a filter
-collection.bind().filter({ name: {$nin: ["craig", "liam"] }}).to(collection2).now();
-
-
-var source = [];
-
-collection.bind(function(method, item, index) {
-  switch(method) {
-    case "insert": 
-      source.splice(index, 0, item);
-    break;
-    case "update":
-    case "replace":
-      source.splice(index, 1, item);
-    break;
-    case "remove":
-      source.splice(index, 1);
-    break;
+item.bind("name", {
+  to: "name2",
+  map: function (name) {
+    return name.toUpperCase();
   }
-});
-```
-
-## Iteration helper
-
-```javascript
-var jake = new bindable.Object({
-  name: "jake",
-  age: 12
-});
-
-var sam = new bindable.Object({
-  name: "sam",
-  age: 22
-});
-
-var craig = new bindable.Object({
-  name: "craig",
-  age: 23
-});
-
-var liam = new bindable.Object({
-  name: "liam",
-  friends: [jake, sam, craig],
-  getFriendsOlderThan20: bindable.computed("friends.@forEach.age", function(next) {
-    this.get("friends").filter(function(friend) {
-      return friend.get("age") > 20;
-    }).forEach(next);
-  })
-});
-
-
-liam.bind("@getFriendsOlderThan20.name").to(function(friendsOlderThan20) {
-  //[sam, craig]
-}).now();
-
-jake.set("age", 22);
-
-//callback friendsOlderThan20 = [sam, craig, jake]
-```
-
-
-## Computed Properties
-
-
-```javascript
-var notification = new bindable.Object({
-  message: "hello",
-  read: false
-}),
-notification2 = new bindable.Object({
-  message: "hello 2",
-  read: true
-});
-
-var notifications = new bindable.Collection([notification, notification2]);
-
-//bind the number of unread notifications to numUnreadNotifications
-notifications.bind("@each.read").map(function(readNotifications) {
-  return readNotifications.filter(function(isRead) {
-    return !isRead;
-  }).length;
-}).to("numUnreadNotifications").now();
-
-console.log(notifications.get("numUnreadNotifications")); //1
-
-for(var i = notifications.length(); i--;) {
-  notifications.at(i).set("read", true);
-}
-console.log(notifications.get("numUnreadNotifications")); //0
+})now();
 
 ```
-
-## Add some sugar...
-
-You can also compute properties by watching multiple values. For instance:
-
-```javascript
-
-var person = new bindable.Object({
-  firstName: "John",
-  lastName: "Doe"
-});
-
-person.bind("firstName, lastName").map({
-  to: function(firstName, lastName) {
-    return [firstName, lastName].join(" ");
-  },
-  from: function(fullName) {
-    return String(fullName).split(" ");
-  }
-}).to("fullName").bothWays().now();
-
-console.log(person.get("fullName")); //John Doe
-person.set("fullName", "Jake Anderson"); 
-console.log(person.get("firstName"), person.get("lastName")); //Jake Anderson
-```
-
 
 ## API
 
 
-### value bindable.get(property)
+#### value bindable.get(property)
 
 Returns a property on the bindable object
 
 ```javascript
 var bindable = new bindable.Object({ city: { name: "SF" } });
 
+console.log(bindable.get("city"));      // { name: "SF" }
 console.log(bindable.get("city.name")); // SF
 ```
 
-### bindable.set(property, value)
+#### bindable.set(property, value)
 
 Sets a value to the bindable object
 
 ```javascript
 var obj = new bindable.Object();
-bindable.set("city.name", "sf");
+bindable.set("city.name", "SF");
 console.log(obj.get("city.name")); // SF
 ```
 
-### bindable.has(property)
+#### bindable.has(property)
 
 Returns true if the bindable object has a given property
 
@@ -227,7 +112,7 @@ console.log(obj.has("name")); // true
 console.log(obj.has("city")); // false
 ```
 
-### Object bindable.context()
+#### Object bindable.context()
 
 returns the context of the bindable object.
 
@@ -238,24 +123,7 @@ var obj     = new bindable.Object(context);
 console.log(obj.context() == context); // true
 ```
 
-### bindable.dispose()
-
-Emits a `dispose` event, destroying all data-bindings and listeners on the given bindable object.
-
-```javascript
-var obj = new bindable.Object({ name: "craig" });
-
-obj.bind("name").to("name2").now();
-
-console.log(obj.get("name2")); // craig
-
-obj.dispose();
-
-obj.set("name", "abba");
-console.log(obj.get("name2")); // craig
-```
-
-### binding bindable.bind(from [, to])
+#### binding bindable.bind(from, to)
 
 Creates a new binding object.
 
@@ -266,183 +134,34 @@ var obj = new bindable.Object({ name: "craig" });
 obj.bind("name", "name2").now();
 
 //same as above, different style.
-obj.bind("name").to("name2").now();
+obj.bind("name", { to: "name2" }).now();
 ```
 
-### binding.to(targetOrFnOrProperty [, property])
 
-Binds to another object, or property.
+#### binding.now()
+
+Executes a binding now
 
 ```javascript
-var obj = new bindable.Object(),
-obj2    = new bindable.Object();
-
-obj.bind("name").to(obj2, "name").now();
-obj.bind("name").to("name2").now();
-
-obj.set("name", "craig");
-console.log(obj2.get("name")); // craig
-console.log(obj.get("name2")); // craig
+var person = new bindable.Object({ name: "jeff" });
+person.bind("name", function (name) {
+  // called ~ name = jeff
+}).now();
+person.set("")
 ```
 
-Binding to a function:
+#### binding.dispose()
+
+Disposes a binding
 
 ```javascript
-var obj = new bindable.Object();
+var person = new bindable.Object({ name: "jeff" });
 
-//triggered after setting name
-obj.bind("name").to(function (value, oldValue) {
-  console.log(value); // craig
+var binding = person.bind("name", function (name) {
+  // called ~ name = jeff
 }).now();
 
-obj.set("name", "craig"); // craig
-```
+binding.dispose();
 
-You can also chain `to` together:
-
-```javascript
-var obj = new bindable.Object();
-obj.bind("name").to(function(value, oldValue) {
-  console.log(value); // craig
-}).to("name2").now();
-
-obj.set("name", "craig");
-console.log(obj.get("name2")); // craig
-```
-
-### binding.now()
-
-Executes the binding now. For example:
-
-```javascript
-var person = new bindable.Object({ name: "craig" });
-
-//only executes on change
-person.bind("name").to("name2");
-
-//executes now, name must be present.
-person.bind("name").to("name3").now();
-
-console.log(person.get("name2")); // undefined
-console.log(person.get("name3")); // craig
-
-person.set("name", "john"); 
-
-console.log(person.get("name2")); // john
-console.log(person.get("name3")); // john
-```
-
-### binding.bothWays()
-
-binds properties the other way around.
-
-```javascript
-var person = new bindable.Object();
-person.bind("name").to("name2").bothWays().now();
-
-person.set("name", "craig");
-
-console.log(person.get("name")); // craig
-console.log(person.get("name2")); // craig
-
-person.set("name2", "john");
-
-console.log(person.get("name")); // john
-console.log(person.get("name2")); // john
-```
-
-### binding.map(options)
-
-Transforms a value:
-
-```javascript
-var person = new bindable.Object({ firstName: "craig", lastName: "condon" });
-
-//map TO fullName
-person.bind("firstName, lastName").map(function(firstName, lastName) {
-  return [firstName, lastName].join(" ")
-}).to("fullName").now();
-
-console.log(person.get("fullName")); // craig condon
-```
-
-You can also map from another value:
-
-```javascript
-
-var person = new bindable.Object({ firstName: "craig", lastName: "condon" });
-
-//map TO fullName
-person.bind("firstName, lastName").map({
-  to: function(firstName, lastName) {
-    return [firstName, lastName].join(" ")
-  },
-  from: function(fullName) {
-    return fullName.split(" ");
-  }
-}).to("fullName").bothWays().now();
-
-console.log(person.get("fullName")); // craig condon
-
-person.set("fullName", "john anderson");
-
-console.log(person.get("firstName")); // john
-console.log(person.get("lastName")); // anderson
-```
-
-### binding.limit(count)
-
-Limits the number of times a binding ca be triggered.
-
-```javascript
-var person = new bindable.Object();
-person.bind("count").to("count2").limit(2).now();
-
-person.set("count", 1);
-console.log(person.get("count2")); // 1
-person.set("count", 2);
-console.log(person.get("count2")); // 2
-person.set("count", 3);
-console.log(person.get("count2")); // 2
-```
-
-### binding.once()
-
-Triggers the binding once.
-
-```javascript
-var person = new bindable.Object({ name: "craig" });
-person.bind("name").map(function(name) {
-  return name.toUpperCase();
-}).to("nameUpper").once().now();
-
-console.log(person.get("nameUpper")); // CRAIG
-person.set("name", "john"); // not triggered
-console.log(person.get("nameUpper")); // CRAIG
-```
-
-
-### binding.dispose()
-
-Disposes the binding.
-
-```javascript
-var person = new bindable.Object({ name: "craig" });
-person.bind("name").to("name2").now().dispose();
-
-console.log(person.get("name2")); // craig
-person.set("name2", "john");
-console.log(person.get("name2")); // craig
-```
-
-
-## Chaining
-
-bindable.js allows you to easily chain bindings together. Here are a few examples
-
-```javascript
-var person = new bindable.Object();
-
-//bind property to multiple values. Run through multiple mappers.
-person.bind(property).map(fn).to(value).map(fn2).to(anotherValue).now()
+person.set("name", "jake"); // binding not triggered
 ```

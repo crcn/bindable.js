@@ -1,10 +1,11 @@
 {
   "name": "bindable",
-  "version": "0.5.25",
+  "version": "0.5.26",
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "benchmark": "node benchmark"
   },
   "repository": {
     "type": "git",
