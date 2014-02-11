@@ -14,6 +14,8 @@ Incredibly flexible, fast bi-directional data binding library for `objects`, and
 Bindable.js is pretty fast. Here are a few benchmarks on a Mac 2.3 GHz Intel Core i7 with 16 GB (1600 MHz DDR3) of memory.
 
 ```
+bindable.on('event', fn) 1 listener x 10,139,631 ops/sec ±0.47% (94 runs sampled)
+bindable.on('event', fn) 2 listeners x 3,524,177 ops/sec ±0.32% (95 runs sampled)
 bindable.bind('name', { to: fn }).dispose() x 602,661 ops/sec ±1.96% (85 runs sampled)
 bindable.bind('name', fn).dispose() x 1,220,053 ops/sec ±0.57% (92 runs sampled)
 bindable.bind('city.zip', fn).dispose() x 266,628 ops/sec ±1.01% (87 runs sampled)

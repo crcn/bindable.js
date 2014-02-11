@@ -21,6 +21,24 @@ var person = new bindable.Object({
   }
 });
 
+suite.add("bindable.on('event', fn) 1 listener", function () {
+  person.on("event", function () {});
+  person.emit("event");
+  person.removeAllListeners("event");
+})
+
+
+suite.add("bindable.on('event', fn) 2 listeners", function () {
+  person.on("event", function () {});
+  person.on("event", function () {});
+  person.emit("event");
+  person.removeAllListeners("event");
+})
+
+suite.add("bindable.bind('name', { to: fn }).dispose()", function () {
+  person.bind("name", { to: function(){} }).dispose()
+})
+
 suite.add("bindable.bind('name', { to: fn }).dispose()", function () {
   person.bind("name", { to: function(){} }).dispose()
 })

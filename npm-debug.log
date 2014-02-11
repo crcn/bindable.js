@@ -1,0 +1,367 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@1.3.11
+3 info using node@v0.10.21
+4 verbose publish [ '.' ]
+5 verbose cache add [ '.', null ]
+6 verbose cache add name=undefined spec="." args=[".",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: '.',
+7 verbose parsed url   path: '.',
+7 verbose parsed url   href: '.' }
+8 silly lockFile 3a52ce78- .
+9 verbose lock . /Users/craig/.npm/3a52ce78-.lock
+10 verbose tar pack [ '/var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/tmp.tgz',
+10 verbose tar pack   '.' ]
+11 verbose tarball /var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/tmp.tgz
+12 verbose folder .
+13 silly lockFile 1f1177db-tar tar://.
+14 verbose lock tar://. /Users/craig/.npm/1f1177db-tar.lock
+15 silly lockFile 0d9b56d8-99238-0-7981721991673112-tmp-tgz tar:///var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/tmp.tgz
+16 verbose lock tar:///var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/tmp.tgz /Users/craig/.npm/0d9b56d8-99238-0-7981721991673112-tmp-tgz.lock
+17 silly lockFile 1f1177db-tar tar://.
+18 silly lockFile 1f1177db-tar tar://.
+19 silly lockFile 0d9b56d8-99238-0-7981721991673112-tmp-tgz tar:///var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/tmp.tgz
+20 silly lockFile 0d9b56d8-99238-0-7981721991673112-tmp-tgz tar:///var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/tmp.tgz
+21 verbose tar unpack /var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/tmp.tgz
+22 silly lockFile 0deb1000-99238-0-7981721991673112-package tar:///var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/package
+23 verbose lock tar:///var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/package /Users/craig/.npm/0deb1000-99238-0-7981721991673112-package.lock
+24 silly lockFile 0d9b56d8-99238-0-7981721991673112-tmp-tgz tar:///var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/tmp.tgz
+25 verbose lock tar:///var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/tmp.tgz /Users/craig/.npm/0d9b56d8-99238-0-7981721991673112-tmp-tgz.lock
+26 silly gunzTarPerm modes [ '755', '644' ]
+27 silly gunzTarPerm extractEntry package.json
+28 silly gunzTarPerm extractEntry .npmignore
+29 silly gunzTarPerm modified mode [ '.npmignore', 511, 493 ]
+30 silly gunzTarPerm extractEntry README.md
+31 silly gunzTarPerm extractEntry karma.conf.js
+32 silly gunzTarPerm modified mode [ 'karma.conf.js', 511, 493 ]
+33 silly gunzTarPerm extractEntry coverage/coverage.json
+34 silly gunzTarPerm extractEntry coverage/lcov-report/prettify.js
+35 silly gunzTarPerm extractEntry coverage/lcov-report/index.html
+36 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/binding.js.html
+37 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/index.html
+38 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/index.js.html
+39 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/setters/base.js.html
+40 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/setters/collection.js.html
+41 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/setters/factory.js.html
+42 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/setters/fn.js.html
+43 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/setters/index.html
+44 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/setters/object.js.html
+45 silly gunzTarPerm extractEntry coverage/lcov-report/lib/core/eventEmitter.js.html
+46 silly gunzTarPerm extractEntry coverage/lcov-report/lib/core/index.html
+47 silly gunzTarPerm extractEntry coverage/lcov-report/lib/core/utils.js.html
+48 silly gunzTarPerm extractEntry coverage/lcov-report/lib/index.html
+49 silly gunzTarPerm extractEntry coverage/lcov-report/lib/index.js.html
+50 silly gunzTarPerm extractEntry coverage/lcov-report/lib/object/binding.js.html
+51 silly gunzTarPerm extractEntry coverage/lcov-report/lib/object/index.html
+52 silly gunzTarPerm extractEntry coverage/lcov-report/lib/object/index.js.html
+53 silly gunzTarPerm extractEntry coverage/lcov-report/lib/object/transform.js.html
+54 silly gunzTarPerm extractEntry coverage/lcov-report/lib/object/watchProperty.js.html
+55 silly gunzTarPerm extractEntry coverage/lcov-report/lib/utils/computed.js.html
+56 silly gunzTarPerm extractEntry coverage/lcov-report/lib/utils/index.html
+57 silly gunzTarPerm extractEntry coverage/lcov-report/lib/utils/options.js.html
+58 silly gunzTarPerm extractEntry coverage/lcov-report/prettify.css
+59 silly gunzTarPerm extractEntry coverage/lcov.info
+60 silly gunzTarPerm extractEntry test-web/collection-test.js
+61 silly gunzTarPerm modified mode [ 'test-web/collection-test.js', 511, 493 ]
+62 silly gunzTarPerm extractEntry test-web/fn-call-test.js
+63 silly gunzTarPerm modified mode [ 'test-web/fn-call-test.js', 511, 493 ]
+64 silly gunzTarPerm extractEntry test-web/object-collection-test.js
+65 silly gunzTarPerm modified mode [ 'test-web/object-collection-test.js', 511, 493 ]
+66 silly gunzTarPerm extractEntry test-web/object-test.js
+67 silly gunzTarPerm modified mode [ 'test-web/object-test.js', 511, 493 ]
+68 silly gunzTarPerm extractEntry .travis.yml
+69 silly gunzTarPerm extractEntry makefile
+70 silly gunzTarPerm extractEntry test/collection-test.js
+71 silly gunzTarPerm extractEntry test/context-test.js
+72 silly gunzTarPerm extractEntry test/event-emitter-test.js
+73 silly gunzTarPerm extractEntry test/object-basic-test.js
+74 silly gunzTarPerm extractEntry test/object-bind-computed-test.js
+75 silly gunzTarPerm extractEntry test/object-bind-multiple-test.js
+76 silly gunzTarPerm extractEntry test/object-bind-test.js
+77 silly gunzTarPerm extractEntry test/transform-test.js
+78 silly gunzTarPerm extractEntry test/watching-test.js
+79 silly gunzTarPerm extractEntry benchmark/index.js
+80 silly gunzTarPerm extractEntry lib/index.js
+81 silly gunzTarPerm extractEntry lib/collection/binding.js
+82 silly gunzTarPerm extractEntry lib/collection/index.js
+83 silly gunzTarPerm extractEntry lib/collection/setters/base.js
+84 silly gunzTarPerm extractEntry lib/collection/setters/collection.js
+85 silly gunzTarPerm extractEntry lib/collection/setters/factory.js
+86 silly gunzTarPerm extractEntry lib/collection/setters/fn.js
+87 silly gunzTarPerm extractEntry lib/collection/setters/object.js
+88 silly gunzTarPerm extractEntry lib/core/eventEmitter.js
+89 silly gunzTarPerm extractEntry lib/object/binding.js
+90 silly gunzTarPerm extractEntry lib/object/index.js
+91 silly gunzTarPerm extractEntry lib/object/transform.js
+92 silly gunzTarPerm extractEntry lib/object/watchProperty.js
+93 silly gunzTarPerm extractEntry lib/shim/dref.js
+94 silly gunzTarPerm extractEntry lib/utils/computed.js
+95 silly gunzTarPerm extractEntry lib/utils/options.js
+96 silly lockFile 0deb1000-99238-0-7981721991673112-package tar:///var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/package
+97 silly lockFile 0deb1000-99238-0-7981721991673112-package tar:///var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/package
+98 silly lockFile 0d9b56d8-99238-0-7981721991673112-tmp-tgz tar:///var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/tmp.tgz
+99 silly lockFile 0d9b56d8-99238-0-7981721991673112-tmp-tgz tar:///var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/tmp.tgz
+100 verbose tar pack [ '/Users/craig/.npm/bindable/0.5.26/package.tgz',
+100 verbose tar pack   '/var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/package' ]
+101 verbose tarball /Users/craig/.npm/bindable/0.5.26/package.tgz
+102 verbose folder /var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/package
+103 silly lockFile 0deb1000-99238-0-7981721991673112-package tar:///var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/package
+104 verbose lock tar:///var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/package /Users/craig/.npm/0deb1000-99238-0-7981721991673112-package.lock
+105 silly lockFile ff40dc7d--npm-bindable-0-5-26-package-tgz tar:///Users/craig/.npm/bindable/0.5.26/package.tgz
+106 verbose lock tar:///Users/craig/.npm/bindable/0.5.26/package.tgz /Users/craig/.npm/ff40dc7d--npm-bindable-0-5-26-package-tgz.lock
+107 silly lockFile 0deb1000-99238-0-7981721991673112-package tar:///var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/package
+108 silly lockFile 0deb1000-99238-0-7981721991673112-package tar:///var/folders/n1/r96x64mx6jzcbzkbz1ddrw6r0000gn/T/npm-9213-Q4_R1mH6/1392145999238-0.7981721991673112/package
+109 silly lockFile ff40dc7d--npm-bindable-0-5-26-package-tgz tar:///Users/craig/.npm/bindable/0.5.26/package.tgz
+110 silly lockFile ff40dc7d--npm-bindable-0-5-26-package-tgz tar:///Users/craig/.npm/bindable/0.5.26/package.tgz
+111 silly lockFile c4cac053-raig-npm-bindable-0-5-26-package /Users/craig/.npm/bindable/0.5.26/package
+112 verbose lock /Users/craig/.npm/bindable/0.5.26/package /Users/craig/.npm/c4cac053-raig-npm-bindable-0-5-26-package.lock
+113 silly lockFile c4cac053-raig-npm-bindable-0-5-26-package /Users/craig/.npm/bindable/0.5.26/package
+114 silly lockFile c4cac053-raig-npm-bindable-0-5-26-package /Users/craig/.npm/bindable/0.5.26/package
+115 verbose tar unpack /Users/craig/.npm/bindable/0.5.26/package.tgz
+116 silly lockFile 370ad6a8-raig-npm-bindable-0-5-26-package tar:///Users/craig/.npm/bindable/0.5.26/package
+117 verbose lock tar:///Users/craig/.npm/bindable/0.5.26/package /Users/craig/.npm/370ad6a8-raig-npm-bindable-0-5-26-package.lock
+118 silly lockFile ff40dc7d--npm-bindable-0-5-26-package-tgz tar:///Users/craig/.npm/bindable/0.5.26/package.tgz
+119 verbose lock tar:///Users/craig/.npm/bindable/0.5.26/package.tgz /Users/craig/.npm/ff40dc7d--npm-bindable-0-5-26-package-tgz.lock
+120 silly gunzTarPerm modes [ '755', '644' ]
+121 silly gunzTarPerm extractEntry package.json
+122 silly gunzTarPerm extractEntry .npmignore
+123 silly gunzTarPerm extractEntry README.md
+124 silly gunzTarPerm extractEntry karma.conf.js
+125 silly gunzTarPerm extractEntry coverage/coverage.json
+126 silly gunzTarPerm extractEntry coverage/lcov-report/prettify.js
+127 silly gunzTarPerm extractEntry coverage/lcov-report/index.html
+128 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/binding.js.html
+129 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/index.html
+130 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/index.js.html
+131 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/setters/base.js.html
+132 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/setters/collection.js.html
+133 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/setters/factory.js.html
+134 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/setters/fn.js.html
+135 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/setters/index.html
+136 silly gunzTarPerm extractEntry coverage/lcov-report/lib/collection/setters/object.js.html
+137 silly gunzTarPerm extractEntry coverage/lcov-report/lib/core/eventEmitter.js.html
+138 silly gunzTarPerm extractEntry coverage/lcov-report/lib/core/index.html
+139 silly gunzTarPerm extractEntry coverage/lcov-report/lib/core/utils.js.html
+140 silly gunzTarPerm extractEntry coverage/lcov-report/lib/index.html
+141 silly gunzTarPerm extractEntry coverage/lcov-report/lib/index.js.html
+142 silly gunzTarPerm extractEntry coverage/lcov-report/lib/object/binding.js.html
+143 silly gunzTarPerm extractEntry coverage/lcov-report/lib/object/index.html
+144 silly gunzTarPerm extractEntry coverage/lcov-report/lib/object/index.js.html
+145 silly gunzTarPerm extractEntry coverage/lcov-report/lib/object/transform.js.html
+146 silly gunzTarPerm extractEntry coverage/lcov-report/lib/object/watchProperty.js.html
+147 silly gunzTarPerm extractEntry coverage/lcov-report/lib/utils/computed.js.html
+148 silly gunzTarPerm extractEntry coverage/lcov-report/lib/utils/index.html
+149 silly gunzTarPerm extractEntry coverage/lcov-report/lib/utils/options.js.html
+150 silly gunzTarPerm extractEntry coverage/lcov-report/prettify.css
+151 silly gunzTarPerm extractEntry coverage/lcov.info
+152 silly gunzTarPerm extractEntry .travis.yml
+153 silly gunzTarPerm extractEntry lib/index.js
+154 silly gunzTarPerm extractEntry lib/collection/binding.js
+155 silly gunzTarPerm extractEntry lib/collection/index.js
+156 silly gunzTarPerm extractEntry lib/collection/setters/base.js
+157 silly gunzTarPerm extractEntry lib/collection/setters/collection.js
+158 silly gunzTarPerm extractEntry lib/collection/setters/factory.js
+159 silly gunzTarPerm extractEntry lib/collection/setters/fn.js
+160 silly gunzTarPerm extractEntry lib/collection/setters/object.js
+161 silly gunzTarPerm extractEntry lib/core/eventEmitter.js
+162 silly gunzTarPerm extractEntry lib/object/binding.js
+163 silly gunzTarPerm extractEntry lib/object/index.js
+164 silly gunzTarPerm extractEntry lib/object/transform.js
+165 silly gunzTarPerm extractEntry lib/object/watchProperty.js
+166 silly gunzTarPerm extractEntry lib/shim/dref.js
+167 silly gunzTarPerm extractEntry lib/utils/computed.js
+168 silly gunzTarPerm extractEntry lib/utils/options.js
+169 silly gunzTarPerm extractEntry makefile
+170 silly gunzTarPerm extractEntry benchmark/index.js
+171 silly gunzTarPerm extractEntry test/collection-test.js
+172 silly gunzTarPerm extractEntry test/context-test.js
+173 silly gunzTarPerm extractEntry test/event-emitter-test.js
+174 silly gunzTarPerm extractEntry test/object-basic-test.js
+175 silly gunzTarPerm extractEntry test/object-bind-computed-test.js
+176 silly gunzTarPerm extractEntry test/object-bind-multiple-test.js
+177 silly gunzTarPerm extractEntry test/object-bind-test.js
+178 silly gunzTarPerm extractEntry test/transform-test.js
+179 silly gunzTarPerm extractEntry test/watching-test.js
+180 silly gunzTarPerm extractEntry test-web/collection-test.js
+181 silly gunzTarPerm extractEntry test-web/fn-call-test.js
+182 silly gunzTarPerm extractEntry test-web/object-collection-test.js
+183 silly gunzTarPerm extractEntry test-web/object-test.js
+184 silly lockFile 370ad6a8-raig-npm-bindable-0-5-26-package tar:///Users/craig/.npm/bindable/0.5.26/package
+185 silly lockFile 370ad6a8-raig-npm-bindable-0-5-26-package tar:///Users/craig/.npm/bindable/0.5.26/package
+186 silly lockFile ff40dc7d--npm-bindable-0-5-26-package-tgz tar:///Users/craig/.npm/bindable/0.5.26/package.tgz
+187 silly lockFile ff40dc7d--npm-bindable-0-5-26-package-tgz tar:///Users/craig/.npm/bindable/0.5.26/package.tgz
+188 verbose chmod /Users/craig/.npm/bindable/0.5.26/package.tgz 644
+189 verbose chown /Users/craig/.npm/bindable/0.5.26/package.tgz [ 501, 20 ]
+190 silly lockFile 3a52ce78- .
+191 silly lockFile 3a52ce78- .
+192 silly publish { name: 'bindable',
+192 silly publish   version: '0.5.26',
+192 silly publish   description: 'bindable.js ===========',
+192 silly publish   main: './lib/index.js',
+192 silly publish   scripts: { test: 'mocha', benchmark: 'node benchmark' },
+192 silly publish   repository:
+192 silly publish    { type: 'git',
+192 silly publish      url: 'git://github.com/classdojo/bindable.js.git' },
+192 silly publish   author: '',
+192 silly publish   license: 'BSD',
+192 silly publish   readmeFilename: 'README.md',
+192 silly publish   gitHead: '7edb2889d669a6f42b537b50772f9e86cf6337f1',
+192 silly publish   dependencies:
+192 silly publish    { dref: '0.1.x',
+192 silly publish      disposable: '0.0.x',
+192 silly publish      underscore: '~1.4.4',
+192 silly publish      hoist: '0.0.x',
+192 silly publish      toarray: '0.0.1',
+192 silly publish      outcome: '0.0.x',
+192 silly publish      'type-component': '0.0.x',
+192 silly publish      async: '0.2.x',
+192 silly publish      protoclass: '0.0.5',
+192 silly publish      sift: '0.0.12' },
+192 silly publish   devDependencies:
+192 silly publish    { mocha: '1.8.x',
+192 silly publish      'expect.js': '0.2.x',
+192 silly publish      structr: '0.2.x',
+192 silly publish      sift: '0.0.9',
+192 silly publish      sardines: '0.4.x',
+192 silly publish      karma: '0.8.x',
+192 silly publish      benchmark: '~1.0.0',
+192 silly publish      istanbul: '~0.2.1',
+192 silly publish      coveralls: '~2.6.0' },
+192 silly publish   readme: '# Bindable.js [![Alt ci](https://travis-ci.org/classdojo/bindable.js.png)](https://travis-ci.org/classdojo/bindable.js)\n\nIncredibly flexible, fast bi-directional data binding library for `objects`, and `collections`. \n\n## Projects using bindable.js\n\n- [Paperclip.js](/classdojo/paperclip.js) - data-bindable templating engine.\n- [Sherpa.js](/classdojo/sherpa.js) - online tours library\n- [Mojo.js](/classdojo/mojo.js) - javascript framework.\n- [AWSM](/crcn/node-awsm) - aws library.\n\n### Benchmark\n\nBindable.js is pretty fast. Here are a few benchmarks on a Mac 2.3 GHz Intel Core i7 with 16 GB (1600 MHz DDR3) of memory.\n\n```\nbindable.bind(\'name\', { to: fn }).dispose() x 602,661 ops/sec ±1.96% (85 runs sampled)\nbindable.bind(\'name\', fn).dispose() x 1,220,053 ops/sec ±0.57% (92 runs sampled)\nbindable.bind(\'city.zip\', fn).dispose() x 266,628 ops/sec ±1.01% (87 runs sampled)\nsub bindable.bind(\'friend.name\', fn).dispose() x 176,746 ops/sec ±1.04% (88 runs sampled)\nbindable.bind(\'a.b.c.d.e\', fn).dispose() x 143,059 ops/sec ±0.77% (91 runs sampled)\nnew bindable.Object() x 17,267,440 ops/sec ±0.72% (91 runs sampled)\nbindable.get(\'firstName\') x 14,650,011 ops/sec ±1.06% (88 runs sampled)\nbindable.get(\'city.zip\') x 5,896,941 ops/sec ±1.25% (91 runs sampled)\nbindable.get(\'a.b.c\') x 5,056,329 ops/sec ±0.97% (82 runs sampled)\nbindable.get(\'a.b.c.d\') x 4,661,307 ops/sec ±0.91% (90 runs sampled)\nbindable.get([\'city\',\'zip\']) x 28,287,374 ops/sec ±1.37% (81 runs sampled)\nbindable.set(\'firstName\', value) x 13,668,137 ops/sec ±0.98% (88 runs sampled)\nbindable.set([\'city\', \'zip\'], 55555) new x 1,895,868 ops/sec ±0.66% (95 runs sampled)\nbindable.set([\'city\', \'zip\'], 55555) existing x 1,939,437 ops/sec ±0.77% (86 runs sampled)\nbindable.set(\'city.zip\', 94111) new x 1,416,434 ops/sec ±0.69% (90 runs sampled)\nbindable.set(\'city.zip\', 94111) existing x 1,426,653 ops/sec ±0.85% (86 runs sampled)\n```\n\n\n## BindableObject Example\n\n```javascript\nvar bindable = require("bindable");\n\nvar item = new bindable.Object({\n  name: "craig",\n  last: "condon",\n  location: {\n    city: "San Francisco"\n  }\n});\n\nitem.bind("location.zip", function(value) {\n  // 94102\n}).now();\n\n//triggers the binding\nitem.set("location.zip", "94102"); \n\n\n\n//bind location.zip to another property in the model, and do it only once\nitem.bind("location.zip", { to: "zip", max: 1 }).now();\n\n//bind location.zip to another object, and make it go both ways!\nitem.bind("location.zip", { target: anotherModel, to: "location.zip", bothWays: true }).now();\n\n//chain to multiple items, and limit it!\nitem.bind("location.zip", { to: ["property", "anotherProperty"], max: 1}).now();\n\n\n//you can also transform data as it\'s being bound\nitem.bind("name", {\n  to: "name2",\n  map: function (name) {\n    return name.toUpperCase();\n  }\n})now();\n\n```\n\n## API\n\n\n#### value bindable.get(property)\n\nReturns a property on the bindable object\n\n```javascript\nvar bindable = new bindable.Object({ city: { name: "SF" } });\n\nconsole.log(bindable.get("city"));      // { name: "SF" }\nconsole.log(bindable.get("city.name")); // SF\n```\n\n#### bindable.set(property, value)\n\nSets a value to the bindable object\n\n```javascript\nvar obj = new bindable.Object();\nbindable.set("city.name", "SF");\nconsole.log(obj.get("city.name")); // SF\n```\n\n#### bindable.has(property)\n\nReturns true if the bindable object has a given property\n\n```javascript\nvar obj = new bindable.Object({ count: 0, male: false, name: "craig" });\n\nconsole.log(obj.has("count")); // true\nconsole.log(obj.has("male")); // true\nconsole.log(obj.has("name")); // true\nconsole.log(obj.has("city")); // false\n```\n\n#### Object bindable.context()\n\nreturns the context of the bindable object.\n\n```javascript\nvar context = {};\nvar obj     = new bindable.Object(context);\n\nconsole.log(obj.context() == context); // true\n```\n\n#### binding bindable.bind(from, to)\n\nCreates a new binding object.\n\n```javascript\nvar obj = new bindable.Object({ name: "craig" });\n\n//bind to name2\nobj.bind("name", "name2").now();\n\n//same as above, different style.\nobj.bind("name", { to: "name2" }).now();\n```\n\n\n#### binding.now()\n\nExecutes a binding now\n\n```javascript\nvar person = new bindable.Object({ name: "jeff" });\nperson.bind("name", function (name) {\n  // called ~ name = jeff\n}).now();\nperson.set("")\n```\n\n#### binding.dispose()\n\nDisposes a binding\n\n```javascript\nvar person = new bindable.Object({ name: "jeff" });\n\nvar binding = person.bind("name", function (name) {\n  // called ~ name = jeff\n}).now();\n\nbinding.dispose();\n\nperson.set("name", "jake"); // binding not triggered\n```',
+192 silly publish   bugs: { url: 'https://github.com/classdojo/bindable.js/issues' },
+192 silly publish   _id: 'bindable@0.5.26',
+192 silly publish   dist: { shasum: '5b3c8e59211d1358096c184ad9e6d167135de5f1' },
+192 silly publish   _from: '.' }
+193 verbose url raw bindable
+194 verbose url resolving [ 'http://registry.npmjs.org/', './bindable' ]
+195 verbose url resolved http://registry.npmjs.org/bindable
+196 info trying registry request attempt 1 at 11:13:19
+197 http PUT http://registry.npmjs.org/bindable
+198 http 409 http://registry.npmjs.org/bindable
+199 verbose url raw bindable
+200 verbose url resolving [ 'http://registry.npmjs.org/', './bindable' ]
+201 verbose url resolved http://registry.npmjs.org/bindable
+202 info trying registry request attempt 1 at 11:13:20
+203 http GET http://registry.npmjs.org/bindable
+204 http 200 http://registry.npmjs.org/bindable
+205 verbose uploading [ 'bindable/-/bindable-0.5.26.tgz/-rev/458-137a06d423157c09b9629a28a9c25fd2',
+205 verbose uploading   '/Users/craig/.npm/bindable/0.5.26/package.tgz' ]
+206 verbose url raw bindable/-/bindable-0.5.26.tgz/-rev/458-137a06d423157c09b9629a28a9c25fd2
+207 verbose url resolving [ 'http://registry.npmjs.org/',
+207 verbose url resolving   './bindable/-/bindable-0.5.26.tgz/-rev/458-137a06d423157c09b9629a28a9c25fd2' ]
+208 verbose url resolved http://registry.npmjs.org/bindable/-/bindable-0.5.26.tgz/-rev/458-137a06d423157c09b9629a28a9c25fd2
+209 info trying registry request attempt 1 at 11:13:21
+210 http PUT http://registry.npmjs.org/bindable/-/bindable-0.5.26.tgz/-rev/458-137a06d423157c09b9629a28a9c25fd2
+211 http 500 http://registry.npmjs.org/bindable/-/bindable-0.5.26.tgz/-rev/458-137a06d423157c09b9629a28a9c25fd2
+212 verbose bad json An internal server error occurred. Please try again later.
+213 error registry error parsing json
+214 info retry will retry, error on last attempt: SyntaxError: Unexpected token A
+214 info retry An internal server error occurred. Please try again later.
+215 info trying registry request attempt 2 at 11:13:31
+216 http PUT http://registry.npmjs.org/bindable/-/bindable-0.5.26.tgz/-rev/458-137a06d423157c09b9629a28a9c25fd2
+217 http 503 http://registry.npmjs.org/bindable/-/bindable-0.5.26.tgz/-rev/458-137a06d423157c09b9629a28a9c25fd2
+218 verbose bad json <?xml version="1.0" encoding="utf-8"?>
+218 verbose bad json <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+218 verbose bad json  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+218 verbose bad json <html>
+218 verbose bad json   <head>
+218 verbose bad json     <title>503 client read error</title>
+218 verbose bad json   </head>
+218 verbose bad json   <body>
+218 verbose bad json     <h1>Error 503 client read error</h1>
+218 verbose bad json     <p>client read error</p>
+218 verbose bad json     <h3>Guru Meditation:</h3>
+218 verbose bad json     <p>XID: 2271542773</p>
+218 verbose bad json     <hr>
+218 verbose bad json     <p>Varnish cache server</p>
+218 verbose bad json   </body>
+218 verbose bad json </html>
+219 error registry error parsing json
+220 info retry will retry, error on last attempt: SyntaxError: Unexpected token <
+220 info retry
+220 info retry <?xml version="1.0" encoding="utf-8"?>
+220 info retry <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+220 info retry  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+220 info retry <html>
+220 info retry   <head>
+220 info retry     <title>503 client read error</title>
+220 info retry   </head>
+220 info retry   <body>
+220 info retry     <h1>Error 503 client read error</h1>
+220 info retry     <p>client read error</p>
+220 info retry     <h3>Guru Meditation:</h3>
+220 info retry     <p>XID: 2271542773</p>
+220 info retry     <hr>
+220 info retry     <p>Varnish cache server</p>
+220 info retry   </body>
+220 info retry </html>
+221 info trying registry request attempt 3 at 11:14:41
+222 http PUT http://registry.npmjs.org/bindable/-/bindable-0.5.26.tgz/-rev/458-137a06d423157c09b9629a28a9c25fd2
+223 http 503 http://registry.npmjs.org/bindable/-/bindable-0.5.26.tgz/-rev/458-137a06d423157c09b9629a28a9c25fd2
+224 verbose bad json <?xml version="1.0" encoding="utf-8"?>
+224 verbose bad json <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+224 verbose bad json  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+224 verbose bad json <html>
+224 verbose bad json   <head>
+224 verbose bad json     <title>503 client read error</title>
+224 verbose bad json   </head>
+224 verbose bad json   <body>
+224 verbose bad json     <h1>Error 503 client read error</h1>
+224 verbose bad json     <p>client read error</p>
+224 verbose bad json     <h3>Guru Meditation:</h3>
+224 verbose bad json     <p>XID: 2271770508</p>
+224 verbose bad json     <hr>
+224 verbose bad json     <p>Varnish cache server</p>
+224 verbose bad json   </body>
+224 verbose bad json </html>
+225 error registry error parsing json
+226 error publish Error uploading package
+227 error SyntaxError: Unexpected token <
+227 error
+227 error <?xml version="1.0" encoding="utf-8"?>
+227 error <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+227 error  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+227 error <html>
+227 error   <head>
+227 error     <title>503 client read error</title>
+227 error   </head>
+227 error   <body>
+227 error     <h1>Error 503 client read error</h1>
+227 error     <p>client read error</p>
+227 error     <h3>Guru Meditation:</h3>
+227 error     <p>XID: 2271770508</p>
+227 error     <hr>
+227 error     <p>Varnish cache server</p>
+227 error   </body>
+227 error </html>
+227 error
+227 error     at Object.parse (native)
+227 error     at RegClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:238:23)
+227 error     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:129:22)
+227 error     at Request.EventEmitter.emit (events.js:98:17)
+227 error     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:873:14)
+227 error     at Request.EventEmitter.emit (events.js:117:20)
+227 error     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:824:12)
+227 error     at IncomingMessage.EventEmitter.emit (events.js:117:20)
+227 error     at _stream_readable.js:920:16
+227 error     at process._tickCallback (node.js:415:13)
+228 error If you need help, you may report this log at:
+228 error     <http://github.com/isaacs/npm/issues>
+228 error or email it to:
+228 error     <npm-@googlegroups.com>
+229 error System Darwin 13.0.0
+230 error command "node" "/usr/local/bin/npm" "publish"
+231 error cwd /Users/craig/Developer/Public/bindable.js
+232 error node -v v0.10.21
+233 error npm -v 1.3.11
+234 error type unexpected_token
+235 verbose exit [ 1, true ]
