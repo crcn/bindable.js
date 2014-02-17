@@ -4,10 +4,10 @@ Incredibly flexible, fast bi-directional data binding library for `objects`, and
 
 ## Projects using bindable.js
 
-- [Paperclip.js](/classdojo/paperclip.js) - data-bindable templating engine.
-- [Sherpa.js](/classdojo/sherpa.js) - online tours library
-- [Mojo.js](/classdojo/mojo.js) - javascript framework.
-- [AWSM](/crcn/node-awsm) - aws library.
+- [Paperclip.js](https://github.com/classdojo/paperclip.js) - data-bindable templating engine.
+- [Sherpa.js](https://github.com/classdojo/sherpa.js) - online tours library
+- [Mojo.js](https://github.com/classdojo/mojo.js) - javascript framework.
+- [AWSM](https://github.com/crcn/node-awsm) - aws library.
 - [ditto](https://github.com/browsertap/ditto.js) - synchronized user interactions across browsers.
 
 
