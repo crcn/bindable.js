@@ -4,6 +4,8 @@ Incredibly flexible, fast bi-directional data binding library.
 
 Two-way data binding means linking properties of two separate objects - when one changes, the other will automatically update with that change.  It enables much easier interactions between data models and UIs, among other uses outside of MVC.
 
+Bindable.js is similar to Ember's data-binding system, except it doesn't include anything View related, so the library has many use-cases - whether replacing Backbone's Model, providing a way to maintain the state between server <-> client for a realtime front-end application (similar to Firebase), or perhaps a way to communicate between server <-> server for a realtime distributed Node.js application.
+
 
 ### Projects using bindable.js
 
