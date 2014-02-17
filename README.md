@@ -55,12 +55,10 @@ item.bind("location.zip", function(value) {
 //triggers the binding
 item.set("location.zip", "94102"); 
 
-
-
 //bind location.zip to another property in the model, and do it only once
 item.bind("location.zip", { to: "zip", max: 1 }).now();
 
-//bind location.zip to another object, and make it go both ways!
+//bind location.zip to another object, and make it bi-directional.
 item.bind("location.zip", { target: anotherModel, to: "location.zip", bothWays: true }).now();
 
 //chain to multiple items, and limit it!
@@ -78,7 +76,6 @@ item.bind("name", {
 ```
 
 ## API
-
 
 #### value bindable.get(property)
 
@@ -99,6 +96,19 @@ Sets a value to the bindable object
 var obj = new bindable.Object();
 bindable.set("city.name", "SF");
 console.log(obj.get("city.name")); // SF
+```
+
+#### bindable.setProperties(properties)
+
+sets multiple properties on the bindable object
+
+```javascript
+var person = new bindable.Object();
+person.setProperties({
+  firstName: "Jon",
+  lastName: "Doe"
+});
+console.log(person.get("firstName"), person.get("lastName")); // Jon Doe
 ```
 
 #### bindable.has(property)
@@ -125,9 +135,31 @@ var obj     = new bindable.Object(context);
 console.log(obj.context() == context); // true
 ```
 
-#### binding bindable.bind(from, to)
+#### listener bindable.on(event, callback)
 
-Creates a new binding object.
+adds a new listener to the bindable object
+
+#### bindable.emit(event[,args...])
+
+emits a new event
+
+#### bindable.once(event, callback)
+
+listens to one event
+
+#### bindable.removeAllListeners([type])
+
+returns all the listeners on the bindable object
+
+#### binding bindable.bind(from, options)
+
+`options` - the options for the binding
+  - `to` - the property to bind to. Can be a `string`, `array`, or `function`
+  - `target` - the target bindable object. Default is self
+  - `max` - max number of times to run the data-binding
+  - `when` - tests the data-bound value before setting
+  - `map` - transforms the data-bound value
+  - `bothWays` - makes the data-binding bi-directional.
 
 ```javascript
 var obj = new bindable.Object({ name: "craig" });
@@ -137,6 +169,11 @@ obj.bind("name", "name2").now();
 
 //same as above, different style.
 obj.bind("name", { to: "name2" }).now();
+
+// bind the name, but transform it to upper case
+obj.bind("name", { to: "name2", map: function (name) {
+  return name.toUpperCase();
+}}).now();
 ```
 
 
@@ -149,7 +186,9 @@ var person = new bindable.Object({ name: "jeff" });
 person.bind("name", function (name) {
   // called ~ name = jeff
 }).now();
-person.set("")
+
+// above is triggered
+person.set("name", "joe");
 ```
 
 #### binding.dispose()
