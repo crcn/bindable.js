@@ -8,31 +8,8 @@ Incredibly flexible, fast bi-directional data binding library for `objects`, and
 - [Sherpa.js](/classdojo/sherpa.js) - online tours library
 - [Mojo.js](/classdojo/mojo.js) - javascript framework.
 - [AWSM](/crcn/node-awsm) - aws library.
+- [ditto](/browsertap/ditto.js) - synchronized user interactions across browsers.
 
-### Benchmark
-
-Bindable.js is pretty fast. Here are a few benchmarks on a Mac 2.3 GHz Intel Core i7 with 16 GB (1600 MHz DDR3) of memory.
-
-```
-bindable.on('event', fn) 1 listener x 10,139,631 ops/sec ±0.47% (94 runs sampled)
-bindable.on('event', fn) 2 listeners x 3,524,177 ops/sec ±0.32% (95 runs sampled)
-bindable.bind('name', { to: fn }).dispose() x 602,661 ops/sec ±1.96% (85 runs sampled)
-bindable.bind('name', fn).dispose() x 1,220,053 ops/sec ±0.57% (92 runs sampled)
-bindable.bind('city.zip', fn).dispose() x 266,628 ops/sec ±1.01% (87 runs sampled)
-sub bindable.bind('friend.name', fn).dispose() x 176,746 ops/sec ±1.04% (88 runs sampled)
-bindable.bind('a.b.c.d.e', fn).dispose() x 143,059 ops/sec ±0.77% (91 runs sampled)
-new bindable.Object() x 17,267,440 ops/sec ±0.72% (91 runs sampled)
-bindable.get('firstName') x 14,650,011 ops/sec ±1.06% (88 runs sampled)
-bindable.get('city.zip') x 5,896,941 ops/sec ±1.25% (91 runs sampled)
-bindable.get('a.b.c') x 5,056,329 ops/sec ±0.97% (82 runs sampled)
-bindable.get('a.b.c.d') x 4,661,307 ops/sec ±0.91% (90 runs sampled)
-bindable.get(['city','zip']) x 28,287,374 ops/sec ±1.37% (81 runs sampled)
-bindable.set('firstName', value) x 13,668,137 ops/sec ±0.98% (88 runs sampled)
-bindable.set(['city', 'zip'], 55555) new x 1,895,868 ops/sec ±0.66% (95 runs sampled)
-bindable.set(['city', 'zip'], 55555) existing x 1,939,437 ops/sec ±0.77% (86 runs sampled)
-bindable.set('city.zip', 94111) new x 1,416,434 ops/sec ±0.69% (90 runs sampled)
-bindable.set('city.zip', 94111) existing x 1,426,653 ops/sec ±0.85% (86 runs sampled)
-```
 
 
 ## BindableObject Example
@@ -73,6 +50,31 @@ item.bind("name", {
   }
 })now();
 
+```
+
+### Benchmark
+
+Bindable.js is pretty fast. Here are a few benchmarks on a Mac 2.3 GHz Intel Core i7 with 16 GB (1600 MHz DDR3) of memory.
+
+```
+bindable.on('event', fn) 1 listener x 10,139,631 ops/sec ±0.47% (94 runs sampled)
+bindable.on('event', fn) 2 listeners x 3,524,177 ops/sec ±0.32% (95 runs sampled)
+bindable.bind('name', { to: fn }).dispose() x 602,661 ops/sec ±1.96% (85 runs sampled)
+bindable.bind('name', fn).dispose() x 1,220,053 ops/sec ±0.57% (92 runs sampled)
+bindable.bind('city.zip', fn).dispose() x 266,628 ops/sec ±1.01% (87 runs sampled)
+sub bindable.bind('friend.name', fn).dispose() x 176,746 ops/sec ±1.04% (88 runs sampled)
+bindable.bind('a.b.c.d.e', fn).dispose() x 143,059 ops/sec ±0.77% (91 runs sampled)
+new bindable.Object() x 17,267,440 ops/sec ±0.72% (91 runs sampled)
+bindable.get('firstName') x 14,650,011 ops/sec ±1.06% (88 runs sampled)
+bindable.get('city.zip') x 5,896,941 ops/sec ±1.25% (91 runs sampled)
+bindable.get('a.b.c') x 5,056,329 ops/sec ±0.97% (82 runs sampled)
+bindable.get('a.b.c.d') x 4,661,307 ops/sec ±0.91% (90 runs sampled)
+bindable.get(['city','zip']) x 28,287,374 ops/sec ±1.37% (81 runs sampled)
+bindable.set('firstName', value) x 13,668,137 ops/sec ±0.98% (88 runs sampled)
+bindable.set(['city', 'zip'], 55555) new x 1,895,868 ops/sec ±0.66% (95 runs sampled)
+bindable.set(['city', 'zip'], 55555) existing x 1,939,437 ops/sec ±0.77% (86 runs sampled)
+bindable.set('city.zip', 94111) new x 1,416,434 ops/sec ±0.69% (90 runs sampled)
+bindable.set('city.zip', 94111) existing x 1,426,653 ops/sec ±0.85% (86 runs sampled)
 ```
 
 ## API
