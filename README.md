@@ -153,6 +153,15 @@ listens to one event
 
 returns all the listeners on the bindable object
 
+#### Events
+
+Bindable objects emit a few events:
+
+- `change:*` - emitted when a property changes on the bindable object. E.g: `change:location.zip`.
+- `change` - emitted when any property changes on the bindable object
+- `watching` - emitted when a property is being watched
+- `dispose` - emitted when `dispose()` is called on a bindable object
+
 #### binding bindable.bind(from, options)
 
 `options` - the options for the binding
