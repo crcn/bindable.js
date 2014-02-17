@@ -12,7 +12,7 @@
     "url": "git://github.com/classdojo/bindable.js.git"
   },
   "author": "",
-  "license": "BSD",
+  "license": "MIT",
   "readmeFilename": "README.md",
   "gitHead": "7edb2889d669a6f42b537b50772f9e86cf6337f1",
   "dependencies": {
