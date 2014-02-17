@@ -1,23 +1,25 @@
 # Bindable.js [![Alt ci](https://travis-ci.org/classdojo/bindable.js.png)](https://travis-ci.org/classdojo/bindable.js)
 
-Incredibly flexible, fast bi-directional data binding library for `objects`, and `collections`. 
+Incredibly flexible, fast bi-directional data binding library. 
 
-## Projects using bindable.js
+Two-way data binding means linking properties of two separate objects - when one changes, the other will automatically update with that change.  It enables much easier interactions between data models and UIs, among other uses outside of MVC.
+
+
+### Projects using bindable.js
 
 - [Paperclip.js](https://github.com/classdojo/paperclip.js) - data-bindable templating engine.
 - [Sherpa.js](https://github.com/classdojo/sherpa.js) - online tours library
-- [Mojo.js](https://github.com/classdojo/mojo.js) - javascript framework.
+- [Mojo.js](https://github.com/classdojo/mojo.js) - javascript MVC framework.
 - [AWSM](https://github.com/crcn/node-awsm) - aws library.
 - [ditto](https://github.com/browsertap/ditto.js) - synchronized user interactions across browsers.
 
 
-
-## BindableObject Example
+### BindableObject Example
 
 ```javascript
 var bindable = require("bindable");
 
-var item = new bindable.Object({
+var person = new bindable.Object({
   name: "craig",
   last: "condon",
   location: {
@@ -39,7 +41,7 @@ item.bind("location.zip", { to: "zip", max: 1 }).now();
 item.bind("location.zip", { target: anotherModel, to: "location.zip", bothWays: true }).now();
 
 //chain to multiple items, and limit it!
-item.bind("location.zip", { to: ["property", "anotherProperty"], max: 1}).now();
+item.bind("location.zip", { to: ["property", "anotherProperty"], max: 1 }).now();
 
 
 //you can also transform data as it's being bound
@@ -48,8 +50,7 @@ item.bind("name", {
   map: function (name) {
     return name.toUpperCase();
   }
-})now();
-
+}).now();
 ```
 
 ### Benchmark
@@ -153,6 +154,15 @@ listens to one event
 
 returns all the listeners on the bindable object
 
+#### Events
+
+Bindable objects emit a few events:
+
+- `change:*` - emitted when a property changes on the bindable object. E.g: `change:location.zip`.
+- `change` - emitted when any property changes on the bindable object
+- `watching` - emitted when a property is being watched
+- `dispose` - emitted when `dispose()` is called on a bindable object
+
 #### binding bindable.bind(from, options)
 
 `options` - the options for the binding
@@ -208,3 +218,15 @@ binding.dispose();
 
 person.set("name", "jake"); // binding not triggered
 ```
+
+
+#### MIT License
+
+Copyright (C) 2014 ClassDojo
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
