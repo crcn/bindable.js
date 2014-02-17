@@ -8,6 +8,13 @@ Incredibly flexible, fast bi-directional data binding library for `objects`, and
 - [Sherpa.js](/classdojo/sherpa.js) - online tours library
 - [Mojo.js](/classdojo/mojo.js) - javascript framework.
 - [AWSM](/crcn/node-awsm) - aws library.
+- [ditto](/browsertap/ditto.js) - synchronized user interactions across browsers.
+
+
+## Use Cases
+
+- Realtime pub/sub library. Hello DIY Firebase implementation.
+- 
 
 ### Benchmark
 
