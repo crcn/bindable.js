@@ -1,6 +1,10 @@
 # Bindable.js [![Alt ci](https://travis-ci.org/classdojo/bindable.js.png)](https://travis-ci.org/classdojo/bindable.js)
 
-Incredibly flexible, fast bi-directional data binding library. Bindable.js puts the Model in MV*.
+Incredibly flexible, fast bi-directional data binding library. 
+
+Two-way data binding means linking properties of two separate objects - when one changes, the other will automatically update with that change.  It enables much easier interactions between data models and UIs, among other uses.
+
+Bindable.js is also useful outside of MVC - you can easily use it on the server side, maintaining state between models, and also server / client interactions. 
 
 ### Projects using bindable.js
 
@@ -11,13 +15,12 @@ Incredibly flexible, fast bi-directional data binding library. Bindable.js puts 
 - [ditto](https://github.com/browsertap/ditto.js) - synchronized user interactions across browsers.
 
 
-
 ### BindableObject Example
 
 ```javascript
 var bindable = require("bindable");
 
-var item = new bindable.Object({
+var person = new bindable.Object({
   name: "craig",
   last: "condon",
   location: {
