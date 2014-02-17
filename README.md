@@ -2,7 +2,7 @@
 
 Incredibly flexible, fast bi-directional data binding library. Bindable.js puts the Model in MV*.
 
-## Projects using bindable.js
+### Projects using bindable.js
 
 - [Paperclip.js](https://github.com/classdojo/paperclip.js) - data-bindable templating engine.
 - [Sherpa.js](https://github.com/classdojo/sherpa.js) - online tours library
@@ -12,7 +12,7 @@ Incredibly flexible, fast bi-directional data binding library. Bindable.js puts 
 
 
 
-## BindableObject Example
+### BindableObject Example
 
 ```javascript
 var bindable = require("bindable");
