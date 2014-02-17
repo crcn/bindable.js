@@ -48,7 +48,7 @@ item.bind("name", {
   map: function (name) {
     return name.toUpperCase();
   }
-})now();
+}).now();
 
 ```
 
