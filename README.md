@@ -2,9 +2,8 @@
 
 Incredibly flexible, fast bi-directional data binding library. 
 
-Two-way data binding means linking properties of two separate objects - when one changes, the other will automatically update with that change.  It enables much easier interactions between data models and UIs, among other uses.
+Two-way data binding means linking properties of two separate objects - when one changes, the other will automatically update with that change.  It enables much easier interactions between data models and UIs, among other uses outside of MVC.
 
-Bindable.js is also useful outside of MVC - you can easily use it on the server side, maintaining state between models, and also server / client interactions. 
 
 ### Projects using bindable.js
 
