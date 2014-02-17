@@ -9,7 +9,7 @@ Two-way data binding means linking properties of two separate objects - when one
 
 - [Paperclip.js](https://github.com/classdojo/paperclip.js) - data-bindable templating engine.
 - [Sherpa.js](https://github.com/classdojo/sherpa.js) - online tours library
-- [Mojo.js](https://github.com/classdojo/mojo.js) - javascript framework.
+- [Mojo.js](https://github.com/classdojo/mojo.js) - javascript MVC framework.
 - [AWSM](https://github.com/crcn/node-awsm) - aws library.
 - [ditto](https://github.com/browsertap/ditto.js) - synchronized user interactions across browsers.
 
