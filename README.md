@@ -29,25 +29,25 @@ var person = new bindable.Object({
   }
 });
 
-item.bind("location.zip", function(value) {
+person.bind("location.zip", function(value) {
   // 94102
 }).now();
 
 //triggers the binding
-item.set("location.zip", "94102"); 
+person.set("location.zip", "94102"); 
 
 //bind location.zip to another property in the model, and do it only once
-item.bind("location.zip", { to: "zip", max: 1 }).now();
+person.bind("location.zip", { to: "zip", max: 1 }).now();
 
 //bind location.zip to another object, and make it bi-directional.
-item.bind("location.zip", { target: anotherModel, to: "location.zip", bothWays: true }).now();
+person.bind("location.zip", { target: anotherModel, to: "location.zip", bothWays: true }).now();
 
 //chain to multiple items, and limit it!
-item.bind("location.zip", { to: ["property", "anotherProperty"], max: 1 }).now();
+person.bind("location.zip", { to: ["property", "anotherProperty"], max: 1 }).now();
 
 
 //you can also transform data as it's being bound
-item.bind("name", {
+person.bind("name", {
   to: "name2",
   map: function (name) {
     return name.toUpperCase();
