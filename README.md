@@ -1,6 +1,6 @@
 # Bindable.js [![Alt ci](https://travis-ci.org/classdojo/bindable.js.png)](https://travis-ci.org/classdojo/bindable.js)
 
-Incredibly flexible, fast bi-directional data binding library for `objects`, and `collections`. 
+Incredibly flexible, fast bi-directional data binding library for `objects`, and `collections`. Bindable.js puts the Model in MV*.
 
 ## Projects using bindable.js
 
