@@ -11,11 +11,6 @@ Incredibly flexible, fast bi-directional data binding library for `objects`, and
 - [ditto](/browsertap/ditto.js) - synchronized user interactions across browsers.
 
 
-## Use Cases
-
-- Realtime pub/sub library. Hello DIY Firebase implementation.
-- 
-
 ### Benchmark
 
 Bindable.js is pretty fast. Here are a few benchmarks on a Mac 2.3 GHz Intel Core i7 with 16 GB (1600 MHz DDR3) of memory.
