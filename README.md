@@ -41,7 +41,7 @@ item.bind("location.zip", { to: "zip", max: 1 }).now();
 item.bind("location.zip", { target: anotherModel, to: "location.zip", bothWays: true }).now();
 
 //chain to multiple items, and limit it!
-item.bind("location.zip", { to: ["property", "anotherProperty"], max: 1}).now();
+item.bind("location.zip", { to: ["property", "anotherProperty"], max: 1 }).now();
 
 
 //you can also transform data as it's being bound
@@ -51,7 +51,6 @@ item.bind("name", {
     return name.toUpperCase();
   }
 }).now();
-
 ```
 
 ### Benchmark
