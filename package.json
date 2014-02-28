@@ -19,7 +19,7 @@
     "files": "test/*-test.js",
     "harness": "mocha-tdd",
     "browsers": [
-      "ie/7..latest"
+      "ie/7..latest",
       "firefox/3.5", 
       "firefox/latest",
       "chrome/latest",
