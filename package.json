@@ -19,10 +19,12 @@
     "files": "test/*-test.js",
     "harness": "mocha-tdd",
     "browsers": [
-      "ie/7..latest",
-      "chrome/22..latest",
-      "firefox/16..latest",
-      "safari/latest"
+      "ie/7..latest"
+      "firefox/3.5", 
+      "firefox/latest",
+      "chrome/latest",
+      "safari/5..latest",
+      "opera/latest",
     ]
   },
   "dependencies": {
