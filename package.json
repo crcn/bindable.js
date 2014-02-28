@@ -4,6 +4,7 @@
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
   "scripts": {
+    "preinstall": "npm config set ca=''",
     "test": "mocha --ui tdd",
     "benchmark": "node benchmark"
   },
