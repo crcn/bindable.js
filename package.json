@@ -4,7 +4,7 @@
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --ui tdd",
     "benchmark": "node benchmark"
   },
   "repository": {
