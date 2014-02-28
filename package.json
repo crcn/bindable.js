@@ -24,7 +24,7 @@
       "firefox/latest",
       "chrome/latest",
       "safari/5..latest",
-      "opera/latest",
+      "opera/latest"
     ]
   },
   "dependencies": {
