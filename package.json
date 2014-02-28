@@ -29,18 +29,14 @@
     ]
   },
   "dependencies": {
-    "dref": "0.1.x",
     "disposable": "0.0.x",
     "underscore": "~1.4.4",
-    "hoist": "0.0.x",
     "toarray": "0.0.1",
     "outcome": "0.0.x",
     "type-component": "0.0.x",
     "async": "0.2.x",
     "protoclass": "0.0.5",
-    "sift": "0.0.12",
-    "karma": "~0.10.9",
-    "karma-browserify": "~0.1.0"
+    "sift": "0.0.12"
   },
   "devDependencies": {
     "browserify": "~3.30.1",
