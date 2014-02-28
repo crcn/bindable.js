@@ -1,5 +1,5 @@
 var bindable = require(".."),
-expect       = require("expect.js");
+expect       = require("chai").expect;
 
 describe("object-bind#", function () {
 
@@ -8,7 +8,7 @@ describe("object-bind#", function () {
   it("can bind one property", function (next) {
     var obj = new bindable.Object();
     obj.bind("name", function (value) {
-      expect(value).to.be("monica");
+      expect(value).to.equal("monica");
       next();
     });
     obj.set("name", "monica");
@@ -18,7 +18,7 @@ describe("object-bind#", function () {
   it("can bind to a property chain", function (next) {
     var obj = new bindable.Object();
     obj.bind("city.zip", function (value) {
-      expect(value).to.be(99999);
+      expect(value).to.equal(99999);
       next();
     });
     obj.set("city.zip", 99999);
@@ -27,7 +27,7 @@ describe("object-bind#", function () {
   it("can bind now to a defined value", function (next) {
     var obj = new bindable.Object({ name: "steph" });
     obj.bind("name", function (value) {
-      expect(value).to.be("steph");
+      expect(value).to.equal("steph");
       next();
     }).now();
   });
@@ -35,18 +35,18 @@ describe("object-bind#", function () {
   it("can call 'now' multiple times", function () {
     var obj = new bindable.Object({ name: "steph" }), called = 0;
     var binding = obj.bind("name", function (value) {
-      expect(value).to.be("steph");
+      expect(value).to.equal("steph");
       called++;
     });
     binding.now();
     binding.now();
-    expect(called).to.be(2);
+    expect(called).to.equal(2);
   });
 
   it("can bind now to an undefined value", function (next) {
     var obj = new bindable.Object();
     obj.bind("name", function (value) {
-      expect(value).to.be(undefined);
+      expect(value).to.equal(undefined);
       next();
     }).now();
   });
@@ -57,7 +57,7 @@ describe("object-bind#", function () {
       calls++;
     }).dispose();
     obj.set("name", "jeff");
-    expect(calls).to.be(0);
+    expect(calls).to.equal(0);
   })
 
 
@@ -75,16 +75,16 @@ describe("object-bind#", function () {
       boundValue = value;
     }).now();
 
-    expect(subBoundValue).to.be("joe");
-    expect(boundValue).to.be("josh");
+    expect(subBoundValue).to.equal("joe");
+    expect(boundValue).to.equal("josh");
     friend.set("name", "jake");
     friend1.set("name", "tim");
-    expect(boundValue).to.be("jake");
-    expect(subBoundValue).to.be("tim");
+    expect(boundValue).to.equal("jake");
+    expect(subBoundValue).to.equal("tim");
     obj.set("friend.name", "jeff");
     obj.set("friend.friend.name", "blah");
-    expect(boundValue).to.be("jeff");
-    expect(subBoundValue).to.be("blah");
+    expect(boundValue).to.equal("jeff");
+    expect(subBoundValue).to.equal("blah");
   });
 
   it("can dispose a sub-bound value", function () {
@@ -97,7 +97,7 @@ describe("object-bind#", function () {
     }).dispose();
 
     obj.set("friend.name", "josh");
-    expect(boundValue).to.be(undefined);
+    expect(boundValue).to.equal(undefined);
   });
 
   it("still binds after sub bindable object is set", function () {
@@ -109,9 +109,9 @@ describe("object-bind#", function () {
       boundValue = value;
     }).now();
 
-    expect(boundValue).to.be(undefined);
+    expect(boundValue).to.equal(undefined);
     obj.set("friend", friend);
-    expect(boundValue).to.be("craig");
+    expect(boundValue).to.equal("craig");
   });
 
   it("can bind to a computed property", function (next) {
@@ -121,8 +121,8 @@ describe("object-bind#", function () {
     });
 
     obj.bind("friends.@forEach", function (people) {
-      expect(people[0].get("name")).to.be("sam");
-      expect(people[1].get("name")).to.be("liam");
+      expect(people[0].get("name")).to.equal("sam");
+      expect(people[1].get("name")).to.equal("liam");
       next();
     }).now();
   });

@@ -18,7 +18,7 @@ testt:
 	./node_modules/.bin/_mocha $(TESTS) --ignore-leaks
 
 testling:
-	./node_modules/.bin/testling
+	./node_modules/.bin/testling -u
 
 test-cov:
 	./node_modules/.bin/istanbul cover \

@@ -1,5 +1,5 @@
 var bindable = require(".."),
-expect       = require("expect.js");
+expect       = require("chai").expect;
 
 describe("object-basic#", function () {
 
@@ -14,7 +14,7 @@ describe("object-basic#", function () {
     } catch (err) {
       e = err;
     }
-    expect(e.message).to.be("context cannot be a bindable object");
+    expect(e.message).to.equal("context cannot be a bindable object");
   });
 
   it("can have the context of the bindable object be itself", function () {
@@ -25,12 +25,12 @@ describe("object-basic#", function () {
   it("can return the context", function () {
     var obj = new bindable.Object();
     obj.context(obj);
-    expect(obj.context()).to.be(obj);
+    expect(obj.context()).to.equal(obj);
   })
 
   it("can call get() with one property", function () {
     var obj = new bindable.Object({ name: "jeff" });
-    expect(obj.get("name")).to.be("jeff");
+    expect(obj.get("name")).to.equal("jeff");
   });
 
   it("can return the keys of an object", function () {
@@ -42,23 +42,23 @@ describe("object-basic#", function () {
 
   it("can call get() with a string property chain", function () {
     var obj = new bindable.Object({ city: { zip: 99999 }, a: { b: { c: { d: 5}}} });
-    expect(obj.get("city.zip")).to.be(99999);
-    expect(obj.get("a.b.c.d")).to.be(5);
+    expect(obj.get("city.zip")).to.equal(99999);
+    expect(obj.get("a.b.c.d")).to.equal(5);
   });
 
   it("returns undefined if a property doesn't exist", function () {
-    expect(new bindable.Object().get("name")).to.be(undefined);
+    expect(new bindable.Object().get("name")).to.equal(undefined);
   });
 
   it("doesn't create an object if a property doesn't exist", function () {
     var obj = new bindable.Object();
-    expect(obj.get("a.b.c.d")).to.be(undefined);
-    expect(obj.get("a")).to.be(undefined);
+    expect(obj.get("a.b.c.d")).to.equal(undefined);
+    expect(obj.get("a")).to.equal(undefined);
   })
 
   it("can call get() with an array as the property", function () {
     var obj = new bindable.Object({ city: { zip: 99999 } });
-    expect(obj.get(["city", "zip"])).to.be(99999);
+    expect(obj.get(["city", "zip"])).to.equal(99999);
   });
 
 
@@ -68,9 +68,9 @@ describe("object-basic#", function () {
       b: 0,
       c: "true"
     });
-    expect(obj.has("a")).to.be(true);
-    expect(obj.has("b")).to.be(true);
-    expect(obj.has("c")).to.be(true);
+    expect(obj.has("a")).to.equal(true);
+    expect(obj.has("b")).to.equal(true);
+    expect(obj.has("c")).to.equal(true);
   });
 
   it("returns the friend object", function () {
@@ -79,8 +79,8 @@ describe("object-basic#", function () {
       friend: friend
     });
 
-    expect(obj.get("friend")).to.be(friend);
-    expect(obj.get(["friend"])).to.be(friend);
+    expect(obj.get("friend")).to.equal(friend);
+    expect(obj.get(["friend"])).to.equal(friend);
   });
 
   it("properly jsonifys a bindable object", function () {
@@ -91,8 +91,8 @@ describe("object-basic#", function () {
       })
     });
     var json = obj.toJSON();
-    expect(json.name).to.be("craig");
-    expect(json.friend.name).to.be("tim");
+    expect(json.name).to.equal("craig");
+    expect(json.friend.name).to.equal("tim");
   });
 
   it("properly get()s when a property is a bindable object", function () {
@@ -104,8 +104,8 @@ describe("object-basic#", function () {
         })
       })
     });
-    expect(obj.get("friend.name")).to.be("jake");
-    expect(obj.get("friend.friend.name")).to.be("jeff");
+    expect(obj.get("friend.name")).to.equal("jake");
+    expect(obj.get("friend.friend.name")).to.equal("jeff");
   });
 
 
@@ -113,7 +113,7 @@ describe("object-basic#", function () {
     var obj = new bindable.Object();
     obj.context(obj);
     obj.name = "craig";
-    expect(obj.get("name")).to.be("craig");
+    expect(obj.get("name")).to.equal("craig");
   });
 
   it("properly get()s if a property is a bindable object and the context is itself", function () {
@@ -123,56 +123,56 @@ describe("object-basic#", function () {
     var obj = new bindable.Object({
       friend: friend
     });
-    expect(obj.get("friend.name")).to.be("craig");
+    expect(obj.get("friend.name")).to.equal("craig");
   })
 
   it("can call set() with one property", function () {
     var obj = new bindable.Object();
     obj.set("name", "craig");
-    expect(obj.get("name")).to.be("craig");
+    expect(obj.get("name")).to.equal("craig");
   });
 
   it("returns the same value on set() even if it hasn't changed", function () {
     var obj = new bindable.Object({ name: "craig" });
     expect(obj.set("name", "craig"));
-    expect(obj.get("name")).to.be("craig");
+    expect(obj.get("name")).to.equal("craig");
   })
 
   it("can set multiple properties", function () {
     var obj = new bindable.Object();
     obj.setProperties({ name: "craig", age: 99 });
-    expect(obj.get("name")).to.be("craig");
-    expect(obj.get("age")).to.be(99);
+    expect(obj.get("name")).to.equal("craig");
+    expect(obj.get("age")).to.equal(99);
   })
 
   it("can call set() with a string property chain", function () {
     var obj = new bindable.Object();
     obj.set("city.zip", 99999);
     obj.set("a.b.c.d.e", 33333);
-    expect(typeof obj.get("city")).to.be("object");
-    expect(obj.get("city.zip")).to.be(99999);
-    expect(obj.get("a.b.c.d.e")).to.be(33333);
+    expect(typeof obj.get("city")).to.equal("object");
+    expect(obj.get("city.zip")).to.equal(99999);
+    expect(obj.get("a.b.c.d.e")).to.equal(33333);
   });
 
 
   it("can set a value to undefined", function () {
     var obj = new bindable.Object({ a: { b: "blah" }});
     obj.set("a.b", undefined);
-    expect(obj.get("a.b")).to.be(undefined);
+    expect(obj.get("a.b")).to.equal(undefined);
   })
 
   it("can call set() with an array property", function () {
     var obj = new bindable.Object();
     obj.set(["a", "b", "c", "d", "e"], 99999);
-    expect(typeof obj.get("a")).to.be("object");
-    expect(obj.get("a.b.c.d.e")).to.be(99999);
+    expect(typeof obj.get("a")).to.equal("object");
+    expect(obj.get("a.b.c.d.e")).to.equal(99999);
   });
 
   it("returns the value that was assigned", function () {
     var obj = new bindable.Object();
-    expect(obj.set("a.b.c.d", 99999)).to.be(99999);
-    expect(obj.set("a.b.c.d", 55555)).to.be(55555);
-    expect(obj.get("a.b.c.d")).to.be(55555);
+    expect(obj.set("a.b.c.d", 99999)).to.equal(99999);
+    expect(obj.set("a.b.c.d", 55555)).to.equal(55555);
+    expect(obj.get("a.b.c.d")).to.equal(55555);
   })
 
   it("properly set()s when a property is a bindable object", function () {
@@ -181,15 +181,15 @@ describe("object-basic#", function () {
     var obj = new bindable.Object({ friend: friend2 });
     obj.set("friend.name", "jake");
     obj.set("friend.friend.name", "jeff");
-    expect(obj.get("friend.name")).to.be("jake");
-    expect(obj.get("friend.friend.name")).to.be("jeff");
+    expect(obj.get("friend.name")).to.equal("jake");
+    expect(obj.get("friend.friend.name")).to.equal("jeff");
   });
 
   it("properly set()s when the context of the bindable object is itself", function () {
     var obj = new bindable.Object();
     obj.context(obj);
     obj.set("name", "craig");
-    expect(obj.name).to.be("craig");
+    expect(obj.name).to.equal("craig");
   });
 
   it("properly sets()s if a property is a bindable object and the context is itself", function () {
@@ -197,14 +197,14 @@ describe("object-basic#", function () {
     friend1.context(friend1);
     var obj = new bindable.Object({ friend: friend1 });
     obj.set("friend.name", "sam");
-    expect(obj.get("friend").name).to.be("sam");
+    expect(obj.get("friend").name).to.equal("sam");
   })
 
   it("emits a change event when a property changes", function (next) {
     var obj = new bindable.Object();
     obj.once("change", function (key, value) {
-      expect(key).to.be("name");
-      expect(value).to.be("liam");
+      expect(key).to.equal("name");
+      expect(value).to.equal("liam");
       next();
     });
     obj.set("name", "liam");
@@ -213,8 +213,8 @@ describe("object-basic#", function () {
   it("emits a change:name event when a property changes", function (next) {
     var obj = new bindable.Object({ name: "craig" });
     obj.once("change:name", function (value, oldValue) {
-      expect(value).to.be("liam");
-      expect(oldValue).to.be("craig");
+      expect(value).to.equal("liam");
+      expect(oldValue).to.equal("craig");
       next();
     });
     obj.set("name", "liam");
@@ -223,12 +223,12 @@ describe("object-basic#", function () {
   it("doesn't emit a change event when a property changes", function () {
     var obj = new bindable.Object({ name: "liam" }), emitted;
     obj.once("change", function (key, value) {
-      expect(key).to.be("name");
-      expect(value).to.be("liam");
+      expect(key).to.equal("name");
+      expect(value).to.equal("liam");
       next();
     });
     obj.set("name", "liam");
-    expect(emitted).to.be(undefined);
+    expect(emitted).to.equal(undefined);
   });
 
   it("emits a change event on a sub model, and itself if the property changes", function () {
@@ -243,8 +243,8 @@ describe("object-basic#", function () {
     });
 
     obj.set("friend.name", "blake");
-    expect(emittedFriend).to.be("blake");
-    expect(emittedObj).to.be("blake");
+    expect(emittedFriend).to.equal("blake");
+    expect(emittedObj).to.equal("blake");
   });
 
   it("emits dispose after calling dispose()", function () {
@@ -253,21 +253,21 @@ describe("object-basic#", function () {
       disposed = true;
     });
     obj.dispose();
-    expect(disposed).to.be(true);
+    expect(disposed).to.equal(true);
   });
 
   it("does not return the context of a value that is a bindable object if watched", function () {
     var friend;
     var obj = new bindable.Object({ a: {friend: friend = new bindable.Object() } });
     obj.bind("a.friend", function (friend2) {
-      expect(friend2).to.be(friend);
+      expect(friend2).to.equal(friend);
     }).now();
   });
 
   it("can bind with an array", function () {
     var obj = new bindable.Object({ name: "john" });
     obj.bind(["name"], function (name) {
-      expect(name).to.be("john");
+      expect(name).to.equal("john");
     }).now();
   })
 });

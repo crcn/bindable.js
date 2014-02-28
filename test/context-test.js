@@ -1,4 +1,4 @@
-var expect = require("expect.js"),
+var expect = require("chai").expect,
 bindable = require("..");
 
 
@@ -8,7 +8,7 @@ describe("context-test#", function () {
     it("can reference the binding when a function is called", function () {
       var obj = new bindable.Object({ name: "a" });
       obj.bind("name", function () {
-        expect(this.target).to.be(obj);
+        expect(this.target).to.equal(obj);
       }).now();
     });
   });
@@ -17,7 +17,7 @@ describe("context-test#", function () {
     it("can reference the binding when a function is called", function () {
       var obj = new bindable.Object({ "a.b.c.d": "e" });
       obj.bind("a.b.c.d", function () {
-        expect(this.target).to.be(obj);
+        expect(this.target).to.equal(obj);
       }).now();
     });
   });
@@ -30,7 +30,7 @@ describe("context-test#", function () {
     it("can reference the binding when a function is called", function () {
       var obj = new bindable.Object({ "a.b.c.d": "e" });
       obj.bind("a.b.c.d", { to: function () {
-        expect(this.target).to.be(obj);
+        expect(this.target).to.equal(obj);
       }}).now();
     })
   });

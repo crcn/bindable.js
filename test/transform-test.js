@@ -1,5 +1,5 @@
 var bindable = require(".."),
-expect       = require("expect.js");
+expect       = require("chai").expect;
 
 describe("transform#", function () {
 
@@ -11,7 +11,7 @@ describe("transform#", function () {
     } catch(e) {
       err = e;
     }
-    expect(err.message).to.be("missing 'to' option");
+    expect(err.message).to.equal("missing 'to' option");
   });
 
 
@@ -20,11 +20,11 @@ describe("transform#", function () {
     called = 0;
     obj.bind("name", {
       to: function (name) {
-        expect(name).to.be("craig");
+        expect(name).to.equal("craig");
         called++;
       }
     }).now();
-    expect(called).to.be(1);
+    expect(called).to.equal(1);
   });
 
   it("doesn't call 'to' if the value is undefined", function () {
@@ -35,7 +35,7 @@ describe("transform#", function () {
         called++;
       }
     }).now();
-    expect(called).to.be(0);
+    expect(called).to.equal(0);
   });
 
   it("can change the default value", function () {
@@ -44,7 +44,7 @@ describe("transform#", function () {
     var binding = obj.bind("name", {
       defaultValue: "craig",
       to: function (name) {
-        expect(name).to.be(undefined);
+        expect(name).to.equal(undefined);
         called++;
       }
     });
@@ -52,7 +52,7 @@ describe("transform#", function () {
     binding.now();
     binding.now();
 
-    expect(called).to.be(1);
+    expect(called).to.equal(1);
   });
 
 
@@ -63,7 +63,7 @@ describe("transform#", function () {
     } catch(e) {
       err = e;
     }
-    expect(err.message).to.be("'to' must be a function");
+    expect(err.message).to.equal("'to' must be a function");
   });
 
   it("can map a value", function (next) {
@@ -71,7 +71,7 @@ describe("transform#", function () {
     obj.bind("name", {
       map: function (name) { return name.toUpperCase(); },
       to: function (name) {
-        expect(name).to.be("JEFF");
+        expect(name).to.equal("JEFF");
         next();
       }
     }).now();
@@ -85,7 +85,7 @@ describe("transform#", function () {
         return name !== "jeff";
       },
       to: function (name) {
-        expect(name).to.be("liam");
+        expect(name).to.equal("liam");
         next();
       }
     }).now();
@@ -98,11 +98,11 @@ describe("transform#", function () {
       when: /ben/,
       to: "name2"
     }).now();
-    expect(obj.get("name2")).to.be(undefined);
+    expect(obj.get("name2")).to.equal(undefined);
     obj.set("name", "blah");
-    expect(obj.get("name2")).to.be(undefined);
+    expect(obj.get("name2")).to.equal(undefined);
     obj.set("name", "ben");
-    expect(obj.get("name2")).to.be("ben");
+    expect(obj.get("name2")).to.equal("ben");
   }); 
 
   it("can bind a property both ways", function () {
@@ -111,10 +111,10 @@ describe("transform#", function () {
       to: "name2",
       bothWays: true
     }).now();
-    expect(obj.get("name2")).to.be("frank");
+    expect(obj.get("name2")).to.equal("frank");
     obj.set("name2", "chris");
-    expect(obj.get("name")).to.be("chris");
-    expect(obj.get("name2")).to.be("chris");
+    expect(obj.get("name")).to.equal("chris");
+    expect(obj.get("name2")).to.equal("chris");
   });
 
   it("can assign to a property", function () {
@@ -122,7 +122,7 @@ describe("transform#", function () {
     obj.bind("name", {
       to: "name2"
     }).now();
-    expect(obj.get("name2")).to.be("jeff");
+    expect(obj.get("name2")).to.equal("jeff");
   }); 
 
   it("can assign to an array of properties", function () {
@@ -130,8 +130,8 @@ describe("transform#", function () {
     obj.bind("name", {
       to: ["name2", "name3"]
     }).now();
-    expect(obj.get("name2")).to.be("jeff");
-    expect(obj.get("name3")).to.be("jeff");
+    expect(obj.get("name2")).to.equal("jeff");
+    expect(obj.get("name3")).to.equal("jeff");
   });
 
   it("can assign to property with options", function () {
@@ -144,7 +144,7 @@ describe("transform#", function () {
       }
     }).now();
 
-    expect(obj.get("name2")).to.be("JEFF");
+    expect(obj.get("name2")).to.equal("JEFF");
   });
 
 
@@ -155,7 +155,7 @@ describe("transform#", function () {
       target: person,
       to: "name"
     }).now();
-    expect(person.get("name")).to.be("sam");
+    expect(person.get("name")).to.equal("sam");
   });
 
 
@@ -168,7 +168,7 @@ describe("transform#", function () {
       to: "full"
     }).now();
     setTimeout(function () {  
-      expect(obj.get("full")).to.be("a b");
+      expect(obj.get("full")).to.equal("a b");
       next();
     }, 1)
   });
@@ -178,9 +178,9 @@ describe("transform#", function () {
     obj.bind("name", { once: true, to: function () {
       calls++;
     }}).now();
-    expect(calls).to.be(1);
+    expect(calls).to.equal(1);
     obj.set("name", "b");
-    expect(calls).to.be(1);
+    expect(calls).to.equal(1);
 
   });
 
@@ -190,9 +190,9 @@ describe("transform#", function () {
     obj.bind("a.b", { once: true, to: function () {
       calls++;
     }}).now();
-    expect(calls).to.be(1);
+    expect(calls).to.equal(1);
     obj.set("a.b", 2);
-    expect(calls).to.be(1);
+    expect(calls).to.equal(1);
   });
 
   it("can set a max number of calls", function () {
@@ -200,22 +200,22 @@ describe("transform#", function () {
     obj.bind("a", { max: 2, to: function () {
       calls++;
     }}).now();
-    expect(calls).to.be(1);
+    expect(calls).to.equal(1);
     obj.set("a", 2);
-    expect(calls).to.be(2);
+    expect(calls).to.equal(2);
     obj.set("a", 3);
-    expect(calls).to.be(2);
+    expect(calls).to.equal(2);
   });
 
   it("can set max number of calls, and disposes only when there is a value", function () {
     var obj = new bindable.Object(),
     calls = 0;
     obj.bind("a", { max: 1, to: function (v) {
-      expect(v).to.be(1);
+      expect(v).to.equal(1);
       calls++;
     }}).now();
     obj.set("a", 1);
-    expect(calls).to.be(1);
+    expect(calls).to.equal(1);
   })
 
   it("can map a sub-value", function () {
@@ -229,15 +229,15 @@ describe("transform#", function () {
         }
       }
     }).now();
-    expect(obj.get("abba")).to.be("b");
+    expect(obj.get("abba")).to.equal("b");
   });
 
   it("doesn't set undefined property to another property that is defined", function () {
     var obj = new bindable.Object({ b: 5 });
     obj.bind("a", { to: "b" }).now();
     obj.bind("b", { to: "c" }).now();
-    expect(obj.get("b")).to.be(5);
-    expect(obj.get("c")).to.be(5);
+    expect(obj.get("b")).to.equal(5);
+    expect(obj.get("c")).to.equal(5);
   });
 
   it("doesn't maintain 'undefined' after mapping multiple values to one property", function (next) {
@@ -262,7 +262,7 @@ describe("transform#", function () {
       obj.set("c", true);
       obj.set("d", true);
       setTimeout(function () {
-        expect(obj.get("abcd")).to.be(true);
+        expect(obj.get("abcd")).to.equal(true);
         next();
       }, 50);
     }, 10);

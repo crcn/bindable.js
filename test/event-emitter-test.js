@@ -1,5 +1,5 @@
 var EventEmitter = require("..").EventEmitter,
-expect = require("expect.js")
+expect = require("chai").expect
 
 describe("event-emitter#", function () {
 
@@ -21,7 +21,7 @@ describe("event-emitter#", function () {
       emitted++;
     }); 
     em.emit("event");
-    expect(emitted).to.be(1);
+    expect(emitted).to.equal(1);
   });
 
   it("can emit to multiple listeners", function () {
@@ -33,7 +33,7 @@ describe("event-emitter#", function () {
       emitted++;
     })
     em.emit("event");
-    expect(emitted).to.be(2);
+    expect(emitted).to.equal(2);
   });
 
   it("disposes a one-time listener after it's been triggered", function () {
@@ -43,7 +43,7 @@ describe("event-emitter#", function () {
     });
     em.emit("event");
     em.emit("event");
-    expect(emitted).to.be(1);
+    expect(emitted).to.equal(1);
   });
 
   it("can emit many args", function () {
@@ -51,7 +51,7 @@ describe("event-emitter#", function () {
     for(var i = 10; i--;) {
       em.once("event", function () {
         for (var j = i; j--;) {
-          expect(arguments[i-j-1]).to.be(j);
+          expect(arguments[i-j-1]).to.equal(j);
         }
       });
       var args = ["event"];
@@ -71,7 +71,7 @@ describe("event-emitter#", function () {
     listener.dispose();
     listener.dispose();
     em.emit("event");
-    expect(emitted).to.be(1);
+    expect(emitted).to.equal(1);
   });
 
   it("can dispose an event listener multiple times without busting 2", function () {
@@ -88,7 +88,7 @@ describe("event-emitter#", function () {
     listener2.dispose();
     listener2.dispose();
     em.emit("event");
-    expect(emitted).to.be(2);
+    expect(emitted).to.equal(2);
   });
 
   it("can remove all listeners of a type", function () {
@@ -98,7 +98,7 @@ describe("event-emitter#", function () {
     });
     em.removeAllListeners("event");
     em.emit("event");
-    expect(emitted).to.be(0);
+    expect(emitted).to.equal(0);
   });
 
   it("can remove all listeners", function () {
@@ -108,6 +108,6 @@ describe("event-emitter#", function () {
     });
     em.removeAllListeners();
     em.emit("event");
-    expect(emitted).to.be(0);
+    expect(emitted).to.equal(0);
   });
 });

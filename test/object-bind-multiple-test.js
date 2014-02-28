@@ -1,5 +1,5 @@
 var bindable = require(".."),
-expect       = require("expect.js");
+expect       = require("chai").expect;
 
 describe("object-multiple#", function () {
 
@@ -8,8 +8,8 @@ describe("object-multiple#", function () {
   it("can bind to multiple properties", function (next) {
     var person = new bindable.Object({ firstName: "A", lastName: "B" });
     person.bind("firstName, lastName", function (firstName, lastName) {
-      expect(firstName).to.be("A");
-      expect(lastName).to.be("B");
+      expect(firstName).to.equal("A");
+      expect(lastName).to.equal("B");
       next();
     }).now();
   });
@@ -18,8 +18,8 @@ describe("object-multiple#", function () {
   it("delays listener if both values change immediately", function (next) {
     var person = new bindable.Object();
     person.bind("firstName, lastName", function(firstName, lastName) {
-      expect(firstName).to.be("A");
-      expect(lastName).to.be("B");
+      expect(firstName).to.equal("A");
+      expect(lastName).to.equal("B");
       next();
     });
     person.setProperties({
