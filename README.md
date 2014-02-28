@@ -1,5 +1,7 @@
 # Bindable.js [![Alt ci](https://travis-ci.org/classdojo/bindable.js.png)](https://travis-ci.org/classdojo/bindable.js)
 
+![Testling](https://ci.testling.com/crcn/bindable.js.png)
+
 Incredibly flexible, fast bi-directional data binding library. 
 
 Two-way data binding means linking properties of two separate objects - when one changes, the other will automatically update with that change.  It enables much easier interactions between data models and UIs, among other uses outside of MVC.
