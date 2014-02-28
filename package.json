@@ -17,11 +17,11 @@
   "readmeFilename": "README.md",
   "gitHead": "7edb2889d669a6f42b537b50772f9e86cf6337f1",
   "testling": {
-    "files": "test/*-test.js",
+    "files": ["./node_modules/es5-shim/es5-*.js", "test/*-test.js"],
     "harness": "mocha-tdd",
     "browsers": [
       "ie/7..latest",
-      "firefox/3.5", 
+      "firefox/3.5",
       "firefox/latest",
       "chrome/latest",
       "safari/latest",
@@ -48,6 +48,7 @@
     "istanbul": "~0.2.1",
     "coveralls": "~2.6.0",
     "testling": "~1.6.0",
-    "chai": "~1.9.0"
+    "chai": "~1.9.0",
+    "es5-shim": "~2.3.0"
   }
 }
