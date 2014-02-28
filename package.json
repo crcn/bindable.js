@@ -15,6 +15,16 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "gitHead": "7edb2889d669a6f42b537b50772f9e86cf6337f1",
+  "testling": {
+    "files": "test/*-test.js",
+    "harness": "mocha-tdd",
+    "browsers": [
+      "ie/7..latest",
+      "chrome/22..latest",
+      "firefox/16..latest",
+      "safari/latest"
+    ]
+  },
   "dependencies": {
     "dref": "0.1.x",
     "disposable": "0.0.x",
@@ -25,7 +35,9 @@
     "type-component": "0.0.x",
     "async": "0.2.x",
     "protoclass": "0.0.5",
-    "sift": "0.0.12"
+    "sift": "0.0.12",
+    "karma": "~0.10.9",
+    "karma-browserify": "~0.1.0"
   },
   "devDependencies": {
     "browserify": "~3.30.1",
@@ -34,9 +46,9 @@
     "structr": "0.2.x",
     "sift": "0.0.9",
     "sardines": "0.4.x",
-    "karma": "0.8.x",
     "benchmark": "~1.0.0",
     "istanbul": "~0.2.1",
-    "coveralls": "~2.6.0"
+    "coveralls": "~2.6.0",
+    "testling": "~1.6.0"
   }
 }
