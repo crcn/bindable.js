@@ -1,6 +1,6 @@
 # Bindable.js [![Alt ci](https://travis-ci.org/classdojo/bindable.js.png)](https://travis-ci.org/classdojo/bindable.js)
 
-![Testling](https://ci.testling.com/classdojo/bindable.js.png)
+[![Testling](https://ci.testling.com/classdojo/bindable.js.png)](https://ci.testling.com/classdojo/bindable.js)
 
 Incredibly flexible, fast bi-directional data binding library. 
 
