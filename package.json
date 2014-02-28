@@ -34,7 +34,6 @@
     "toarray": "0.0.1",
     "outcome": "0.0.x",
     "type-component": "0.0.x",
-    "async": "0.2.x",
     "protoclass": "0.0.5",
     "sift": "0.0.12"
   },
