@@ -1,8 +1,7 @@
 var bindable = require(".."),
-expect       = require("chai").expect;
+expect       = require("expect.js");
 
 describe("object-computed#", function () {
-
 
 
   // emit watching
@@ -13,8 +12,8 @@ describe("object-computed#", function () {
     });
 
     obj.bind("friends.@forEach", function (people) {
-      expect(people[0].get("name")).to.equal("sam");
-      expect(people[1].get("name")).to.equal("liam");
+      expect(people[0].get("name")).to.be("sam");
+      expect(people[1].get("name")).to.be("liam");
       next();
     }).now();
   });
@@ -26,8 +25,8 @@ describe("object-computed#", function () {
     });
 
     obj.bind("friends.@forEach.name", function (people) {
-      expect(people[0]).to.equal("sam");
-      expect(people[1]).to.equal("liam");
+      expect(people[0]).to.be("sam");
+      expect(people[1]).to.be("liam");
       next();
     }).now();
   });
@@ -39,9 +38,9 @@ describe("object-computed#", function () {
     });
 
     obj.bind("friends.@forEach.tags.@forEach.value", function (tags) {
-      expect(tags[0]).to.equal("a");
-      expect(tags[1]).to.equal("b");
-      expect(tags[2]).to.equal("c");
+      expect(tags[0]).to.be("a");
+      expect(tags[1]).to.be("b");
+      expect(tags[2]).to.be("c");
       next();
     }).now();
   });
@@ -71,8 +70,8 @@ describe("object-computed#", function () {
   it("always returns an array", function () {
     var obj = new bindable.Object({});
     obj.bind("a.@each.name", function (value) {
-      expect(value).not.to.equal(undefined);
-      expect(value.length).to.equal(0);
+      expect(value).not.to.be(undefined);
+      expect(value.length).to.be(0);
     }).now()
   });
 
@@ -81,7 +80,7 @@ describe("object-computed#", function () {
     var obj = new bindable.Object({ a: {friends: [{ name: "sam" }, { name: "monica"}, { name: "tim" } ].map(function(v) { return new bindable.Object(v); }) } });
     obj.bind("a.friends.@forEach", function (friends) {
       friends.forEach(function (friend) {
-        expect(friend.__context).not.to.equal(undefined);
+        expect(friend.__context).not.to.be(undefined);
       });
     }).now();
   })

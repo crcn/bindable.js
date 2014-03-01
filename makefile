@@ -16,7 +16,10 @@ testt:
 
 
 testling:
-	./node_modules/.bin/testling -u
+	./node_modules/.bin/testling -u --port=8070
+
+chunnel:
+	chunnel connect http://127.0.0.1:8090@http://127.0.0.1:8080 --server=WIN-Q9J83OJ0VCB.local:9526
 
 test-cov:
 	./node_modules/.bin/istanbul cover \
