@@ -29,7 +29,6 @@
     ]
   },
   "dependencies": {
-    "disposable": "0.0.x",
     "underscore": "~1.4.4",
     "toarray": "0.0.1",
     "outcome": "0.0.x",
