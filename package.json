@@ -1,6 +1,6 @@
 {
   "name": "bindable",
-  "version": "0.5.30",
+  "version": "0.5.31",
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
   "scripts": {
@@ -34,14 +34,13 @@
     "outcome": "0.0.x",
     "type-component": "0.0.x",
     "protoclass": "0.0.5",
-    "sift": "0.0.12"
+    "sift": "0.0.x"
   },
   "devDependencies": {
     "browserify": "~3.30.1",
     "mocha": "1.8.x",
     "expect.js": "0.2.x",
     "structr": "0.2.x",
-    "sift": "0.0.9",
     "sardines": "0.4.x",
     "benchmark": "~1.0.0",
     "istanbul": "~0.2.1",
