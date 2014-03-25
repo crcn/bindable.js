@@ -110,5 +110,20 @@ describe("call#", function () {
       obj.set("hello", function () {
         return "success";
       });
-  })
+  });
+
+
+  it("can call a function defined directly on the bindable object", function (next) {
+    var obj = new bindable.Object({
+    });
+
+    obj.hello = function () {
+      return "success";
+    }
+
+    obj.call("hello", ["abba"], function (err, result) {
+      expect(result).to.be("success");
+      next();
+    });
+  });
 });
