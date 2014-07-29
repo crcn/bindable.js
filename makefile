@@ -15,6 +15,11 @@ testt:
 	./node_modules/.bin/_mocha $(TESTS) --ignore-leaks
 
 
+
+test-watch:
+	./node_modules/.bin/_mocha $(TESTS) --ignore-leaks --watch ./lib ./test
+
+
 testling:
 	./node_modules/.bin/testling -u --port=8070
 
