@@ -1,10 +1,9 @@
 {
   "name": "bindable",
-  "version": "0.5.43",
+  "version": "0.5.44",
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
   "scripts": {
-    "preinstall": "npm config set ca=''",
     "test": "mocha --ui tdd",
     "benchmark": "node benchmark"
   },
