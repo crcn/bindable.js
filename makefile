@@ -11,10 +11,11 @@ all-watch:
 clean:
 	rm -rf coverage;
 
-testt:
+lint:
+	./node_modules/.bin/jshint ./lib --config jshint.json
+
+test-node: lint
 	./node_modules/.bin/_mocha $(TESTS) --ignore-leaks
-
-
 
 test-watch:
 	./node_modules/.bin/_mocha $(TESTS) --ignore-leaks --watch ./lib ./test
