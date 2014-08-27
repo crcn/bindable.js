@@ -15,6 +15,16 @@ describe("event-emitter#", function () {
     }
   });
 
+  it("throws an error on once if the listener is not a function", function () {
+    var err;
+    try {
+      new EventEmitter().once("event", {});
+    } catch(e) {
+      err = e;
+    }
+    expect(err.message).to.contain("listener must be a function");
+  });
+
   it("can emit to one listener", function (){
     var em = new EventEmitter(), emitted = 0;
     em.on("event", function () {
