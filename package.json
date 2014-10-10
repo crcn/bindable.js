@@ -1,6 +1,6 @@
 {
   "name": "bindable",
-  "version": "0.5.47",
+  "version": "0.6.0",
   "description": "bindable.js ===========",
   "main": "./lib/index.js",
   "scripts": {
@@ -36,8 +36,7 @@
     "toarray": "0.0.1",
     "outcome": "0.0.x",
     "type-component": "0.0.x",
-    "protoclass": "0.0.5",
-    "sift": "0.0.x"
+    "protoclass": "0.0.5"
   },
   "devDependencies": {
     "benchmark": "~1.0.0",

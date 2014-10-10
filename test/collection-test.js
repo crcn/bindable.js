@@ -20,7 +20,7 @@ describe("collection-test#", function () {
 
   it("can return the source", function () {
     var src = new bindable.Collection([0]);
-    expect(src.source()[0]).to.be(0);
+    expect(src.source[0]).to.be(0);
   })
 
   it("can push an item", function () {
@@ -59,13 +59,13 @@ describe("collection-test#", function () {
     var src = new bindable.Collection([0]);
     src.reset([1]);
     expect(src.at(0)).to.be(1);
-    src.source([2]);
+    src.set("source", [2]);
     expect(src.at(0)).to.be(2);
   });
 
   it("it can reset the source with an undefined value", function () {
     var src = new bindable.Collection([0]);
-    src.source(undefined);
+    src.set("source", void 0);
     expect(src.length).to.be(0);
   });
 
@@ -84,15 +84,6 @@ describe("collection-test#", function () {
     expect(filtered).not.to.contain(4);
   });
 
-  it("can search for a value index", function () {
-    var src = new bindable.Collection([{ name: "a" }]);
-    expect(src.searchIndex({ name: "a" })).to.be(0);
-  });
-
-  it("can search for a value", function () {
-    var src = new bindable.Collection([{ name: "a" }]);
-    expect(src.search({ name: "a" }).name).to.be("a");
-  });
 
   it("can call each value", function () {
     var src = new bindable.Collection([0, 1, 2, 3]), i = 0;
@@ -190,11 +181,11 @@ describe("collection-test#", function () {
       expect(o).to.contain(99);
       expect(o).to.contain(999);
       expect(i).to.be(0);
-      expect(src.source()).to.contain(8);
-      expect(src.source()).to.contain(9);
-      expect(src.source()).to.contain(10);
-      expect(src.source()).not.to.contain(99);
-      expect(src.source()).not.to.contain(999);
+      expect(src.source).to.contain(8);
+      expect(src.source).to.contain(9);
+      expect(src.source).to.contain(10);
+      expect(src.source).not.to.contain(99);
+      expect(src.source).not.to.contain(999);
       next();
     });
     src.splice(0, 2, [8, 9, 10]);
