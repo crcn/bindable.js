@@ -21,6 +21,10 @@ var person = new bindable.Object({
   }
 });
 
+suite.add("new bindable.Object({name:'ben'})", function () {
+  new bindable.Object({ name: "ben" });
+})
+
 suite.add("bindable.on('event', fn) 1 listener", function () {
   person.on("event", function () {});
   person.emit("event");
