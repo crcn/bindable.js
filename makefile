@@ -1,3 +1,5 @@
+ONLY='.'
+
 browser:
 	mkdir -p browser;
 	./node_modules/.bin/browserify ./lib/index.js -o ./browser/bindable.js
@@ -18,7 +20,7 @@ test-node: lint
 	./node_modules/.bin/_mocha $(TESTS) --ignore-leaks
 
 test-watch:
-	./node_modules/.bin/_mocha $(TESTS) --ignore-leaks --watch ./lib ./test
+	./node_modules/.bin/_mocha $(TESTS) --ignore-leaks -g $(ONLY) --watch ./lib ./test
 
 
 testling:

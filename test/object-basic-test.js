@@ -7,38 +7,11 @@ describe("object-basic#", function () {
     new bindable.Object();
   });
 
-  it("cannot have a bindable object as the context of the bindable object", function () {
-    var obj = new bindable.Object(), e;
-    try {
-      obj.context(new bindable.Object());
-    } catch (err) {
-      e = err;
-    }
-    expect(e.message).to.be("context cannot be a bindable object");
-  });
-
-  it("can have the context of the bindable object be itself", function () {
-    var obj = new bindable.Object();
-    obj.context(obj);
-  });
-
-  it("can return the context", function () {
-    var obj = new bindable.Object();
-    obj.context(obj);
-    expect(obj.context()).to.be(obj);
-  })
 
   it("can call get() with one property", function () {
     var obj = new bindable.Object({ name: "jeff" });
     expect(obj.get("name")).to.be("jeff");
   });
-
-  it("can return the keys of an object", function () {
-    var obj = new bindable.Object({ name: "craig", age: 99 }),
-    keys = obj.keys();
-    expect(keys).to.contain("name");
-    expect(keys).to.contain("age");
-  })
 
   it("can call get() with a string property expect.jsn", function () {
     var obj = new bindable.Object({ city: { zip: 99999 }, a: { b: { c: { d: 5}}} });
@@ -108,24 +81,6 @@ describe("object-basic#", function () {
     expect(obj.get("friend.friend.name")).to.be("jeff");
   });
 
-
-  it("properly get()s when the context of the bindable object is itself", function () {
-    var obj = new bindable.Object();
-    obj.context(obj);
-    obj.name = "craig";
-    expect(obj.get("name")).to.be("craig");
-  });
-
-  it("properly get()s if a property is a bindable object and the context is itself", function () {
-    var friend = new bindable.Object();
-    friend.context(friend);
-    friend.name = "craig";
-    var obj = new bindable.Object({
-      friend: friend
-    });
-    expect(obj.get("friend.name")).to.be("craig");
-  })
-
   it("can call set() with one property", function () {
     var obj = new bindable.Object();
     obj.set("name", "craig");
@@ -184,21 +139,6 @@ describe("object-basic#", function () {
     expect(obj.get("friend.name")).to.be("jake");
     expect(obj.get("friend.friend.name")).to.be("jeff");
   });
-
-  it("properly set()s when the context of the bindable object is itself", function () {
-    var obj = new bindable.Object();
-    obj.context(obj);
-    obj.set("name", "craig");
-    expect(obj.name).to.be("craig");
-  });
-
-  it("properly sets()s if a property is a bindable object and the context is itself", function () {
-    var friend1 = new bindable.Object();
-    friend1.context(friend1);
-    var obj = new bindable.Object({ friend: friend1 });
-    obj.set("friend.name", "sam");
-    expect(obj.get("friend").name).to.be("sam");
-  })
 
   it("emits a change event when a property changes", function (next) {
     var obj = new bindable.Object();

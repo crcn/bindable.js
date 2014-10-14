@@ -48,7 +48,7 @@ describe("object-computed#", function () {
   it("can explicitly define what properties to watch on a function", function (next) {
     var friends  = [{ name: "sam" }, { name: "monica"}, { name: "tim" } ];
     var obj = new bindable.Object(), calls = 0;
-    obj.context(obj);
+    //obj.context(obj);
     obj.friends = friends;
     obj.eachFriend = bindable.computed(["friends"], function (fn) {
       friends.forEach(fn);
@@ -80,7 +80,7 @@ describe("object-computed#", function () {
     var obj = new bindable.Object({ a: {friends: [{ name: "sam" }, { name: "monica"}, { name: "tim" } ].map(function(v) { return new bindable.Object(v); }) } });
     obj.bind("a.friends.@forEach", function (friends) {
       friends.forEach(function (friend) {
-        expect(friend.__context).not.to.be(undefined);
+        expect(friend).not.to.be(undefined);
       });
     }).now();
   })

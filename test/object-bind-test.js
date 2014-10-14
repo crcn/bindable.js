@@ -66,6 +66,9 @@ describe("object-bind#", function () {
     obj = new bindable.Object({ friend: friend }),
     boundValue, subBoundValue;
 
+    // console.log(obj.friend.friend)
+
+
     obj.bind("friend.friend.name", function (value) {
       subBoundValue = value;
     }).now();
