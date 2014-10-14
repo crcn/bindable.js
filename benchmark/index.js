@@ -3,6 +3,8 @@ suite         = new Benchmark.Suite,
 bindable      = require("..");
 
 
+
+
 var friend = new bindable.Object({ name: "jake" });
 
 var person = new bindable.Object({
