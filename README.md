@@ -1,8 +1,4 @@
-{{
-  properties: {
-    category: "api"
-  }
-}}
+## This library has been moved to [bindable-object](https://github.com/mojo-js/bindable-object.js), and [bindable-collection](https://github.com/mojo-js/bindable-collection.js).
 
 Bindable Objects are the base class for most components including [views](/mojo-views), and [models](/mojo-models).
 
